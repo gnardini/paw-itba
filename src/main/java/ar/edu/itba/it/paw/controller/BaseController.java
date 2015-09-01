@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.manager.implementation.SessionManager;
 
 public class BaseController extends HttpServlet {
 	
+	private static final long serialVersionUID = 1L;
 	protected static final String LOGGED = "logged";
 	
 	@Override

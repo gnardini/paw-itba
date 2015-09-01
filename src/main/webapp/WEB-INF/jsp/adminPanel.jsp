@@ -4,24 +4,32 @@
 
 <H3>Panel de Control</H3>
 
-
 <c:if test="${message != null}">
    ${message}
 </c:if>
 
-
 <h4>Registrar Nuevo Gerente</h4>
 
-<div class=”container”>
-	<form role=”form” action="panel" method="POST">
+<div class="container">
+	<form role="form" action="panel" method="POST">
 		<div class="form-group">
 			 <input type="email" class="form-control" id="email">
 		</div>
-		Password: <input type="password" name="password"><br/>
-		First Name: <input type="text" name="firstName"><br/>
-		Last Name: <input type="text" name="lastName"><br/>
-		Address: <input type="text" name="address"><br/>
-		Age: <input type="text" name="age"><br/>
+		<div class="form-group">
+			 <input type="password" class="form-control" id="password">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" id="firstName">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" id="lastName">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" id="address">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" id="age">
+		</div>
 		<br/>
 		<input type="submit" value="Registrar"><br/>
 		</form>
