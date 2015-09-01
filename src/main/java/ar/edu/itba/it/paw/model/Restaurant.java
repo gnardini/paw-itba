@@ -1,5 +1,8 @@
 package ar.edu.itba.it.paw.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Restaurant {
 
 	int code;
@@ -9,6 +12,7 @@ public class Restaurant {
 	int deliveryCost;
 	int minCost;
 	String description;
+	List<Comment> comments;
 	
 	public Restaurant(int code,
 					String name,
@@ -24,6 +28,11 @@ public class Restaurant {
 		this.deliveryCost = deliveryCost;
 		this.minCost = minCost;
 		this.description = description;
+		comments = new LinkedList<Comment>();
+	}
+	
+	public void addComment(Comment comment) {
+		comments.add(comment);
 	}
 
 	public int getCode() {
@@ -52,5 +61,9 @@ public class Restaurant {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public List<Comment> getComments() {
+		return comments;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.db.RestaurantDatabase;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
+import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public class RestaurantManagerImpl implements RestaurantManager {
@@ -22,5 +23,10 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	public List<Restaurant> getRestaurants() {
 		if (mDatabase == null) return null;
 		return mDatabase.getRestaurants();
+	}
+	
+	public void addComment(int code, Comment comment) {
+		if (mDatabase == null) return;
+		mDatabase.addComment(code, comment);
 	}
 }

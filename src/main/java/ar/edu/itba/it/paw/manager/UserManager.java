@@ -8,7 +8,7 @@ public interface UserManager {
 	
 	public User getUser();
 	
-	public void login(String email, String password);
+	public boolean login(String email, String password);
 	
 	public void logout();
 }

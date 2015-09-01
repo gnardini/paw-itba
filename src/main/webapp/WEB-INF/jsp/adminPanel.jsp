@@ -2,7 +2,7 @@
 
 <%@ include file="header.jsp" %>
 
-<H3>Admin Panel</H3>
+<H3>Panel de Control</H3>
 
 
 <c:if test="${message != null}">
@@ -10,7 +10,7 @@
 </c:if>
 
 
-<h4>Resgistrar Nuevo Gerente</h4>
+<h4>Registrar Nuevo Gerente</h4>
 
 <div class=”container”>
 	<form role=”form” action="panel" method="POST">
@@ -24,7 +24,7 @@
 		Age: <input type="text" name="age"><br/>
 		<br/>
 		<input type="submit" value="Registrar"><br/>
-	</form>
+		</form>
 </div>
 
 <a href="javascript:history.back()">Volver</a>

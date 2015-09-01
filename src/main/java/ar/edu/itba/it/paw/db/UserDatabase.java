@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.db;
 
 import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.model.User.Role;
 
 public class UserDatabase extends Database {
 	
@@ -12,6 +13,14 @@ public class UserDatabase extends Database {
 	}
 
 	private UserDatabase() {
+	}
+	
+	public User getUser(String email, String password) {
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
+	}
+	
+	public User getUser(String email) {
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
 	}
 	
 	public void storeUser(User user) {

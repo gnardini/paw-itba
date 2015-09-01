@@ -3,38 +3,40 @@ package ar.edu.itba.it.paw.manager.implementation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import ar.edu.itba.it.paw.db.UserDatabase;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
 
 public class SessionManager implements UserManager {
 	
-	private static String NAME_ID = "name";
+	private static String EMAIL = "email";
 	
-	private HttpServletRequest mRequest;
+	private HttpSession mSession;
+	private UserDatabase mDatabase;
 	
 	public SessionManager(HttpServletRequest request) {
-		mRequest = request;
+		mSession = request.getSession(true);
+		mDatabase = UserDatabase.getInstance();
 	}
 	
 	public boolean isLogged() {
-		return false;//session().getAttribute(NAME_ID) != null;
+		return mSession.getAttribute(EMAIL) != null;
 	}
 	
 	public User getUser() {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
+		if (mDatabase != null) return mDatabase.getUser((String) mSession.getAttribute(EMAIL));
+		return null;
 	}
 	
-	public void login(String email, String password) {
-		
+	public boolean login(String email, String password) {
+		User user = null;
+		if (mDatabase != null) user = mDatabase.getUser(email, password);
+		if (user != null) mSession.setAttribute(EMAIL, email);
+		return user != null;
 	}
 	
 	public void logout() {
-		
-	}
-	
-	private HttpSession session() {
-		return mRequest.getSession();
+		mSession.invalidate();
 	}
 }
 
