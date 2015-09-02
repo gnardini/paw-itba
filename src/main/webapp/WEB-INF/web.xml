@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>Paw</display-name>
+	<display-name>PAW</display-name>
 
 	<servlet>
 		<servlet-name>Restaurants</servlet-name>
@@ -14,8 +14,8 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.RestaurantDetail</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>AdminPanel</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.AdminPanel</servlet-class>
+		<servlet-name>ControlPanel</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.ControlPanel</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
@@ -31,7 +31,7 @@
 		<url-pattern>/restaurant</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AdminPanel</servlet-name>
+		<servlet-name>ControlPanel</servlet-name>
 		<url-pattern>/panel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>

@@ -8,13 +8,13 @@
 
 <H3>Iniciar sesion</H3>
 
-<div class=”container”>
-	<form role=”form” action="login" method="POST">
+<div class="container">
+	<form role="form" action="login" method="POST">
 		<div class="form-group">
-			 <input type="email" class="form-control" id="email">
+			 <input type="email" class="form-control" name="email">
 		</div><br/>
 		<div class="form-group">
-			 <input type="password" class="form-control" id="password">
+			 <input type="password" class="form-control" name="password">
 		</div><br/>
 		<input type="submit" value="Entrar"><br/>
 		

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.itba.it.paw.model.Comment;
+import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public class RestaurantDatabase extends Database {
@@ -33,7 +34,19 @@ public class RestaurantDatabase extends Database {
 		return list;
 	}
 	
+	public List<Restaurant> getRestaurantsByManager(String email) {
+		return getRestaurants();
+	}
+	
+	public void addRestaurant(Restaurant restaurant) {
+		System.out.println("NEW RESTAURANT");
+	}
+	
 	public void addComment(int code, Comment comment) {
 		System.out.println("NEW COMMENT");
+	}
+	
+	public void addDish(int code, Dish dish) {
+		System.out.println("NEW DISH");
 	}
 }

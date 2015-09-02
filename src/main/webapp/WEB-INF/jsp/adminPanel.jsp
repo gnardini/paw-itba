@@ -13,28 +13,26 @@
 <div class="container">
 	<form role="form" action="panel" method="POST">
 		<div class="form-group">
-			 <input type="email" class="form-control" id="email">
+			 <input type="email" class="form-control" placeholder="Mail" name="email">
 		</div>
 		<div class="form-group">
-			 <input type="password" class="form-control" id="password">
+			 <input type="password" class="form-control" placeholder="Contrasena" name="password">
 		</div>
 		<div class="form-group">
-			 <input type="text" class="form-control" id="firstName">
+			 <input type="text" class="form-control" placeholder="Nombre" name="firstName">
 		</div>
 		<div class="form-group">
-			 <input type="text" class="form-control" id="lastName">
+			 <input type="text" class="form-control" placeholder="Apellido" name="lastName">
 		</div>
 		<div class="form-group">
-			 <input type="text" class="form-control" id="address">
+			 <input type="text" class="form-control" placeholder="Direccion" name="address">
 		</div>
 		<div class="form-group">
-			 <input type="text" class="form-control" id="age">
+			 <input type="text" class="form-control" placeholder="Edad" name="age">
 		</div>
 		<br/>
 		<input type="submit" value="Registrar"><br/>
-		</form>
+	</form>
 </div>
-
-<a href="javascript:history.back()">Volver</a>
 
 <%@ include file="footer.jsp" %>

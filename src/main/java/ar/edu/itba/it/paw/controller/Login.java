@@ -16,7 +16,7 @@ public class Login extends BaseController {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
 		if ((Boolean) req.getAttribute(LOGGED)) {
-			req.getRequestDispatcher(JspLocationUtils.RESTAURANTS).forward(req,  resp);
+			resp.sendRedirect("/");
 			return;
 		}
 		req.getRequestDispatcher(JspLocationUtils.LOGIN).forward(req, resp);
@@ -27,7 +27,7 @@ public class Login extends BaseController {
 		UserManager manager = new SessionManager(req);
 		if (!manager.login(req.getParameter("email"), req.getParameter("password"))) {
 			req.setAttribute("message", "Usuario o contrasena erroneos");
-		}		
+		}
 		doGet(req, resp);
 	}
 }

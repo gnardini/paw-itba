@@ -15,7 +15,7 @@ public class SessionManager implements UserManager {
 	private UserDatabase mDatabase;
 	
 	public SessionManager(HttpServletRequest request) {
-		mSession = request.getSession(true);
+		mSession = request.getSession();
 		mDatabase = UserDatabase.getInstance();
 	}
 	
