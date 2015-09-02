@@ -4,9 +4,7 @@
 
 <H3>Panel de Control</H3>
 
-<c:if test="${message != null}">
-   ${message}
-</c:if>
+<%@ include file="message.jsp" %>
 
 <h4>Registrar Nuevo Gerente</h4>
 

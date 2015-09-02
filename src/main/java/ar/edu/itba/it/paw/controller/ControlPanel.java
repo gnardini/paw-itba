@@ -20,11 +20,16 @@ import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
-public class ControlPanel extends HttpServlet {
+public class ControlPanel extends BaseController {
 	
 	private static final String RESTAURANTS = "restaurants";
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
+		super.doGet(req, resp);
+		if (!(Boolean) req.getAttribute(LOGGED)) {
+			resp.sendRedirect("/restaurants");
+			return;
+		}
 		UserManager userManager = new SessionManager(req);
 		String jspLocation;
 		User user = userManager.getUser();

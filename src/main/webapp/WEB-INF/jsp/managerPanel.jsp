@@ -4,8 +4,9 @@
 
 <H3>Panel de Control</H3>
 
-<h4>Restaurantes</h4>
+<%@ include file="message.jsp" %>
 
+<h4>Restaurantes</h4>
 
 <c:forEach items="${restaurants}" var="restaurant">
 
@@ -26,10 +27,10 @@
 			</div>
 			<div class="form-group">
 				 <select class="form-control" placeholder="Menu" name="menu">
-				 	<option>"Entrada"</option>
-				 	<option>"Principal"</option>
-				 	<option>"Postre"</option>
-				 	<option>"Bebida"</option>
+				 	<option>Entrada</option>
+				 	<option>Principal</option>
+				 	<option>Postre</option>
+				 	<option>Bebida</option>
 				 </select>
 			</div>
 			<br/>

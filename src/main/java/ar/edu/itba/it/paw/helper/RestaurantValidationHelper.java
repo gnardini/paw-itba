@@ -25,7 +25,7 @@ public class RestaurantValidationHelper {
 				|| address == ""
 				|| openingHours == ""
 				|| deliveryCost == ""
-				|| !!NumberUtils.isInteger(deliveryCost)
+				|| !NumberUtils.isInteger(deliveryCost)
 				|| minCost == ""
 				|| !NumberUtils.isInteger(minCost)
 				|| description == "")

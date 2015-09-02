@@ -2,9 +2,7 @@
 
 <%@ include file="header.jsp" %>
 
-<c:if test="${message != null}">
-   ${message}
-</c:if>
+<%@ include file="message.jsp" %>
 
 <h3>${restaurant.name}</h3>
 
