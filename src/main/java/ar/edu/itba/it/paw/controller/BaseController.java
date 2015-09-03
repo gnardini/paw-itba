@@ -20,4 +20,8 @@ public class BaseController extends HttpServlet {
 		UserManager manager = new SessionManager(req);	
 		req.setAttribute(LOGGED, manager.isLogged());
 	}
+	
+	protected void setMessage(HttpServletRequest req, String message) {
+		req.setAttribute("message", message);
+	}
 }

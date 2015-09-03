@@ -31,8 +31,18 @@ public class SessionManager implements UserManager {
 	public boolean login(String email, String password) {
 		User user = null;
 		if (mDatabase != null) user = mDatabase.getUser(email, password);
-		if (user != null) mSession.setAttribute(EMAIL, email);
+		setUserInSession(user);
 		return user != null;
+	}
+	
+	public boolean signup(User user) {
+		if (mDatabase != null) user = mDatabase.signUp(user);
+		setUserInSession(user);
+		return user != null;
+	}
+	
+	private void setUserInSession(User user) {
+		if (user != null) mSession.setAttribute(EMAIL, user.getEmail());
 	}
 	
 	public void logout() {

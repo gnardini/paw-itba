@@ -8,6 +8,8 @@ public interface UserManager {
 	
 	public User getUser();
 	
+	public boolean signup(User user);
+	
 	public boolean login(String email, String password);
 	
 	public void logout();

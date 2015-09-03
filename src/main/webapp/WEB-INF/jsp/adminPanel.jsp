@@ -33,4 +33,31 @@
 	</form>
 </div>
 
+<h4>Nuevo restoran</h4>
+<div class="container">
+	<form role="form" action="panel" method="POST">
+		<input type="hidden" name="create" value="restaurant">
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Nombre" name="name">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Descripcion" name="age">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Direccion" name="address">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Horario" name="openingHours">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Costo de Delivery" name="deliveryCost">
+		</div>
+		<div class="form-group">
+			 <input type="text" class="form-control" placeholder="Costo minimo" name="minCost">
+		</div>			
+		<br/>
+		<input type="submit" value="Agregar"><br/>
+	</form>
+</div> <br/>
+
 <%@ include file="footer.jsp" %>

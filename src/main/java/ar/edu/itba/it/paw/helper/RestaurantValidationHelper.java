@@ -27,8 +27,7 @@ public class RestaurantValidationHelper {
 				|| deliveryCost == ""
 				|| !NumberUtils.isInteger(deliveryCost)
 				|| minCost == ""
-				|| !NumberUtils.isInteger(minCost)
-				|| description == "")
+				|| !NumberUtils.isInteger(minCost))
 			return false;
 		mRestaurant = new Restaurant(-1, name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), description);
 		return true;

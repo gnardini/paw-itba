@@ -23,6 +23,10 @@ public class UserDatabase extends Database {
 		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.MANAGER, "admin");
 	}
 	
+	public User signUp(User user) {
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.MANAGER, "admin");
+	}
+	
 	public void storeUser(User user) {
 		System.out.println("NEW USER");
 	}

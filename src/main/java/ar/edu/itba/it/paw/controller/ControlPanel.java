@@ -102,8 +102,4 @@ public class ControlPanel extends BaseController {
 			setMessage(req, "No se pudo agregar un nuevo restoran");
 		}	
 	}
-	
-	private void setMessage(HttpServletRequest req, String message) {
-		req.setAttribute("message", message);
-	}
 }
