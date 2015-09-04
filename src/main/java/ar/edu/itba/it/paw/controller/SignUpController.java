@@ -11,7 +11,7 @@ import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.manager.implementation.SessionManager;
 import ar.edu.itba.it.paw.model.User.Role;
 
-public class SignUp extends Authentication {
+public class SignUpController extends Authentication {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

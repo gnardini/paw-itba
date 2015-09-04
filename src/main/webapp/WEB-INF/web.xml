@@ -6,6 +6,18 @@
 	<display-name>PAW</display-name>
 
 	<servlet>
+		<servlet-name>LoginController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.LoginController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SignUpController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.SignUpController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LogOutController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.LogOutController</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>Restaurants</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.Restaurants</servlet-class>
 	</servlet>
@@ -18,18 +30,22 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.ControlPanel</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Login</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.Login</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>SignUp</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.SignUp</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>OrderController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.OrderController</servlet-class>
 	</servlet>
-	
+
+	<servlet-mapping>
+		<servlet-name>LoginController</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SignUpController</servlet-name>
+		<url-pattern>/signup</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LogOutController</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Restaurants</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -43,16 +59,8 @@
 		<url-pattern>/panel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Login</servlet-name>
-		<url-pattern>/login</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SignUp</servlet-name>
-		<url-pattern>/signup</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>OrderController</servlet-name>
 		<url-pattern>/order</url-pattern>
 	</servlet-mapping>
-	
+
 </web-app>
