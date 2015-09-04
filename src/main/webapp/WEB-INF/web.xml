@@ -46,6 +46,11 @@
 		<servlet-name>LogOutController</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Restaurants</servlet-name>
 		<url-pattern>/</url-pattern>
