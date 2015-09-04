@@ -12,6 +12,20 @@ Horario: ${restaurant.horario} <br/>
 Costo de envio: ${restaurant.deliveryCost} <br/>
 Costo minimo: ${restaurant.minCost} <br/>
 
+<div class="container">
+	<form role="form" action="order" method="POST">
+		<c:forEach items="${restaurant.dishes}" var="dish">
+			
+			<div class="form-group">
+			 	${dish.name} <input type="number" class="form-control" name="${dish.id}">
+			</div><br/>
+		
+		</c:forEach>
+		<input type="hidden" name="code" value="${restaurant.code}"/>
+		<input type="submit" value="Realizar Pedido"><br/>
+	</form>
+</div>
+
 <c:forEach items="${restaurant.comments}" var="comment">
 	
 	<br/>
@@ -22,8 +36,8 @@ Costo minimo: ${restaurant.minCost} <br/>
 
 <c:if test="${logged}">
 	<h4>Nuevo Comentario:</h4>
-	<div class=”container”>
-		<form role=”form” action="restaurant?code=${restaurant.code}" method="POST">
+	<div class="container">
+		<form role="form" action="restaurant?code=${restaurant.code}" method="POST">
 			Comentario: <input type="text" name="text"><br/>
 			Puntuacion: <input type="number" name="rating"><br/>
 			<br/>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
+import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.model.Restaurant;
 
 public class RestaurantDatabase extends Database {
@@ -22,6 +23,7 @@ public class RestaurantDatabase extends Database {
 	public Restaurant getRestaurant(int code) {
 		Restaurant restaurant =  new Restaurant(1, "Restaurant 1", "Direccion 112", "9-13", 10, 20, "Restaurant numero 1");
 		for (int i = 1 ; i <= 5 ; i++) restaurant.addComment(new Comment("Comment " + i, i));
+		for (int i = 1 ; i <= 5 ; i++) restaurant.addDish(new Dish(i, "Dish " + i, " ", 10, Dish.Type.ENTRY));
 		return restaurant;
 	}
 	
@@ -48,5 +50,9 @@ public class RestaurantDatabase extends Database {
 	
 	public void addDish(int code, Dish dish) {
 		System.out.println("NEW DISH");
+	}
+	
+	public void addOrder(int code, Order order) {
+		System.out.println("NEW ORDER");
 	}
 }

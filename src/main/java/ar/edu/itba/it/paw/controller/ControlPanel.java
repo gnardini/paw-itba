@@ -22,30 +22,15 @@ import ar.edu.itba.it.paw.util.JspLocationUtils;
 
 public class ControlPanel extends BaseController {
 	
-	private static final String RESTAURANTS = "restaurants";
+	protected static final String RESTAURANTS = "restaurants";
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp, String jspLocation) throws ServletException ,IOException {
 		super.doGet(req, resp);
 		if (!(Boolean) req.getAttribute(LOGGED)) {
 			resp.sendRedirect("/restaurants");
 			return;
 		}
-		UserManager userManager = new SessionManager(req);
-		String jspLocation;
-		User user = userManager.getUser();
-		switch (user.getRole()) {
-		case ADMIN:
-			jspLocation = JspLocationUtils.ADMIN_PANEL;
-			break;
-		case MANAGER:
-			jspLocation = JspLocationUtils.MANAGER_PANEL;
-			RestaurantManager restaurantManager = new RestaurantManagerImpl();
-			req.setAttribute(RESTAURANTS, restaurantManager.getRestaurantsByManager(user.getEmail()));
-			break;
-		default:
-			resp.sendRedirect("/");
-			return;
-		}
+		
 		req.getRequestDispatcher(jspLocation).forward(req, resp);
 	}
 	

@@ -9,10 +9,19 @@ public class Dish {
 		DRINK;
 	}
 	
+	int id;
 	String name;
 	String description;
 	int price;
 	Type type;
+	
+	public Dish(int id, String name, String description, int price, Type type) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.type = type;
+	}
 	
 	public Dish(String name, String description, int price, Type type) {
 		this.name = name;
@@ -21,6 +30,10 @@ public class Dish {
 		this.type = type;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
