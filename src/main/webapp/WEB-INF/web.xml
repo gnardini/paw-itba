@@ -26,8 +26,12 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.RestaurantDetail</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ControlPanel</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.ControlPanel</servlet-class>
+		<servlet-name>AdminPanelController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.AdminPanelController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ManagerPanelController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.ManagerPanelController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderController</servlet-name>
@@ -60,8 +64,12 @@
 		<url-pattern>/restaurant</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ControlPanel</servlet-name>
-		<url-pattern>/panel</url-pattern>
+		<servlet-name>AdminPanelController</servlet-name>
+		<url-pattern>/adminPanel</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ManagerPanelController</servlet-name>
+		<url-pattern>/managerPanel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>OrderController</servlet-name>
