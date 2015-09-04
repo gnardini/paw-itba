@@ -28,7 +28,7 @@
 				<li><a href="/panel">Panel de Control</a></li>
 			</c:if>
 			<c:if test="${!logged}">
-				<li><a href="/">Iniciar sesión</a></li>
+				<li><a href="/login">Iniciar sesión</a></li>
 			</c:if>
 		</ul>
 	</div>
