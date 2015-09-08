@@ -11,8 +11,16 @@ public abstract class Database {
 
 	protected Connection mDbConnection;
 
+<<<<<<< HEAD
 	protected Database() {
 		// TODO remove thi
+=======
+	protected Database() {		
+		String dbName = "jdbc:postgresql://localhost/paw1";
+		String dbDriver = "org.postgresql.Driver";
+		String userName = "postgres";
+		String password = "paw";
+>>>>>>> initial db
 
 		URI dbUri;
 		try {

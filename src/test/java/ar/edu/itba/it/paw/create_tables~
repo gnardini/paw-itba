@@ -1,0 +1,86 @@
+drop table users;
+create table users
+(
+id serial not null primary key,
+firstname varchar(20) not null,
+lastname varchar(20) not null,
+address varchar(50) not null,
+email varchar(40) not null unique,
+birthdate date not null,
+pass varchar(20) not null,
+type varchar(20) not null
+);
+
+create table restaurant
+(
+id serial not null primary key,
+name varchar(20) not null,
+address varchar(20) not null,
+opening_hours varchar(20) not null,
+delivery_cost integer not null,
+min_cost integer not null,
+menu_type varchar(30) not null, 
+description varchar(140) not null
+);
+
+create table dish
+(
+id serial not null primary key,
+restaurantid integer not null,
+name varchar(30) not null,
+description varchar(255) not null,
+price integer not null,
+foreign key (restaurantid) references restaurant(id)
+);
+
+create table orders
+(
+id serial not null primary key,
+userid integer not null,
+restaurantid integer not null,
+made date not null,
+foreign key (userid) references users(id),
+foreign key (restaurantid) references restaurant(id)
+);
+
+create table orderdetail
+(
+orderid integer not null,
+name varchar(30) not null,
+price integer,
+foreign key (orderid) references orders(id)
+);
+
+create table managers
+(
+userid integer not null,
+restaurantid integer not null,
+foreign key (userid) references users(id),
+foreign key (restaurantid) references restaurant(id)
+);
+
+create table comments
+(
+userid integer not null,
+restaurantid integer not null,
+rating integer not null,
+text varchar(255) not null,
+foreign key (userid) references users(id),
+foreign key (restaurantid) references restaurant(id)
+);
+
+id serial not null primary key,
+firstname varchar(20) not null,
+lastname varchar(20) not null,
+address varchar(50) not null,
+email varchar(40) not null unique,
+birthdate date not null,
+pass varchar(20) not null,
+type varchar(20) not null
+insert into users values("admin", "admin", "admin address", "admin@admin.admin", "10-10-1999", "admin", "admin");
+insert into users values("Manager", "One", "manager one address", "manager@one.com", "10-10-1999", "manager", "manager");
+insert into users values("Manager", "Two", "manager two address", "manager@two.com", "10-10-1999", "manager", "manager");
+insert into users values("Manager", "Three", "manager three address", "manager@three.com", "10-10-1999", "manager", "manager");
+insert into users values("User", "One", "user one address", "user@one.com", "10-10-1999", "user", "normal");
+
+end
