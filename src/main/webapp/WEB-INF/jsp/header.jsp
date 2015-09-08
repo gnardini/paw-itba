@@ -23,8 +23,11 @@
 			<a class="navbar-brand" href="index">Brand</a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
-			<c:if test="${logged}">
-				<li><a href="/panel">Panel de Control</a></li>
+			<c:if test="${admin}">
+				<li><a href="/adminPanel">Panel de Control</a></li>
+			</c:if>
+			<c:if test="${manager}">
+				<li><a href="/managerPanel">Panel de Control</a></li>
 			</c:if>
 			<c:if test="${!logged}">
 				<li><a href="/login">Iniciar sesión</a></li>

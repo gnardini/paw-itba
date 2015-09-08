@@ -6,7 +6,7 @@
 
 <%@ include file="message.jsp" %>
 
-<h4>Restaurantes</h4>
+<h4>Restoranes</h4>
 
 <c:forEach items="${restaurants}" var="restaurant">
 
@@ -14,7 +14,7 @@
 
 	<b>Nuevo Plato:</b>
 	<div class="container">
-		<form role="form" action="panel" method="POST">
+		<form role="form" action=managerPanel method="POST">
 			<div class="form-group">
 				 <input type="text" class="form-control" placeholder="Nombre" name="name">
 			</div>
