@@ -23,9 +23,11 @@ public class BaseController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserManager manager = new SessionManager(req);	
 		req.setAttribute(LOGGED, manager.isLogged());
-		User user = manager.getUser();
-		req.setAttribute(ADMIN, user.getRole() == Role.ADMIN);
-		req.setAttribute(MANAGER, user.getRole() == Role.MANAGER);
+		if (manager.isLogged()) {
+			User user = manager.getUser();
+			req.setAttribute(ADMIN, user.getRole() == Role.ADMIN);
+			req.setAttribute(MANAGER, user.getRole() == Role.MANAGER);
+		}
 	}
 	
 	protected void setMessage(HttpServletRequest req, String message) {

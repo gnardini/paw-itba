@@ -9,7 +9,7 @@
 <h4>Registrar Nuevo Gerente</h4>
 
 <div class="container">
-	<form role="form" action="panel" method="POST">
+	<form role="form" action="newManager" method="POST">
 		<div class="form-group">
 			 <input type="email" class="form-control" placeholder="Mail" name="email">
 		</div>
@@ -35,7 +35,7 @@
 
 <h4>Nuevo restoran</h4>
 <div class="container">
-	<form role="form" action="panel" method="POST">
+	<form role="form" action="newRestaurant" method="POST">
 		<input type="hidden" name="create" value="restaurant">
 		<div class="form-group">
 			 <input type="text" class="form-control" placeholder="Nombre" name="name">

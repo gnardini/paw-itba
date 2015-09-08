@@ -16,15 +16,15 @@ public class UserDatabase extends Database {
 	}
 	
 	public User getUser(String email, String password) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.MANAGER, "admin");
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
 	}
 	
 	public User getUser(String email) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.MANAGER, "admin");
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
 	}
 	
 	public User signUp(User user) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.MANAGER, "admin");
+		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
 	}
 	
 	public void storeUser(User user) {

@@ -19,16 +19,18 @@ import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
-public class ControlPanelController extends BaseController {
+public abstract class ControlPanelController extends BaseController {
 	
 	protected static final String RESTAURANTS = "restaurants";
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp, String jspLocation) throws ServletException ,IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
 		super.doGet(req, resp);
 		if (!(Boolean) req.getAttribute(LOGGED)) {
 			resp.sendRedirect("/restaurants");
 			return;
 		}
-		req.getRequestDispatcher(jspLocation).forward(req, resp);
+		req.getRequestDispatcher(getJspLocation()).forward(req, resp);
 	}
+	
+	protected abstract String getJspLocation();
 }
