@@ -1,12 +1,15 @@
 package ar.edu.itba.it.paw.db;
 
+import java.sql.SQLException;
+
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 
 public class UserDatabase extends Database {
 	
 	private static UserDatabase sUserDatabase;
-
+	
+	
 	public static UserDatabase getInstance() {
 		if (sUserDatabase == null) sUserDatabase = new UserDatabase();
 		return sUserDatabase;
