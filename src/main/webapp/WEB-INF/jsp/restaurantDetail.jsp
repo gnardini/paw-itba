@@ -15,7 +15,7 @@
 			<h1>${restaurant.name}</h1>
 			<p>Descripcion: ${restaurant.description}</p>
 			<p>Direccion: ${restaurant.address}</p>
-			<p>Horario: ${restaurant.horario}</p>
+			<p>Horario: ${restaurant.openingHours}</p>
 			<p>Costo de envio: ${restaurant.deliveryCost}</p>
 			<p>Costo minimo: ${restaurant.minCost}</p>
 		</div>

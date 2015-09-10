@@ -41,7 +41,7 @@
 			 <input type="text" class="form-control" placeholder="Nombre" name="name">
 		</div>
 		<div class="form-group">
-			 <input type="text" class="form-control" placeholder="Descripcion" name="age">
+			 <input type="text" class="form-control" placeholder="Descripcion" name="description">
 		</div>
 		<div class="form-group">
 			 <input type="text" class="form-control" placeholder="Direccion" name="address">

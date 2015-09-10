@@ -34,14 +34,13 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	
 	@Override
 	protected void storeData(PreparedStatement pst, Restaurant rest) throws SQLException {
-		pst.setLong(CODE, rest.getCode());
-		pst.setString(NAME, rest.getName());
-		pst.setString(ADDRESS, rest.getAddress());
-		pst.setString(OPENING_HOURS, rest.getOpeningHours());
-		pst.setInt(DELIVERY_COST, rest.getDeliveryCost());
-		pst.setInt(MIN_COST, rest.getMinCost());
-		pst.setString(MENU_TYPE, rest.getMenuType());
-		pst.setString(DESCRIPTION, rest.getDescription());
+		pst.setString(NAME - 1, rest.getName());
+		pst.setString(ADDRESS - 1, rest.getAddress());
+		pst.setString(OPENING_HOURS - 1, rest.getOpeningHours());
+		pst.setInt(DELIVERY_COST - 1, rest.getDeliveryCost());
+		pst.setInt(MIN_COST - 1, rest.getMinCost());
+		pst.setString(MENU_TYPE - 1, rest.getMenuType());
+		pst.setString(DESCRIPTION - 1, rest.getDescription());
 	}
 	
 	@Override
@@ -84,7 +83,7 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	}
 	
 	public void addRestaurant(Restaurant restaurant) {
-		insert("insert into restaurant values (?, ?, ?, ?, ?, ?, ?, ?)", restaurant);
+		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
 	}
 	
 	public void addComment(int code, Comment comment) {
