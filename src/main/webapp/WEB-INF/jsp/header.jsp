@@ -29,6 +29,9 @@
 			<c:if test="${manager}">
 				<li><a href="/managerPanel">Panel de Control</a></li>
 			</c:if>
+			<c:if test="${logged}">
+				<li><a href="/logout">Cerrar sesión</a></li>
+			</c:if>
 			<c:if test="${!logged}">
 				<li><a href="/login">Iniciar sesión</a></li>
 			</c:if>
