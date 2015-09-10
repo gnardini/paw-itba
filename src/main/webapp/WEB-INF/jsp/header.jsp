@@ -30,7 +30,9 @@
 				<li><a href="/managerPanel">Panel de Control</a></li>
 			</c:if>
 			<c:if test="${logged}">
-				<li><a href="/logout">Cerrar sesión</a></li>
+				<form role="form" action="/logout" method="POST">
+					<li><a type="submit">Cerrar sesión</a></li>
+				</form>
 			</c:if>
 			<c:if test="${!logged}">
 				<li><a href="/login">Iniciar sesión</a></li>

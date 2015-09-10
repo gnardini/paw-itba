@@ -15,6 +15,6 @@ public class LogOutController extends Authentication {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserManager manager = new SessionManager(req);
 		manager.logout();
-		doGet(req, resp);
+		resp.sendRedirect(req.getHeader("Referer"));
 	}
 }
