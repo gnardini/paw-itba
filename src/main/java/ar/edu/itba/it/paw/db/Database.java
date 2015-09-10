@@ -12,13 +12,13 @@ public abstract class Database {
 	protected Connection mDbConnection;
 
 	protected Database() {
-		// TODO remove this
-		 if (true) return;
+		// TODO remove thi
 
 		URI dbUri;
 		try {
+			//dbUri = new URI("postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@ec2-54-83-55-214.compute-1.amazonaws.com:5432/djnrag8vu0hpu"); 
 			dbUri = new URI(
-					"postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@ec2-54-83-55-214.compute-1.amazonaws.com:5432/djnrag8vu0hpu");
+					"postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@localhost:3000/djnrag8vu0hpu");
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
@@ -26,7 +26,7 @@ public abstract class Database {
 			Properties prop = new Properties();
 			prop.setProperty("user", username);
 			prop.setProperty("password", password);
-			prop.setProperty("ssl", "true");
+			String ssloff = "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 			/*
 			 * String dbUrl = "jdbc:postgresql://localhost/paw";
@@ -36,6 +36,7 @@ public abstract class Database {
 
 			try {
 				Class.forName(dbDriver);
+				dbUrl+=ssloff;
 				mDbConnection = DriverManager.getConnection(dbUrl, prop);
 				//mDbConnection = DriverManager.getConnection(dbUrl, username, password);
 				System.out.println("Got Connection");
