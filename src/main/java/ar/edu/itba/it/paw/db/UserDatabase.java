@@ -30,9 +30,12 @@ public class UserDatabase extends Database<User> {
 	}
 	
 	public User getUser(String email, String password) {
+		System.out.println(email + " " + password);
 		User user = getUser(email);
+		System.out.println(user == null ? "NULL" : "NOT");
 		if (user == null) return null;
-		return user.getPassword() == password ? user : null;
+		System.out.println(user.getPassword() + " " + password);
+		return user.getPassword().equals(password) ? user : null;
 	}
 	
 	public User getUser(String email) {
@@ -52,7 +55,7 @@ public class UserDatabase extends Database<User> {
 	public User signUp(User user) {
 		User userExists = getUser(user.getEmail(), user.getPassword());
 		if (userExists != null) return null;
-		return insert("insert into users values(?, ?, ?, ?, ?, ?, ?)", user);
+		return insert("insert into users (firstname, lastname, address, email, birthdate, pass, type) values(?, ?, ?, ?, ?, ?, ?)", user);
 	}
 	
 	@Override
