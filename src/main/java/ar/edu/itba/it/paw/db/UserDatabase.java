@@ -1,11 +1,22 @@
 package ar.edu.itba.it.paw.db;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.util.RoleUtils;
 
-public class UserDatabase extends Database {
+public class UserDatabase extends Database<User> {
+	
+	private static final int FIRST_NAME = 2;
+	private static final int LAST_NAME = 3;
+	private static final int ADDRESS = 4;
+	private static final int EMAIL = 5;
+	private static final int BIRTHDATE = 6;
+	private static final int ROLE = 7;
+	private static final int PASSWORD = 8;
 	
 	private static UserDatabase sUserDatabase;
 	
@@ -19,15 +30,40 @@ public class UserDatabase extends Database {
 	}
 	
 	public User getUser(String email, String password) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
+		User user = getUser(email);
+		if (user == null) return null;
+		return user.getPassword() == password ? user : null;
 	}
 	
 	public User getUser(String email) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
+		return doQuery("select * from users where email='" + email + "'");
+	}
+	
+	protected User generate(ResultSet rs) throws SQLException {
+		return new User(rs.getString(FIRST_NAME),
+				rs.getString(LAST_NAME),
+				rs.getString(ADDRESS),
+				rs.getString(EMAIL),
+				rs.getDate(BIRTHDATE),
+				RoleUtils.getRoleFromString(rs.getString(ROLE)),
+				rs.getString(PASSWORD));
 	}
 	
 	public User signUp(User user) {
-		return new User("Admin", "", "Direccion","admin@admin.com", 100, Role.ADMIN, "admin");
+		User userExists = getUser(user.getEmail(), user.getPassword());
+		if (userExists != null) return null;
+		return insert("insert into users values(?, ?, ?, ?, ?, ?, ?)", user);
+	}
+	
+	@Override
+	protected void storeData(PreparedStatement pst, User user) throws SQLException {
+		pst.setString(FIRST_NAME, user.getFirstName());
+		pst.setString(LAST_NAME, user.getLastName());
+		pst.setString(ADDRESS, user.getAddress());
+		pst.setString(EMAIL, user.getEmail());
+		pst.setDate(BIRTHDATE, new Date(user.getBirthdate().getTime()));
+		pst.setString(ROLE, user.getRole().toString());
+		pst.setString(PASSWORD, user.getPassword());
 	}
 	
 	public void storeUser(User user) {

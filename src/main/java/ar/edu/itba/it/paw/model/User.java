@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.model;
 
+import java.util.Date;
+
 public class User {
 
 	public enum Role {
@@ -12,19 +14,19 @@ public class User {
 	String lastName;
 	String address;
 	String email;
-	int age;
+	Date birthdate;
 	Role role;
 	String password;
 	
 	public User() {
 	}
 	
-	public User(String firstName, String lastName, String address, String email, int age, Role role, String password) {
+	public User(String firstName, String lastName, String address, String email, Date birthdate, Role role, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
 		this.email = email;
-		this.age = age;
+		this.birthdate = birthdate;
 		this.role = role;
 		this.password = password;
 	}
@@ -41,8 +43,8 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	public int getAge() {
-		return age;
+	public Date getBirthdate() {
+		return birthdate;
 	}
 	public Role getRole() {
 		return role;

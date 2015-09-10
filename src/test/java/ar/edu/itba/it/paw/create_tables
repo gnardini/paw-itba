@@ -76,4 +76,3 @@ insert into users (firstname, lastname, address, email, birthdate, pass, type) v
 insert into users (firstname, lastname, address, email, birthdate, pass, type) values('User', 'Two', 'user two address', 'user@two.com', '10-10-1999', 'user', 'normal');
 insert into users (firstname, lastname, address, email, birthdate, pass, type) values('User', 'Three', 'user three address', 'user@three.com', '10-10-1999', 'user', 'normal');
 end
-create table users(id serial not null primary key,firstname varchar(20) not null,lastname varchar(20) not n

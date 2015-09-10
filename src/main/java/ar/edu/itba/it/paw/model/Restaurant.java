@@ -5,22 +5,24 @@ import java.util.List;
 
 public class Restaurant {
 
-	int code;
+	long code;
 	String name;
 	String address;
 	String openingHours;
 	int deliveryCost;
 	int minCost;
+	String menuType;
 	String description;
 	List<Dish> dishes;
 	List<Comment> comments;
 	
-	public Restaurant(int code,
+	public Restaurant(long code,
 					String name,
 					String address,
 					String openingHours,
 					int deliveryCost,
 					int minCost,
+					String menuType,
 					String description) {
 		this.code = code;
 		this.name = name;
@@ -28,6 +30,7 @@ public class Restaurant {
 		this.openingHours = openingHours;
 		this.deliveryCost = deliveryCost;
 		this.minCost = minCost;
+		this.menuType = menuType;
 		this.description = description;
 		dishes = new LinkedList<Dish>();
 		comments = new LinkedList<Comment>();
@@ -41,7 +44,7 @@ public class Restaurant {
 		dishes.add(dish);
 	}
 
-	public int getCode() {
+	public long getCode() {
 		return code;
 	}
 	
@@ -53,7 +56,7 @@ public class Restaurant {
 		return address;
 	}
 
-	public String getHorario() {
+	public String getOpeningHours() {
 		return openingHours;
 	}
 
@@ -63,6 +66,10 @@ public class Restaurant {
 
 	public int getMinCost() {
 		return minCost;
+	}
+	
+	public String getMenuType() {
+		return menuType;
 	}
 
 	public String getDescription() {

@@ -1,14 +1,13 @@
 package ar.edu.itba.it.paw;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 import ar.edu.itba.it.paw.db.Database;
 
-public class InitTables extends Database {
+public class InitTables extends Database<String> {
 
 	public InitTables() {
 		try {
@@ -29,5 +28,17 @@ public class InitTables extends Database {
 
 	public static void main(String[] args) {
 		new InitTables();
+	}
+
+	@Override
+	protected String generate(ResultSet rs) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void storeData(PreparedStatement pst, String elem) throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 }
