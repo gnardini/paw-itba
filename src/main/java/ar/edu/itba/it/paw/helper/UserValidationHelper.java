@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.helper;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.User;
@@ -20,17 +22,18 @@ public class UserValidationHelper {
 		String lastName = mRequest.getParameter("lastName");
 		String address = mRequest.getParameter("address");
 		String email = mRequest.getParameter("email");
-		String age = mRequest.getParameter("age");
+		String birthdate = mRequest.getParameter("age");
 		String password = mRequest.getParameter("password");
 		if (firstName == "" 
 				|| lastName == ""
 				|| address == ""
 				|| email == ""
-				|| age == ""
-				|| !NumberUtils.isInteger(age)
+				|| birthdate == ""
+				|| !NumberUtils.isInteger(birthdate)
 				|| password == "")
 			return false;
-		mUser = new User(firstName, lastName, address, email, Integer.valueOf(age), role, password);
+		// TODO check birthdate value
+		mUser = new User(firstName, lastName, address, email, new Date(birthdate), role, password);
 		return true;
 	}
 	
