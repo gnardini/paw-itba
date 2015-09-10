@@ -14,7 +14,7 @@ import java.util.Properties;
 
 public abstract class Database<T> {
 
-	private static Connection mDbConnection = null;
+	protected static Connection mDbConnection = null;
 
 	private static void init(){
 		if(mDbConnection==null){
