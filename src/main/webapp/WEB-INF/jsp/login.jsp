@@ -30,7 +30,6 @@
 		</div>
 		<div class="col-md-6">
 			<H3>Registro</H3>
-
 			<form role="form" action="signup" method="POST">
 				<div class="form-group">
 					<input type="email" class="form-control" placeholder="Mail"

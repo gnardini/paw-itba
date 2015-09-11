@@ -17,28 +17,31 @@
 
 
 	<nav class="navbar navbar-default">
-	<div class="container-fluid">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<a class="navbar-brand" href="index">Brand</a>
+
+	<form id="form1" role="form" action="/logout" method="POST">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/">Brand</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<c:if test="${admin}">
+					<li><a href="/adminPanel">Panel de Control</a></li>
+				</c:if>
+				<c:if test="${manager}">
+					<li><a href="/managerPanel">Panel de Control</a></li>
+				</c:if>
+				<c:if test="${logged}">
+					<li><a href="." onclick="document.getElementById('form1').submit()">Cerrar
+							sesión</a></li>
+
+				</c:if>
+				<c:if test="${!logged}">
+					<li><a href="/login">Iniciar sesión</a></li>
+				</c:if>
+			</ul>
 		</div>
-		<ul class="nav navbar-nav navbar-right">
-			<c:if test="${admin}">
-				<li><a href="/adminPanel">Panel de Control</a></li>
-			</c:if>
-			<c:if test="${manager}">
-				<li><a href="/managerPanel">Panel de Control</a></li>
-			</c:if>
-			<c:if test="${logged}">
-				<form role="form" action="/logout" method="POST">
-					<li><a type="submit">Cerrar sesión</a></li>
-				</form>
-			</c:if>
-			<c:if test="${!logged}">
-				<li><a href="/login">Iniciar sesión</a></li>
-			</c:if>
-		</ul>
-	</div>
+	</form>
 	<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
