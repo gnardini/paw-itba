@@ -30,11 +30,8 @@ public class UserDatabase extends Database<User> {
 	}
 	
 	public User getUser(String email, String password) {
-		System.out.println(email + " " + password);
 		User user = getUser(email);
-		System.out.println(user == null ? "NULL" : "NOT");
 		if (user == null) return null;
-		System.out.println(user.getPassword() + " " + password);
 		return user.getPassword().equals(password) ? user : null;
 	}
 	

@@ -58,28 +58,14 @@ public class RestaurantDatabase extends Database<Restaurant> {
 
 	public Restaurant getRestaurant(int code) {
 		return doQuery("select * from restaurant where id=" + code);
-		/*
-		Restaurant restaurant =  new Restaurant(1, "Restaurant 1", "Direccion 112", "9-13", 10, 20, "Restaurant numero 1");
-		for (int i = 1 ; i <= 5 ; i++) restaurant.addComment(new Comment("Comment " + i, i));
-		for (int i = 1 ; i <= 5 ; i++) restaurant.addDish(new Dish(i, "Dish " + i, " ", 10, Dish.Type.ENTRY));
-		return restaurant;
-		*/
 	}
 	
 	public List<Restaurant> getRestaurants() {
 		return doListQuery("select * from restaurant");
-		/*
-		List<Restaurant> list = new LinkedList<Restaurant>();
-		list.add(new Restaurant(1, "Restaurant 1", "Direccion 112", "9-13", 10, 20, "", "Restaurant numero 1"));
-		list.add(new Restaurant(2, "Restaurant 2", "Direccion 212", "9-13", 10, 20, "",  "Restaurant numero 2"));
-		list.add(new Restaurant(3, "Restaurant 3", "Direccion 312", "9-13", 10, 20, "",  "Restaurant numero 3"));
-		list.add(new Restaurant(4, "Restaurant 4", "Direccion 412", "9-13", 10, 20, "",  "Restaurant numero 4"));
-		return list;
-		*/
 	}
 	
 	public List<Restaurant> getRestaurantsByManager(String email) {
-		return getRestaurants();
+		return doListQuery("select * from restaurant where");
 	}
 	
 	public void addRestaurant(Restaurant restaurant) {

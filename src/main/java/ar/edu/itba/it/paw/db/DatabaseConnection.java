@@ -7,15 +7,21 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public abstract class HerokuDatabase {
-
-	protected Connection mDbConnection;
-
-	protected HerokuDatabase() {
+public class DatabaseConnection {
+	
+	private static Connection sDbConnection;
+	
+	public synchronized static Connection getConnection() {
+		if (sDbConnection == null) initConnection();
+		return sDbConnection;
+	}
+	
+	private static void initConnection() {
 		URI dbUri;
 		try {
+			//dbUri = new URI("postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@ec2-54-83-55-214.compute-1.amazonaws.com:5432/djnrag8vu0hpu"); 
 			dbUri = new URI(
-					"postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@ec2-54-83-55-214.compute-1.amazonaws.com:5432/djnrag8vu0hpu");
+					"postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@localhost:3000/djnrag8vu0hpu");
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
@@ -23,7 +29,7 @@ public abstract class HerokuDatabase {
 			Properties prop = new Properties();
 			prop.setProperty("user", username);
 			prop.setProperty("password", password);
-			prop.setProperty("ssl", "true");
+			String ssloff = "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 			/*
 			 * String dbUrl = "jdbc:postgresql://localhost/paw";
@@ -33,7 +39,8 @@ public abstract class HerokuDatabase {
 
 			try {
 				Class.forName(dbDriver);
-				mDbConnection = DriverManager.getConnection(dbUrl, prop);
+				dbUrl+=ssloff;
+				sDbConnection = DriverManager.getConnection(dbUrl, prop);
 				//mDbConnection = DriverManager.getConnection(dbUrl, username, password);
 				System.out.println("Got Connection");
 			} catch (ClassNotFoundException e) {
