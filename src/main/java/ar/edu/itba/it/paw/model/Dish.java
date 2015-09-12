@@ -22,13 +22,6 @@ public class Dish {
 		this.price = price;
 		this.type = type;
 	}
-	
-	public Dish(String name, String description, int price, Type type) {
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.type = type;
-	}
 
 	public int getId() {
 		return id;

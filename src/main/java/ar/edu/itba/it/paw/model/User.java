@@ -8,8 +8,13 @@ public class User {
 		NORMAL,
 		MANAGER,
 		ADMIN;
+		
+		public String toString() {
+			return name();
+		}
 	}
 	
+	long id;
 	String firstName;
 	String lastName;
 	String address;
@@ -21,7 +26,8 @@ public class User {
 	public User() {
 	}
 	
-	public User(String firstName, String lastName, String address, String email, Date birthdate, Role role, String password) {
+	public User(long id, String firstName, String lastName, String address, String email, Date birthdate, Role role, String password) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -31,6 +37,10 @@ public class User {
 		this.password = password;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
@@ -51,5 +61,9 @@ public class User {
 	}
 	public String getPassword() {
 		return password;
+	}
+	
+	public void setRole(Role role) {
+		this.role = role;
 	}
 }

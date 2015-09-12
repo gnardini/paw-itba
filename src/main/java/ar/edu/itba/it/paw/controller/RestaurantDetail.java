@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.helper.CommentValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
+import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
+import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
@@ -28,10 +30,11 @@ public class RestaurantDetail extends BaseController {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		CommentValidationHelper validator = new CommentValidationHelper(req);
+		SessionManager sessionManager = new SessionManagerImpl(req);
+		RestaurantManager restaurantManager = new RestaurantManagerImpl();
+		CommentValidationHelper validator = new CommentValidationHelper(req, sessionManager.getUser().getId());
 		if (validator.isValidComment()) {
-			RestaurantManager restaurantManager = new RestaurantManagerImpl();
-			restaurantManager.addComment(Integer.valueOf(req.getParameter("code")), validator.getComment());
+			restaurantManager.addComment(validator.getComment());
 		} else {
 			//TODO mensajes lindos
 			req.setAttribute("message", "No se pudo crear el comentario");

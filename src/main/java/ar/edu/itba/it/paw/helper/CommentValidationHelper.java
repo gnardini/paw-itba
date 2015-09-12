@@ -9,9 +9,11 @@ public class CommentValidationHelper {
 
 	private HttpServletRequest mRequest;
 	private Comment mComment;
+	private long mUserId;
 	
-	public CommentValidationHelper(HttpServletRequest request) {
+	public CommentValidationHelper(HttpServletRequest request, long userId) {
 		mRequest = request;
+		mUserId = userId;
 	}
 	
 	public boolean isValidComment() {
@@ -22,7 +24,7 @@ public class CommentValidationHelper {
 		if (text == "" 
 				|| ratingNumber < 1
 				|| ratingNumber > 5) return false;
-		mComment = new Comment(text, ratingNumber);
+		mComment = new Comment(mUserId, Integer.valueOf(mRequest.getParameter("code")), ratingNumber, text);
 		return true;
 	}
 	

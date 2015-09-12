@@ -26,7 +26,7 @@ public class ManagerPanelController extends ControlPanelController {
 		DishValidationHelper validator = new DishValidationHelper(req);
 		if (validator.isValidDish()) {
 			//TODO validate maybe?
-			manager.addDish(Integer.valueOf(req.getParameter("code")), validator.getDish());
+			manager.addDish(validator.getDish());
 			setMessage(req, "Nuevo plato agregado con exito");
 		} else {
 			setMessage(req, "No se pudo agregar un nuevo plato");

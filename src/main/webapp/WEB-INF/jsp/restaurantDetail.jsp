@@ -47,7 +47,7 @@
 				</div>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="code" value="${restaurant.code}" />
+		<input type="hidden" name="code" value="${restaurant.id}" />
 		<!-- <input type="submit" value="Realizar Pedido"> -->
 		<button type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
 			Pedido</button>
@@ -76,7 +76,7 @@
 <c:if test="${logged}">
 	<h4>Nuevo Comentario:</h4>
 	<div class="container">
-		<form role="form" action="restaurant?code=${restaurant.code}"
+		<form role="form" action="restaurant?code=${restaurant.id}"
 			method="POST">
 			Comentario: <input type="text" name="text"><br />
 			Puntuacion: <input type="number" name="rating"><br /> <br />

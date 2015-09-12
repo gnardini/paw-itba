@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Restaurant {
 
-	long code;
+	long id;
 	String name;
 	String address;
 	String openingHours;
@@ -16,7 +16,7 @@ public class Restaurant {
 	List<Dish> dishes;
 	List<Comment> comments;
 	
-	public Restaurant(long code,
+	public Restaurant(long id,
 					String name,
 					String address,
 					String openingHours,
@@ -24,7 +24,7 @@ public class Restaurant {
 					int minCost,
 					String menuType,
 					String description) {
-		this.code = code;
+		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.openingHours = openingHours;
@@ -44,8 +44,8 @@ public class Restaurant {
 		dishes.add(dish);
 	}
 
-	public long getCode() {
-		return code;
+	public long getId() {
+		return id;
 	}
 	
 	public String getName() {

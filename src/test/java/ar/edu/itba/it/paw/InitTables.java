@@ -30,15 +30,7 @@ public class InitTables extends Database<String> {
 		new InitTables();
 	}
 
-	@Override
-	protected String generate(ResultSet rs) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	protected void storeData(PreparedStatement pst, String elem) throws SQLException {
-		// TODO Auto-generated method stub
-		
-	}
+	@Override protected String generate(ResultSet rs) throws SQLException { return null; }
+	@Override protected void storeData(PreparedStatement pst, String elem) throws SQLException { }
+	@Override protected void updateData(PreparedStatement pst, String elem) throws SQLException { }
 }

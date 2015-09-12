@@ -6,8 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.UserManager;
-import ar.edu.itba.it.paw.manager.implementation.SessionManager;
+import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
 public class Authentication extends BaseController {

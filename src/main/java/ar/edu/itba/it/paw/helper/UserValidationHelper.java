@@ -33,7 +33,7 @@ public class UserValidationHelper {
 				|| password == "")
 			return false;
 		// TODO check birthdate value
-		mUser = new User(firstName, lastName, address, email, new Date(birthdate), role, password);
+		mUser = new User(0, firstName, lastName, address, email, new Date(), role, password);
 		return true;
 	}
 	

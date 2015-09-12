@@ -1,19 +1,19 @@
 package ar.edu.itba.it.paw.manager.implementation;
 
-import ar.edu.itba.it.paw.db.RestaurantDatabase;
+import ar.edu.itba.it.paw.db.OrderDatabase;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.model.Order;
 
 public class OrderManagerImpl implements OrderManager {
 
-	private RestaurantDatabase mDatabase;
+	private OrderDatabase mDatabase;
 	
 	public OrderManagerImpl() {
-		mDatabase = RestaurantDatabase.getInstance();
+		mDatabase = new OrderDatabase();
 	}
 	
 	@Override
-	public void addOrder(int restaurantCode, Order order) {
-		if (mDatabase != null) mDatabase.addOrder(restaurantCode, order);
+	public void addOrder(long restaurantId, Order order) {
+		mDatabase.addOrder(restaurantId, order);
 	}
 }

@@ -17,7 +17,7 @@
 						<p class="group inner list-group-item-text">${restaurant.description}</p>
 						<div class="row">
 							<div class="restaurant-button">
-								<a class="btn btn-success" href="restaurant?code=${restaurant.code}">Ir al Restaurant</a>
+								<a class="btn btn-success" href="restaurant?code=${restaurant.id}">Ir al Restaurant</a>
 							</div>
 						</div>
 					</div>

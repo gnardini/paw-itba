@@ -7,15 +7,9 @@ import java.sql.SQLException;
 import ar.edu.itba.it.paw.model.Dish;
 
 public class DishDatabase extends Database<Dish> {
-
-	private static DishDatabase sDishDatabase;
-
-	public static DishDatabase getInstance() {
-		if (sDishDatabase == null) sDishDatabase = new DishDatabase();
-		return sDishDatabase;
-	}
-
-	private DishDatabase() {
+	
+	public void addDish(Dish dish) {
+		
 	}
 	
 	@Override
@@ -26,5 +20,9 @@ public class DishDatabase extends Database<Dish> {
 	@Override
 	protected void storeData(PreparedStatement pst, Dish elem) throws SQLException {
 		
+	}
+	
+	@Override
+	protected void updateData(PreparedStatement pst, Dish elem) throws SQLException {		
 	}
 }

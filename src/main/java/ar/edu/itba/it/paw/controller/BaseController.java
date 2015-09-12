@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.manager.UserManager;
-import ar.edu.itba.it.paw.manager.implementation.SessionManager;
+import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 
@@ -21,7 +21,7 @@ public class BaseController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserManager manager = new SessionManager(req);	
+		SessionManager manager = new SessionManagerImpl(req);	
 		req.setAttribute(LOGGED, manager.isLogged());
 		if (manager.isLogged()) {
 			User user = manager.getUser();

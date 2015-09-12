@@ -13,7 +13,7 @@ import ar.edu.itba.it.paw.model.Restaurant;
 
 public class RestaurantDatabase extends Database<Restaurant> {
 	
-	private static final int CODE = 1;
+	private static final int ID = 1;
 	private static final int NAME = 2;
 	private static final int ADDRESS = 3;
 	private static final int OPENING_HOURS = 4;
@@ -21,15 +21,45 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	private static final int MIN_COST = 6;
 	private static final int MENU_TYPE = 7;
 	private static final int DESCRIPTION = 8;
-	
-	private static RestaurantDatabase sRestaurantDatabase;
 
-	public static RestaurantDatabase getInstance() {
-		if (sRestaurantDatabase == null) sRestaurantDatabase = new RestaurantDatabase();
-		return sRestaurantDatabase;
+	public Restaurant getRestaurant(long id) {
+		return doQuery("select * from restaurant where id=" + id);
 	}
-
-	private RestaurantDatabase() {
+	
+	public List<Restaurant> getRestaurants() {
+		return doListQuery("select * from restaurant");
+	}
+	
+	public List<Restaurant> getManagersRestaurants(String email) {
+		return doListQuery("select restaurant.id, name, address, opening_hours, delivery_cost, min_cost, menu_type, description "
+				+ "from restaurant join managers "
+				+ "where restaurant.id = managers.restaurantid");
+	}
+	
+	// TODO: Move these to their respective classes
+	public void addRestaurant(Restaurant restaurant) {
+		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
+	}
+	
+	public void addComment(Comment comment) {
+		System.out.println("NEW COMMENT");
+	}
+	
+	public void addOrder(int code, Order order) {
+		System.out.println("NEW ORDER");
+	}
+	
+	@Override
+	protected Restaurant generate(ResultSet rs) throws SQLException {
+		return new Restaurant(
+				rs.getLong(ID),
+				rs.getString(NAME),
+				rs.getString(ADDRESS),
+				rs.getString(OPENING_HOURS),
+				rs.getInt(DELIVERY_COST),
+				rs.getInt(MIN_COST),
+				rs.getString(MENU_TYPE),
+				rs.getString(DESCRIPTION));
 	}
 	
 	@Override
@@ -44,43 +74,14 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	}
 	
 	@Override
-	protected Restaurant generate(ResultSet rs) throws SQLException {
-		return new Restaurant(
-				rs.getLong(CODE),
-				rs.getString(NAME),
-				rs.getString(ADDRESS),
-				rs.getString(OPENING_HOURS),
-				rs.getInt(DELIVERY_COST),
-				rs.getInt(MIN_COST),
-				rs.getString(MENU_TYPE),
-				rs.getString(DESCRIPTION));
-	}
-
-	public Restaurant getRestaurant(int code) {
-		return doQuery("select * from restaurant where id=" + code);
-	}
-	
-	public List<Restaurant> getRestaurants() {
-		return doListQuery("select * from restaurant");
-	}
-	
-	public List<Restaurant> getRestaurantsByManager(String email) {
-		return doListQuery("select * from restaurant where");
-	}
-	
-	public void addRestaurant(Restaurant restaurant) {
-		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
-	}
-	
-	public void addComment(int code, Comment comment) {
-		System.out.println("NEW COMMENT");
-	}
-	
-	public void addDish(int code, Dish dish) {
-		System.out.println("NEW DISH");
-	}
-	
-	public void addOrder(int code, Order order) {
-		System.out.println("NEW ORDER");
+	protected void updateData(PreparedStatement pst, Restaurant rest) throws SQLException {
+		pst.setLong(ID, rest.getId());
+		pst.setString(NAME, rest.getName());
+		pst.setString(ADDRESS, rest.getAddress());
+		pst.setString(OPENING_HOURS, rest.getOpeningHours());
+		pst.setInt(DELIVERY_COST, rest.getDeliveryCost());
+		pst.setInt(MIN_COST, rest.getMinCost());
+		pst.setString(MENU_TYPE, rest.getMenuType());
+		pst.setString(DESCRIPTION, rest.getDescription());
 	}
 }

@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import ar.edu.itba.it.paw.db.DishDatabase;
 import ar.edu.itba.it.paw.db.RestaurantDatabase;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.model.Comment;
@@ -10,42 +11,38 @@ import ar.edu.itba.it.paw.model.Restaurant;
 
 public class RestaurantManagerImpl implements RestaurantManager {
 
-	private RestaurantDatabase mDatabase;
+	private RestaurantDatabase mRestaurantDatabase;
+	private DishDatabase mDishDatabase;
 	
 	public RestaurantManagerImpl() {
-		mDatabase = RestaurantDatabase.getInstance();
+		mRestaurantDatabase = new RestaurantDatabase();
+		mDishDatabase = new DishDatabase();
 	}
 	
-	public Restaurant getRestaurant(int code) {
-		if (mDatabase == null) return null;
-		return mDatabase.getRestaurant(code);
+	public Restaurant getRestaurant(long id) {
+		return mRestaurantDatabase.getRestaurant(id);
 	}
 	
 	public List<Restaurant> getRestaurants() {
-		if (mDatabase == null) return null;
-		return mDatabase.getRestaurants();
+		return mRestaurantDatabase.getRestaurants();
 	}
 	
 	@Override
 	public List<Restaurant> getRestaurantsByManager(String email) {
-		if (mDatabase == null) return null;
-		return mDatabase.getRestaurantsByManager(email);
+		return mRestaurantDatabase.getManagersRestaurants(email);
 	}
 	
 	@Override
 	public void addRestaurant(Restaurant restaurant) {
-		if (mDatabase == null) return;
-		mDatabase.addRestaurant(restaurant);
+		mRestaurantDatabase.addRestaurant(restaurant);
 	}
 	
-	public void addComment(int code, Comment comment) {
-		if (mDatabase == null) return;
-		mDatabase.addComment(code, comment);
+	public void addComment(Comment comment) {
+		mRestaurantDatabase.addComment(comment);
 	}
 	
 	@Override
-	public void addDish(int code, Dish dish) {
-		if (mDatabase == null) return;
-		mDatabase.addDish(code, dish);
+	public void addDish(Dish dish) {
+		mDishDatabase.addDish(dish);
 	}
 }
