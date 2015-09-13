@@ -22,44 +22,129 @@
 	</div>
 </div>
 
-<div class="container">
-	<div class="well well-sm">
-		<strong>Platos</strong>
-	</div>
-	<form role="form" action="order" method="POST">
+<form role="form" action="order" method="POST">
+	<div class="container">
+		<div class="well well-sm">
+			<strong>Entradas</strong>
+		</div>
 		<div id="products" class="row list-group">
 			<c:forEach items="${restaurant.dishes}" var="dish">
-				<div class="item  col-xs-4 col-lg-4">
-					<div class="thumbnail">
-						<img class="group list-group-image"
-							src="http://placehold.it/400x250/000/fff" alt="" />
-						<div class="caption">
-							<h4 class="group inner list-group-item-heading">${dish.name}</h4>
-							<p class="group inner list-group-item-text">${dish.description}</p>
-							<div class="row">
-								<div class="col-md-offset-6 col-md-6">
-									Cantidad solicitada: <input type="number" class="form-control"
-										name="${dish.id}">
+				<c:if test="${dish.type == 'ENTRY' }">
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="thumbnail">
+							<img class="group list-group-image"
+								src="http://placehold.it/400x250/000/fff" alt="" />
+							<div class="caption">
+								<h4 class="group inner list-group-item-heading">${dish.name}</h4>
+								<p class="group inner list-group-item-text">${dish.description}</p>
+								<div class="row">
+									<div class="col-md-offset-6 col-md-6">
+										Cantidad solicitada: <input type="number" class="form-control"
+											name="${dish.id}">
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 			</c:forEach>
 		</div>
-		<input type="hidden" name="code" value="${restaurant.id}" />
-		<!-- <input type="submit" value="Realizar Pedido"> -->
-		<button type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
-			Pedido</button>
-	</form>
-</div>
-<br />
+	</div>
+	<div class="container">
+		<div class="well well-sm">
+			<strong>Plato Principal</strong>
+		</div>
+		<div id="products" class="row list-group">
+			<c:forEach items="${restaurant.dishes}" var="dish">
+				<c:if test="${dish.type == 'MAIN' }">
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="thumbnail">
+							<img class="group list-group-image"
+								src="http://placehold.it/400x250/000/fff" alt="" />
+							<div class="caption">
+								<h4 class="group inner list-group-item-heading">${dish.name}</h4>
+								<p class="group inner list-group-item-text">${dish.description}</p>
+								<div class="row">
+									<div class="col-md-offset-6 col-md-6">
+										Cantidad solicitada: <input type="number" class="form-control"
+											name="${dish.id}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="container">
+		<div class="well well-sm">
+			<strong>Postre</strong>
+		</div>
+		<div id="products" class="row list-group">
+			<c:forEach items="${restaurant.dishes}" var="dish">
+				<c:if test="${dish.type == 'DESSERT' }">
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="thumbnail">
+							<img class="group list-group-image"
+								src="http://placehold.it/400x250/000/fff" alt="" />
+							<div class="caption">
+								<h4 class="group inner list-group-item-heading">${dish.name}</h4>
+								<p class="group inner list-group-item-text">${dish.description}</p>
+								<div class="row">
+									<div class="col-md-offset-6 col-md-6">
+										Cantidad solicitada: <input type="number" class="form-control"
+											name="${dish.id}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="container">
+		<div class="well well-sm">
+			<strong>Bebidas</strong>
+		</div>
+		<div id="products" class="row list-group">
+			<c:forEach items="${restaurant.dishes}" var="dish">
+				<c:if test="${dish.type == 'DRINK' }">
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="thumbnail">
+							<img class="group list-group-image"
+								src="http://placehold.it/400x250/000/fff" alt="" />
+							<div class="caption">
+								<h4 class="group inner list-group-item-heading">${dish.name}</h4>
+								<p class="group inner list-group-item-text">${dish.description}</p>
+								<div class="row">
+									<div class="col-md-offset-6 col-md-6">
+										Cantidad solicitada: <input type="number" class="form-control"
+											name="${dish.id}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</c:forEach>
+		</div>
+	</div>
+	<input type="hidden" name="code" value="${restaurant.id}" />
+	<!-- <input type="submit" value="Realizar Pedido"> -->
+	<button type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
+		Pedido</button>
+</form>
 <div class="container">
 	<c:forEach items="${restaurant.comments}" var="comment">
 		<div class="row">
 			<div class=" col-md-4">
 				<div class="panel panel-default">
-					<div class="panel-heading"><!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>-->Calificacion: ${comment.rating}</div>
+					<div class="panel-heading">
+						<!--<span class="glyphicon glyphicon-star" aria-hidden="true"></span>-->
+						Calificacion: ${comment.rating}
+					</div>
 					<div class="panel-body">${comment.text}</div>
 				</div>
 			</div>
