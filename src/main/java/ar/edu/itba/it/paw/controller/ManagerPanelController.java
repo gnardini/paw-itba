@@ -20,8 +20,9 @@ public class ManagerPanelController extends ControlPanelController {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
-		RestaurantManager manager = new RestaurantManagerImpl();
-		req.setAttribute(RESTAURANTS, manager.getRestaurants());
+		RestaurantManager restaurantManager = new RestaurantManagerImpl();
+		SessionManager sessionManager = new SessionManagerImpl(req);
+		req.setAttribute(RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getEmail()));
 		req.getRequestDispatcher(JspLocationUtils.MANAGER_PANEL).forward(req, resp);
 	}
 	

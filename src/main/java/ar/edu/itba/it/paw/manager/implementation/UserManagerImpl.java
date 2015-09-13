@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import ar.edu.itba.it.paw.db.ManagerDatabase;
 import ar.edu.itba.it.paw.db.UserDatabase;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
@@ -9,25 +10,27 @@ import ar.edu.itba.it.paw.model.User.Role;
 
 public class UserManagerImpl implements UserManager {
 
-	private UserDatabase mDatabase;
+	private UserDatabase mUserDatabase;
+	private ManagerDatabase mManagerDatabase;
 	
 	public UserManagerImpl() {
-		mDatabase = new UserDatabase();
+		mUserDatabase = new UserDatabase();
+		mManagerDatabase = new ManagerDatabase();
 	}
 	
 	@Override
 	public User getUser(long id) {
-		return mDatabase.getUser(id);
+		return mUserDatabase.getUser(id);
 	}
 
 	@Override
 	public User getUser(String email) {
-		return mDatabase.getUser(email);
+		return mUserDatabase.getUser(email);
 	}
 
 	@Override
 	public List<User> getUsers(Role role) {
-		return mDatabase.getUsers(role);
+		return mUserDatabase.getUsers(role);
 	}
 
 	@Override
@@ -35,7 +38,14 @@ public class UserManagerImpl implements UserManager {
 		User user = getUser(id);
 		if (user == null) return false;
 		user.setRole(Role.MANAGER);
-		mDatabase.updateUserRole(user);
+		mUserDatabase.updateUserRole(user);
+		return true;
+	}
+	
+	@Override
+	public boolean assignManager(long managerId, long restaurantId) {
+		// TODO make some checks?
+		mManagerDatabase.assignManager(managerId, restaurantId);
 		return true;
 	}
 }

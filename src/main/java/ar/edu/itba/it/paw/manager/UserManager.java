@@ -14,4 +14,6 @@ public interface UserManager {
 	public List<User> getUsers(Role role);
 	
 	public boolean makeUserManager(long id);
+	
+	public boolean assignManager(long managerId, long restaurantId);
 }

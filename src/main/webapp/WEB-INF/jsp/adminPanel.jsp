@@ -5,6 +5,30 @@
 	<H2>Panel de Control</H2>
 
 	<%@ include file="message.jsp"%>
+	
+	<div class="container">
+		<h4>Asignar Gerente a Restoran</h4>
+		<form role="form" action="assignManager" method="POST">
+			<div class="form-group">
+			
+				<label for="managers">Seleccione gerente:</label> 
+				<select class="form-control" id="managers" name="managerId">
+					<c:forEach items="${managers}" var="manager">
+						<option value="${manager.id}">${manager.email}</option>
+					</c:forEach>
+				</select>
+				
+				<label for="restaurants">Seleccione restoran:</label> 
+				<select class="form-control" id="restaurants" name="restaurantId">
+					<c:forEach items="${restaurants}" var="restaurant">
+						<option value="${restaurant.id}">${restaurant.name}</option>
+					</c:forEach>
+				</select>
+				
+			</div>
+			<button type="submit" value="Registrar" class="btn btn-default">Asignar Gerente</button>
+		</form>
+	</div>
 
 	<div class="container">
 		<h4>Registrar Nuevo Gerente</h4>
@@ -21,35 +45,7 @@
 				Gerente</button>
 		</form>
 	</div>
-	<!-- 
 
-<form role="form" action="newManager" method="POST">
-	<div class="form-group">
-		<input type="email" class="form-control" placeholder="Mail"
-			name="email">
-	</div>
-	<div class="form-group">
-		<input type="password" class="form-control" placeholder="Contrasena"
-			name="password">
-	</div>
-	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Nombre"
-			name="firstName">
-	</div>
-	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Apellido"
-			name="lastName">
-	</div>
-	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Direccion"
-			name="address">
-	</div>
-	<div class="form-group">
-		<input type="text" class="form-control" placeholder="Edad" name="age">
-	</div>
-	<br /> <input type="submit" value="Registrar"><br />
-</form>
- -->
 	<div class="container">
 		<h3>Nuevo restaurant</h3>
 		<form role="form" action="newRestaurant" method="POST">

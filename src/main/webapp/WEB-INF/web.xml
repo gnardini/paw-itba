@@ -38,6 +38,10 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.NewManagerController</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>AssignManagerController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.AssignManagerController</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>NewRestaurantController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.NewRestaurantController</servlet-class>
 	</servlet>
@@ -82,6 +86,10 @@
 	<servlet-mapping>
 		<servlet-name>NewManagerController</servlet-name>
 		<url-pattern>/newManager</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AssignManagerController</servlet-name>
+		<url-pattern>/assignManager</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>NewRestaurantController</servlet-name>
