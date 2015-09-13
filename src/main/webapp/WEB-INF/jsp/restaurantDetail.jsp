@@ -143,7 +143,7 @@
 <div class="container">
 	<c:forEach items="${restaurant.comments}" var="comment">
 
-		<form role="form" action="comment" method="DELETE">
+		<form role="form" action="deleteComment" method="POST">
 		<input type="hidden" name="user_id" value="${comment.userId}">
 		<input type="hidden" name="restaurant_id" value="${restaurant.id}">
 			<div class="row">
@@ -166,7 +166,7 @@
 <c:if test="${can_comment}">
 	<h4>Nuevo Comentario:</h4>
 	<div class="container">
-		<form role="form" action="comment" method="POST">
+		<form role="form" action="newComment" method="POST">
 			Comentario: <input type="text" name="text"><br />
 			Puntuacion: <input type="number" name="rating"><br /> <br />
 			<input type="hidden" name="restaurant_id" value="${restaurant.id}">

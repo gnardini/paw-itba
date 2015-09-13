@@ -12,7 +12,7 @@ import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 
-public class CommentController extends BaseController {
+public class NewCommentController extends BaseController {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -25,15 +25,6 @@ public class CommentController extends BaseController {
 			//TODO mensajes lindos
 			req.setAttribute("message", "No se pudo crear el comentario");
 		}
-		resp.sendRedirect("/restaurant?code=" + req.getParameter("restaurant_id"));
-	}
-	
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		long userId = Long.valueOf(req.getParameter("userId"));
-		long restaurantId = Long.valueOf(req.getParameter("restaurantId"));
-		restaurantManager.deleteComment(userId, restaurantId);
 		resp.sendRedirect("/restaurant?code=" + req.getParameter("restaurant_id"));
 	}
 }
