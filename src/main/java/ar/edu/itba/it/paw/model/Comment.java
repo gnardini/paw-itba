@@ -10,8 +10,8 @@ public class Comment {
 	public Comment(long userId, long restaurantId, int rating, String text) {
 		this.userId = userId;
 		this.restaurantId = restaurantId;
-		this.text = text;
 		this.rating = rating;
+		this.text = text;
 	}
 	
 	public long getUserId() {

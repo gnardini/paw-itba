@@ -18,12 +18,12 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.LogOutController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>Restaurants</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.Restaurants</servlet-class>
+		<servlet-name>RestaurantsController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.RestaurantsController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>RestaurantDetail</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.controller.RestaurantDetail</servlet-class>
+		<servlet-name>RestaurantDetailController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.RestaurantDetailController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AdminPanelController</servlet-name>
@@ -44,6 +44,10 @@
 	<servlet>
 		<servlet-name>NewRestaurantController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.NewRestaurantController</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>NewCommentController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.NewCommentController</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderController</servlet-name>
@@ -68,11 +72,11 @@
 		<url-pattern>/css/*</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>Restaurants</servlet-name>
+		<servlet-name>RestaurantsController</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>RestaurantDetail</servlet-name>
+		<servlet-name>RestaurantDetailController</servlet-name>
 		<url-pattern>/restaurant</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
@@ -94,6 +98,10 @@
 	<servlet-mapping>
 		<servlet-name>NewRestaurantController</servlet-name>
 		<url-pattern>/newRestaurant</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NewCommentController</servlet-name>
+		<url-pattern>/newComment</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>OrderController</servlet-name>

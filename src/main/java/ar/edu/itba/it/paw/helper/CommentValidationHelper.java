@@ -24,7 +24,7 @@ public class CommentValidationHelper {
 		if (text == "" 
 				|| ratingNumber < 1
 				|| ratingNumber > 5) return false;
-		mComment = new Comment(mUserId, Integer.valueOf(mRequest.getParameter("code")), ratingNumber, text);
+		mComment = new Comment(mUserId, Long.valueOf(mRequest.getParameter("restaurant_id")), ratingNumber, text);
 		return true;
 	}
 	

@@ -14,6 +14,8 @@ public interface RestaurantManager {
 	
 	public List<Restaurant> getRestaurantsByManager(String email);
 	
+	public List<Comment> getRestaurantComments(long restaurantId);
+	
 	public List<Dish> getRestaurantDishes(long restaurantId);
 	
 	public void addComment(Comment comment);
@@ -21,4 +23,6 @@ public interface RestaurantManager {
 	public void addDish(Dish dish);
 	
 	public void addRestaurant(Restaurant restaurant);
+	
+	public boolean canUserComment(long userId, long restaurantId);
 }

@@ -12,7 +12,7 @@ import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
-public class Restaurants extends BaseController {
+public class RestaurantsController extends BaseController {
 	
 	private static final String RESTAURANTS = "restaurants";
 	
