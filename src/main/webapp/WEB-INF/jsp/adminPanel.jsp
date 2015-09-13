@@ -11,13 +11,12 @@
 		<form role="form" action="newManager" method="POST">
 			<div class="form-group">
 				<label for="users">Seleccione de lista de usuarios:</label> 
-				<select class="form-control" id="users">
+				<select class="form-control" id="users" name="userId">
 					<c:forEach items="${users}" var="user">
 						<option value="${user.id}">${user.email}</option>
 					</c:forEach>
 				</select>
 			</div>
-			<input type="hidden" name="userId" value="">   
 			<button type="submit" value="Registrar" class="btn btn-default">Registrar
 				Gerente</button>
 		</form>
