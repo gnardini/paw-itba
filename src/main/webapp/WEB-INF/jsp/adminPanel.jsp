@@ -10,10 +10,10 @@
 		<h4>Registrar Nuevo Gerente</h4>
 		<form role="form" action="newManager" method="POST">
 			<div class="form-group">
-				<label for="users">Seleccione de lista de usuarios:</label> <select
-					class="form-control" id="users">
+				<label for="users">Seleccione de lista de usuarios:</label> 
+				<select class="form-control" id="users">
 					<c:forEach items="${users}" var="user">
-						<option>${user.email}</option>
+						<option value="${user.id}">${user.email}</option>
 					</c:forEach>
 				</select>
 			</div>

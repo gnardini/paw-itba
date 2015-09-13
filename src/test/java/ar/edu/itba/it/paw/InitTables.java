@@ -32,5 +32,4 @@ public class InitTables extends Database<String> {
 
 	@Override protected String generate(ResultSet rs) throws SQLException { return null; }
 	@Override protected void storeData(PreparedStatement pst, String elem) throws SQLException { }
-	@Override protected void updateData(PreparedStatement pst, String elem) throws SQLException { }
 }

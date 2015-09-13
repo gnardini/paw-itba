@@ -72,16 +72,4 @@ public class RestaurantDatabase extends Database<Restaurant> {
 		pst.setString(MENU_TYPE - 1, rest.getMenuType());
 		pst.setString(DESCRIPTION - 1, rest.getDescription());
 	}
-	
-	@Override
-	protected void updateData(PreparedStatement pst, Restaurant rest) throws SQLException {
-		pst.setLong(ID, rest.getId());
-		pst.setString(NAME, rest.getName());
-		pst.setString(ADDRESS, rest.getAddress());
-		pst.setString(OPENING_HOURS, rest.getOpeningHours());
-		pst.setInt(DELIVERY_COST, rest.getDeliveryCost());
-		pst.setInt(MIN_COST, rest.getMinCost());
-		pst.setString(MENU_TYPE, rest.getMenuType());
-		pst.setString(DESCRIPTION, rest.getDescription());
-	}
 }

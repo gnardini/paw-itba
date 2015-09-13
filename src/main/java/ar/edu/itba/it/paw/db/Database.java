@@ -50,15 +50,14 @@ public abstract class Database<T> {
 		return insert(sql, elem, true);
 	}
 	
-	protected T update(String sql, T elem) {
-		return insert(sql, elem, false);
+	protected T update(String sql) {
+		return insert(sql, null, false);
 	}
 	
 	private T insert(String sql, T elem, boolean newEntry) {
 		try {
 			PreparedStatement pst =  mDbConnection.prepareStatement(sql);
 			if (newEntry) storeData(pst, elem);
-			else update(sql, elem);
 			pst.executeUpdate();
 			pst.close();
 			return elem;
@@ -71,6 +70,4 @@ public abstract class Database<T> {
 	protected abstract T generate(ResultSet rs) throws SQLException;
 	
 	protected abstract void storeData(PreparedStatement pst, T elem) throws SQLException;
-	
-	protected abstract void updateData(PreparedStatement pst, T elem) throws SQLException;
 }

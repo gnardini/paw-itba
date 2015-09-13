@@ -16,8 +16,5 @@ public abstract class ControlPanelController extends BaseController {
 			resp.sendRedirect("/restaurants");
 			return;
 		}
-		req.getRequestDispatcher(getJspLocation()).forward(req, resp);
 	}
-	
-	protected abstract String getJspLocation();
 }

@@ -20,8 +20,4 @@ public class OrderDatabase extends Database<Order> {
 	@Override
 	protected void storeData(PreparedStatement pst, Order elem) throws SQLException {
 	}
-
-	@Override
-	protected void updateData(PreparedStatement pst, Order elem) throws SQLException {
-	}
 }

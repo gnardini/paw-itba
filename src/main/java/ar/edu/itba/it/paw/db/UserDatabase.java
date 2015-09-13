@@ -37,8 +37,10 @@ public class UserDatabase extends Database<User> {
 		return insert("insert into users (firstname, lastname, address, email, birthdate, pass, type) values(?, ?, ?, ?, ?, ?, ?)", user);
 	}
 	
-	public void updateUser(User user) {
-		insert("insert into users (id, firstname, lastname, address, email, birthdate, pass, type) values(?, ?, ?, ?, ?, ?, ?, ?)", user);
+	public void updateUserRole(User user) {
+		update("update users "
+				+ "set type='" + user.getRole().toString().toLowerCase() + "'"
+				+ "where id='" + user.getId() + "';");
 	}
 	
 	protected User generate(ResultSet rs) throws SQLException {
@@ -61,17 +63,5 @@ public class UserDatabase extends Database<User> {
 		pst.setDate(BIRTHDATE - 1, new Date(user.getBirthdate().getTime()));
 		pst.setString(ROLE - 1, user.getRole().toString());
 		pst.setString(PASSWORD - 1, user.getPassword());
-	}
-	
-	@Override
-	protected void updateData(PreparedStatement pst, User user) throws SQLException {
-		pst.setLong(ID, user.getId());
-		pst.setString(FIRST_NAME, user.getFirstName());
-		pst.setString(LAST_NAME, user.getLastName());
-		pst.setString(ADDRESS, user.getAddress());
-		pst.setString(EMAIL, user.getEmail());
-		pst.setDate(BIRTHDATE, new Date(user.getBirthdate().getTime()));
-		pst.setString(ROLE, user.getRole().toString());
-		pst.setString(PASSWORD, user.getPassword());
 	}
 }

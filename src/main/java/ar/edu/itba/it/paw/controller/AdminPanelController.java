@@ -19,10 +19,6 @@ public class AdminPanelController extends ControlPanelController {
 		if (!(Boolean) req.getAttribute(LOGGED)) return;
 		UserManager manager = new UserManagerImpl();
 		req.setAttribute("users", manager.getUsers(Role.NORMAL));
-	}
-	
-	@Override
-	protected String getJspLocation() {
-		return JspLocationUtils.ADMIN_PANEL;
+		req.getRequestDispatcher(JspLocationUtils.ADMIN_PANEL).forward(req, resp);
 	}
 }

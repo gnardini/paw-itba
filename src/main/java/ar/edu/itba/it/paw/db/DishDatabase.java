@@ -21,8 +21,4 @@ public class DishDatabase extends Database<Dish> {
 	protected void storeData(PreparedStatement pst, Dish elem) throws SQLException {
 		
 	}
-	
-	@Override
-	protected void updateData(PreparedStatement pst, Dish elem) throws SQLException {		
-	}
 }

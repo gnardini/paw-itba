@@ -35,7 +35,7 @@ public class UserManagerImpl implements UserManager {
 		User user = getUser(id);
 		if (user == null) return false;
 		user.setRole(Role.MANAGER);
-		mDatabase.updateUser(user);
+		mDatabase.updateUserRole(user);
 		return true;
 	}
 }

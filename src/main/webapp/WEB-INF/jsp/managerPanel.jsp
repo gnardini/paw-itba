@@ -10,7 +10,7 @@
 
 <c:forEach items="${restaurants}" var="restaurant">
 
-	<a href="restaurant?code=${restaurant.code}">${restaurant.name}</a> <br/>
+	<a href="restaurant?code=${restaurant.id}">${restaurant.name}</a> <br/>
 
 	<b>Nuevo Plato:</b>
 	<div class="container">
@@ -33,7 +33,7 @@
 				 </select>
 			</div>
 			<br/>
-			<input type="hidden" name="code" value="${restaurant.code}">
+			<input type="hidden" name="code" value="${restaurant.id}">
 			<input type="submit" value="Agregar"><br/>
 		</form>
 	</div>

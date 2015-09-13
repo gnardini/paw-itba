@@ -8,16 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.helper.DishValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
+import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
+import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.manager.implementation.UserManagerImpl;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
 public class ManagerPanelController extends ControlPanelController {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		super.doGet(req, resp);
 		RestaurantManager manager = new RestaurantManagerImpl();
 		req.setAttribute(RESTAURANTS, manager.getRestaurants());
-		super.doGet(req, resp);
+		req.getRequestDispatcher(JspLocationUtils.MANAGER_PANEL).forward(req, resp);
 	}
 	
 	@Override
@@ -32,10 +37,5 @@ public class ManagerPanelController extends ControlPanelController {
 			setMessage(req, "No se pudo agregar un nuevo plato");
 		}
 		doGet(req, resp);
-	}
-	
-	@Override
-	protected String getJspLocation() {
-		return JspLocationUtils.MANAGER_PANEL;
 	}
 }
