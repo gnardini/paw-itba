@@ -18,7 +18,7 @@ public class AdminPanelController extends ControlPanelController {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
-		if (!(Boolean) req.getAttribute(LOGGED)) return;
+		if (!mPermissionGranted) return;
 		UserManager userManager = new UserManagerImpl();
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
 		req.setAttribute("users", userManager.getUsers(Role.NORMAL));

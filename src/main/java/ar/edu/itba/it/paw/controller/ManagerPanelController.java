@@ -19,6 +19,7 @@ public class ManagerPanelController extends ControlPanelController {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
+		if (!mPermissionGranted) return;
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
 		SessionManager sessionManager = new SessionManagerImpl(req);
 		req.setAttribute(RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getEmail()));

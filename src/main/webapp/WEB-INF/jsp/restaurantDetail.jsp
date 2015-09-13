@@ -145,6 +145,7 @@
 
 		<form role="form" action="comment" method="DELETE">
 		<input type="hidden" name="user_id" value="${comment.userId}">
+		<input type="hidden" name="restaurant_id" value="${restaurant.id}">
 			<div class="row">
 				<div class=" col-md-4">
 					<div class="panel panel-default">
