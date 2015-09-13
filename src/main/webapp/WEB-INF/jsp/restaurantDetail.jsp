@@ -151,9 +151,9 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-10">Calificacion: ${comment.rating}</div>
+								<div class="col-md-10 vertical-align">Calificacion: ${comment.rating}</div>
 								<c:if test="${admin}">
-									<div class="col-md-2 cross-button">
+									<div class="col-md-2 align-right">
 										<input type="submit" value="X">
 									</div>
 								</c:if>

@@ -3,6 +3,10 @@
 	margin-top: 10px;  
 }
 
-.cross-button{
+.align-right{
 	text-aling: right;
+}
+
+.vertical-align{
+	vertical-align: middle;
 }

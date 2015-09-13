@@ -51,10 +51,31 @@
 					<input type="text" class="form-control" placeholder="Dirección"
 						name="address">
 				</div>
-				<div class="form-group">
-					<input type="date" class="form-control" placeholder="Fecha de Nacimiento"
-						name="age">
+
+				<div class="row">
+					<div class="col-md-4">
+						<label>Fecha de Nacimiento:</label>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1" max="31"
+								placeholder="Dia" name="day">
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1" max="12"
+								placeholder="Mes" name="month">
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1900"
+								placeholder="Año" name="year">
+						</div>
+					</div>
 				</div>
+
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>
 			</form>
 		</div>
