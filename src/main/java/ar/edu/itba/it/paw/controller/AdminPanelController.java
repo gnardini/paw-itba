@@ -26,4 +26,9 @@ public class AdminPanelController extends ControlPanelController {
 		req.setAttribute("restaurants", restaurantManager.getRestaurants());
 		req.getRequestDispatcher(JspLocationUtils.ADMIN_PANEL).forward(req, resp);
 	}
+	
+	@Override
+	protected Role getRolePanel() {
+		return Role.ADMIN;
+	}
 }

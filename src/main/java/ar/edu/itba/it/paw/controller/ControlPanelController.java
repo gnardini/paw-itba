@@ -6,15 +6,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.model.User.Role;
+
 public abstract class ControlPanelController extends BaseController {
 	
 	protected static final String RESTAURANTS = "restaurants";
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
 		super.doGet(req, resp);
-		if (!(Boolean) req.getAttribute(LOGGED)) {
+		SessionManager sessionManager = new SessionManagerImpl(req);
+		
+		
+		if (!(Boolean) req.getAttribute(LOGGED)
+				|| sessionManager.getUser().getRole() != getRolePanel()) 
 			resp.sendRedirect("/restaurants");
-			return;
-		}
 	}
+	
+	protected abstract Role getRolePanel();
 }

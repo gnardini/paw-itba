@@ -11,6 +11,7 @@ import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
 public class ManagerPanelController extends ControlPanelController {
@@ -35,5 +36,10 @@ public class ManagerPanelController extends ControlPanelController {
 			setMessage(req, "No se pudo agregar un nuevo plato");
 		}
 		doGet(req, resp);
+	}
+	
+	@Override
+	protected Role getRolePanel() {
+		return Role.MANAGER;
 	}
 }
