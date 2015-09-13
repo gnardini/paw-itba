@@ -14,6 +14,8 @@ public interface RestaurantManager {
 	
 	public List<Restaurant> getRestaurantsByManager(String email);
 	
+	public List<Dish> getRestaurantDishes(long restaurantId);
+	
 	public void addComment(Comment comment);
 	
 	public void addDish(Dish dish);

@@ -33,6 +33,11 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
+	public List<Dish> getRestaurantDishes(long restaurantId) {
+		return mDishDatabase.getRestaurantDishes(restaurantId);
+	}
+	
+	@Override
 	public void addRestaurant(Restaurant restaurant) {
 		mRestaurantDatabase.addRestaurant(restaurant);
 	}

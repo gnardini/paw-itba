@@ -17,6 +17,7 @@ import ar.edu.itba.it.paw.util.JspLocationUtils;
 public class RestaurantDetail extends BaseController {
 	
 	private static final String RESTAURANT = "restaurant";
+	private static final String DISHES = "dishes";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,6 +25,7 @@ public class RestaurantDetail extends BaseController {
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
 		// TODO validate stuff
 		Restaurant restaurant = restaurantManager.getRestaurant(Integer.valueOf(req.getParameter("code")));
+		restaurant.setDishes(restaurantManager.getRestaurantDishes(restaurant.getId()));
 		req.setAttribute(RESTAURANT, restaurant);
 		req.getRequestDispatcher(JspLocationUtils.RESTAURANT_DETAIL).forward(req, resp);
 	}

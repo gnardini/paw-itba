@@ -36,11 +36,11 @@ public class RestaurantDatabase extends Database<Restaurant> {
 				+ "where restaurant.id = managers.restaurantid");
 	}
 	
-	// TODO: Move these to their respective classes
 	public void addRestaurant(Restaurant restaurant) {
 		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
 	}
-	
+
+	// TODO: Move these to their respective classes
 	public void addComment(Comment comment) {
 		System.out.println("NEW COMMENT");
 	}

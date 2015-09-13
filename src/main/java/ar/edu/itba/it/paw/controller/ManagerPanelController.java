@@ -9,10 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.helper.DishValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
-import ar.edu.itba.it.paw.manager.implementation.UserManagerImpl;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 
 public class ManagerPanelController extends ControlPanelController {
@@ -31,7 +29,6 @@ public class ManagerPanelController extends ControlPanelController {
 		RestaurantManager manager = new RestaurantManagerImpl();
 		DishValidationHelper validator = new DishValidationHelper(req);
 		if (validator.isValidDish()) {
-			//TODO validate maybe?
 			manager.addDish(validator.getDish());
 			setMessage(req, "Nuevo plato agregado con exito");
 		} else {

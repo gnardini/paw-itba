@@ -9,22 +9,36 @@ public class Dish {
 		DRINK;
 	}
 	
-	int id;
+	long id;
+	long restaurantId;
 	String name;
 	String description;
 	int price;
 	Type type;
 	
-	public Dish(int id, String name, String description, int price, Type type) {
+	public Dish(long id, long restaurantId, String name, String description, int price, Type type) {
 		this.id = id;
+		this.restaurantId = restaurantId;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.type = type;
+	}
+	
+	public Dish(long restaurantId, String name, String description, int price, Type type) {
+		this.restaurantId = restaurantId;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.type = type;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
+	}
+	
+	public long getRestaurantId() {
+		return restaurantId;
 	}
 	
 	public String getName() {

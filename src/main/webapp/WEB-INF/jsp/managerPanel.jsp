@@ -2,7 +2,7 @@
 
 <%@ include file="header.jsp" %>
 
-<H3>Panel de Control</H3>
+<H3>Panel de Control</H3>age
 
 <%@ include file="message.jsp" %>
 
@@ -19,7 +19,7 @@
 				 <input type="text" class="form-control" placeholder="Nombre" name="name">
 			</div>
 			<div class="form-group">
-				 <input type="text" class="form-control" placeholder="Descripcion" name="age">
+				 <input type="text" class="form-control" placeholder="Descripcion" name="description">
 			</div>
 			<div class="form-group">
 				 <input type="text" class="form-control" placeholder="Precio" name="price">
