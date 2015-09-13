@@ -32,7 +32,7 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	
 	public List<Restaurant> getManagersRestaurants(String email) {
 		return doListQuery("select restaurant.id, name, address, opening_hours, delivery_cost, min_cost, menu_type, description "
-				+ "from restaurant join managers "
+				+ "from restaurant, managers "
 				+ "where restaurant.id = managers.restaurantid");
 	}
 	
