@@ -29,6 +29,12 @@ public class CommentDatabase extends Database<Comment> {
 				+ " and restaurantid=" + restaurantId);
 	}
 	
+	public void deleteComment(long userId, long restaurantId) {
+		delete("delete from comments "
+				+ "where userid=" + userId 
+				+ " and restaurantid=" + restaurantId);
+	}
+	
 	@Override
 	protected Comment generate(ResultSet rs) throws SQLException {
 		return new Comment(

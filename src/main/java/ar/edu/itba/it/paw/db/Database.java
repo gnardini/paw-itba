@@ -46,6 +46,15 @@ public abstract class Database<T> {
 		return null;
 	}
 	
+	protected void delete(String sql) {
+		try {
+			Statement statement = mDbConnection.createStatement();
+			statement.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	protected T insert(String sql, T elem) {
 		return insert(sql, elem, true);
 	}

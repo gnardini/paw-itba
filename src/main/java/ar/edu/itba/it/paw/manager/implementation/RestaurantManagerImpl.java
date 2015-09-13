@@ -63,4 +63,9 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	public boolean canUserComment(long userId, long restaurantId) {
 		return mCommentDatabase.getUserComment(userId, restaurantId) == null;
 	}
+	
+	@Override
+	public void deleteComment(long userId, long restaurantId) {
+		mCommentDatabase.deleteComment(userId, restaurantId);
+	}
 }

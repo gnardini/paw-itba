@@ -25,4 +25,6 @@ public interface RestaurantManager {
 	public void addRestaurant(Restaurant restaurant);
 	
 	public boolean canUserComment(long userId, long restaurantId);
+	
+	public void deleteComment(long userId, long restaurantId);
 }
