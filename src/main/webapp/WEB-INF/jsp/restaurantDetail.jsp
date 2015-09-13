@@ -39,7 +39,7 @@
 								<p class="group inner list-group-item-text">${dish.description}</p>
 								<div class="row">
 									<div class="col-md-offset-6 col-md-6">
-										Cantidad solicitada: <input type="number" class="form-control"
+										Cantidad solicitada: <input type="number" class="form-control" min="0"
 											name="${dish.id}">
 									</div>
 								</div>
@@ -66,7 +66,7 @@
 								<p class="group inner list-group-item-text">${dish.description}</p>
 								<div class="row">
 									<div class="col-md-offset-6 col-md-6">
-										Cantidad solicitada: <input type="number" class="form-control"
+										Cantidad solicitada: <input type="number" class="form-control"  min="0"
 											name="${dish.id}">
 									</div>
 								</div>
@@ -93,7 +93,7 @@
 								<p class="group inner list-group-item-text">${dish.description}</p>
 								<div class="row">
 									<div class="col-md-offset-6 col-md-6">
-										Cantidad solicitada: <input type="number" class="form-control"
+										Cantidad solicitada: <input type="number" class="form-control"  min="0"
 											name="${dish.id}">
 									</div>
 								</div>
@@ -120,7 +120,7 @@
 								<p class="group inner list-group-item-text">${dish.description}</p>
 								<div class="row">
 									<div class="col-md-offset-6 col-md-6">
-										Cantidad solicitada: <input type="number" class="form-control"
+										Cantidad solicitada: <input type="number" class="form-control"  min="0"
 											name="${dish.id}">
 									</div>
 								</div>
