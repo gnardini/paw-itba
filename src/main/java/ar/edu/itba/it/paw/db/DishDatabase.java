@@ -22,7 +22,7 @@ public class DishDatabase extends Database<Dish> {
 	}
 	
 	public List<Dish> getRestaurantDishes(long restaurantId) {
-		return doListQuery("select * from dish"
+		return doListQuery("select * from dish "
 				+ "where dish.restaurantid=" + restaurantId);
 	}
 	
@@ -34,7 +34,7 @@ public class DishDatabase extends Database<Dish> {
 				rs.getString(NAME),
 				rs.getString(DESCRIPTION),
 				rs.getInt(PRICE),
-				DishTypeUtils.getDishTypeFromString(rs.getString(TYPE)));
+				DishTypeUtils.getDishTypeFromString(rs.getString(TYPE).toLowerCase()));
 	}
 	
 	@Override

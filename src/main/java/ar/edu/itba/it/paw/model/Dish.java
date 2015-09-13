@@ -7,6 +7,10 @@ public class Dish {
 		MAIN,
 		DESSERT,
 		DRINK;
+		
+		public String toString() {
+			return name();
+		}
 	}
 	
 	long id;
