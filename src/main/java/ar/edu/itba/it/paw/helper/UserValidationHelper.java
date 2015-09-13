@@ -33,6 +33,7 @@ public class UserValidationHelper {
 				|| password == "")
 			return false;
 		// TODO check birthdate value
+		System.out.println(birthdate);
 		mUser = new User(0, firstName, lastName, address, email, new Date(), role, password);
 		return true;
 	}

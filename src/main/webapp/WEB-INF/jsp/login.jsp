@@ -52,7 +52,7 @@
 						name="address">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Edad"
+					<input type="date" class="form-control" placeholder="Fecha de Nacimiento"
 						name="age">
 				</div>
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>
