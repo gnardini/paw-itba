@@ -40,7 +40,7 @@
 						<option>Bebida</option>
 					</select>
 				</div>
-				<button type="submit" value="Agregar" class="btn btn-default">Agregar Plato</button>
+				<button type="submit" value="Agregar" class="btn btn-default">Agregar Plato</button>	
 			</form>
 		</div>
 	</div>
