@@ -29,9 +29,9 @@ public class SessionManagerImpl implements SessionManager {
 	
 	public boolean login(String email, String password) {
 		User user = mDatabase.getUser(email);
-		if (!user.getPassword().equals(password)) return false;
+		if (user == null || !user.getPassword().equals(password)) return false;
 		setUserInSession(user);
-		return user != null;
+		return true;
 	}
 	
 	public boolean signup(User user) {
