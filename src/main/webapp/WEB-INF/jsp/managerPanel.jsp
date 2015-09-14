@@ -44,7 +44,7 @@
 			</form>
 		</div>
 	</div>
-	
+	<br/>
 	
 	<%@ include file="orders.jsp"%>
 </div>

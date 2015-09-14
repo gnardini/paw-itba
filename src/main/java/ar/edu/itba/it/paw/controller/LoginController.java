@@ -16,7 +16,9 @@ public class LoginController extends Authentication {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SessionManager manager = new SessionManagerImpl(req);
 		if (!manager.login(req.getParameter("email"), req.getParameter("password"))) {
-			req.setAttribute("message", "Usuario o contrasena erroneos");
+			boolean error=true;
+			req.setAttribute("message", "Usuario o contraseña erróneos");
+			req.setAttribute("error", error);
 		}
 		doGet(req, resp);
 	}

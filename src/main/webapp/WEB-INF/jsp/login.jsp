@@ -7,9 +7,8 @@
 	<li class="active">Iniciar Sesión</li>
 </ol>
 
-<c:if test="${message != null}">
-   ${message}
-</c:if>
+<%@ include file="message.jsp"%> 
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">

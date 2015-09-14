@@ -78,7 +78,7 @@
 				Restaurant</button>
 		</form>
 	</div>
-		
+	<br/>	
 	<%@ include file="orders.jsp"%>	
 </div>
 
