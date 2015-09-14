@@ -31,7 +31,7 @@ public class UserDatabase extends Database<User> {
 	}
 	
 	public List<User> getUsers(Role role) {
-		return doListQuery("select * from users where type='" + role.toString().toLowerCase() + "'");
+		return doListQuery("select * from users where lower(type)='" + role.toString().toLowerCase() + "'");
 	}
 	
 	public User storeUser(User user) {
@@ -53,7 +53,7 @@ public class UserDatabase extends Database<User> {
 				rs.getInt(DAY),
 				rs.getInt(MONTH),
 				rs.getInt(YEAR),
-				RoleUtils.getRoleFromString(rs.getString(ROLE)),
+				RoleUtils.getRoleFromString(rs.getString(ROLE).toLowerCase()),
 				rs.getString(PASSWORD));
 	}
 	
