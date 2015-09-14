@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class User {
 

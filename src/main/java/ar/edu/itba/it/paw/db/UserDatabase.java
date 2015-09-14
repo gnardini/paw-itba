@@ -60,7 +60,7 @@ public class UserDatabase extends Database<User> {
 		pst.setString(LAST_NAME - 1, user.getLastName());
 		pst.setString(ADDRESS - 1, user.getAddress());
 		pst.setString(EMAIL - 1, user.getEmail());
-		pst.setDate(BIRTHDATE - 1, new Date(user.getBirthdate().getTime()));
+		pst.setDate(BIRTHDATE - 1, user.getBirthdate());
 		pst.setString(ROLE - 1, user.getRole().toString());
 		pst.setString(PASSWORD - 1, user.getPassword());
 	}

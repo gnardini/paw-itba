@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
-import ar.edu.itba.it.paw.util.NumberUtils;
+import ar.edu.itba.it.paw.util.DateUtils;
 
 public class UserValidationHelper {
 
@@ -22,19 +22,22 @@ public class UserValidationHelper {
 		String lastName = mRequest.getParameter("lastName");
 		String address = mRequest.getParameter("address");
 		String email = mRequest.getParameter("email");
-		String birthdate = mRequest.getParameter("age");
+		String day = mRequest.getParameter("day");
+		String month = mRequest.getParameter("month");
+		String year = mRequest.getParameter("year");
 		String password = mRequest.getParameter("password");
+				
 		if (firstName == "" 
 				|| lastName == ""
 				|| address == ""
 				|| email == ""
-				|| birthdate == ""
-				|| !NumberUtils.isInteger(birthdate)
+				|| day == ""
+				|| month == ""
+				|| year == ""
+				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))
 				|| password == "")
 			return false;
-		// TODO check birthdate value
-		System.out.println(birthdate);
-		mUser = new User(0, firstName, lastName, address, email, new Date(), role, password);
+		mUser = new User(0, firstName, lastName, address, email, new java.sql.Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day) ), role, password);
 		return true;
 	}
 	
