@@ -70,6 +70,11 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
+	public void updateRestaurant(Restaurant restaurant) {
+		mRestaurantDatabase.updateRestaurant(restaurant);
+	}
+	
+	@Override
 	public void deleteRestaurant(long restaurantId) {
 		mRestaurantDatabase.deleteRestaurant(restaurantId);
 	}

@@ -53,6 +53,10 @@
 		<servlet-name>NewCommentController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.NewCommentController</servlet-class>
 	</servlet>
+		<servlet>
+		<servlet-name>EditRestaurantController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.EditRestaurantController</servlet-class>
+	</servlet>
 	<servlet>
 		<servlet-name>DeleteRestaurantController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.DeleteRestaurantController</servlet-class>
@@ -118,6 +122,10 @@
 	<servlet-mapping>
 		<servlet-name>NewCommentController</servlet-name>
 		<url-pattern>/newComment</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EditRestaurantController</servlet-name>
+		<url-pattern>/editRestaurant</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeleteRestaurantController</servlet-name>

@@ -12,6 +12,8 @@ import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.OrderManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.Order;
+import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class OrderController extends BaseController {
 	
@@ -19,11 +21,15 @@ public class OrderController extends BaseController {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		OrderManager orderManager = new OrderManagerImpl();
 		SessionManager sessionManager = new SessionManagerImpl(req);
+		if (!sessionManager.isLogged()) {
+			resp.sendRedirect(Page.LOGIN);
+			return;
+		}
 		OrderValidationHelper validator = new OrderValidationHelper(req, sessionManager.getUser().getId());
 		if (validator.isValid()) {
 			Order order = validator.getOrder();
 			orderManager.addOrder(order);
 		}
-		resp.sendRedirect("/restaurant?code=" + req.getParameter("restaurant_id"));
+		resp.sendRedirect(String.format(Page.RESTAURANT_DETAIL, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID))));
 	}
 }

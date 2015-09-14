@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.User;
 
 public class RestaurantDatabase extends Database<Restaurant> {
 	
@@ -38,6 +39,18 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	
 	public void addRestaurant(Restaurant restaurant) {
 		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
+	}
+	
+	public void updateRestaurant(Restaurant restaurant) {
+		update("update restaurant "
+				+ "set name='" + restaurant.getName() + "',"
+				+ "address='" + restaurant.getAddress() + "',"
+				+ "opening_hours='" + restaurant.getOpeningHours() + "',"
+				+ "delivery_cost='" + restaurant.getDeliveryCost() + "',"
+				+ "min_cost='" + restaurant.getMinCost() + "',"
+				+ "menu_type='" + restaurant.getMenuType() + "',"
+				+ "description='" + restaurant.getDescription() + "'"
+				+ " where id=" + restaurant.getId() + ";");
 	}
 	
 	public void deleteRestaurant(long restaurantId) {
