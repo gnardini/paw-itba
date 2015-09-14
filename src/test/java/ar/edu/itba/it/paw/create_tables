@@ -47,7 +47,8 @@ create table orderdetail
 (
 orderid integer not null,
 name varchar(30) not null,
-price integer,
+amount integer not null,
+price integer not null,
 foreign key (orderid) references orders(id)
 );
 

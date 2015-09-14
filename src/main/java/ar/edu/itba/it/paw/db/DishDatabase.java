@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.db;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 import ar.edu.itba.it.paw.model.Dish;
@@ -19,6 +20,10 @@ public class DishDatabase extends Database<Dish> {
 	
 	public void addDish(Dish dish) {
 		insert("insert into dish (restaurantid, name, description, price, type) values(?, ?, ?, ?, ?)", dish);
+	}
+	
+	public Dish getDish(long dishId) {
+		return doQuery("select * from dish where id=" + dishId);
 	}
 	
 	public List<Dish> getRestaurantDishes(long restaurantId) {

@@ -60,6 +60,11 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
+	public Dish getDish(long dishId) {
+		return mDishDatabase.getDish(dishId);
+	}
+	
+	@Override
 	public boolean canUserComment(long userId, long restaurantId) {
 		return mCommentDatabase.getUserComment(userId, restaurantId) == null;
 	}

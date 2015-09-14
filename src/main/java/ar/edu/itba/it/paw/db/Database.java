@@ -59,6 +59,23 @@ public abstract class Database<T> {
 		return insert(sql, elem, true);
 	}
 	
+	protected long insertGetId(String sql, T elem) {
+		try {
+			PreparedStatement pst =  mDbConnection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			storeData(pst, elem);
+			pst.executeUpdate();
+			ResultSet rs = pst.getGeneratedKeys();
+			long key = 0;
+			if (rs.next()) key = rs.getLong(1);
+			rs.close();
+			pst.close();
+			return key;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 	protected T update(String sql) {
 		return insert(sql, null, false);
 	}
