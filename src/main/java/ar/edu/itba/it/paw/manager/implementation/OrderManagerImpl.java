@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.manager.implementation;
 
+import java.util.List;
+
 import ar.edu.itba.it.paw.db.OrderDatabase;
 import ar.edu.itba.it.paw.db.OrderDetailDatabase;
 import ar.edu.itba.it.paw.manager.OrderManager;
@@ -23,5 +25,12 @@ public class OrderManagerImpl implements OrderManager {
 			detail.setOrderId(orderId);
 			mOrderDetailDatabase.storeOrderDetail(detail);
 		}
+	}
+	
+	@Override
+	public List<Order> getOrders(long userId) {
+		List<Order> orders = mOrderDatabase.getOrders(userId);
+		for (Order order : orders) order.setDetails(mOrderDetailDatabase.getOrderDetails(order.getId()));
+		return orders;
 	}
 }

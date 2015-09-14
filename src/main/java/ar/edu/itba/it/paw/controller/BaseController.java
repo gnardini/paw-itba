@@ -18,6 +18,7 @@ public class BaseController extends HttpServlet {
 	protected static final String LOGGED = "logged";
 	protected static final String ADMIN = "admin";
 	protected static final String MANAGER = "manager";
+	protected static final String NORMAL = "normal";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,6 +28,7 @@ public class BaseController extends HttpServlet {
 			User user = manager.getUser();
 			req.setAttribute(ADMIN, user.getRole() == Role.ADMIN);
 			req.setAttribute(MANAGER, user.getRole() == Role.MANAGER);
+			req.setAttribute(NORMAL, user.getRole() == Role.NORMAL);
 		}
 	}
 	

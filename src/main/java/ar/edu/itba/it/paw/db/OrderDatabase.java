@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import ar.edu.itba.it.paw.model.Order;
 
@@ -16,6 +17,11 @@ public class OrderDatabase extends Database<Order> {
 
 	public long addOrder(Order order) {
 		return insertGetId("insert into orders (userid, restaurantid, made) values (?, ?, ?)", order);
+	}
+	
+	public List<Order> getOrders(long userId) {
+		return doListQuery("select * from orders "
+				+ "where userid=" + userId);
 	}
 	
 	@Override

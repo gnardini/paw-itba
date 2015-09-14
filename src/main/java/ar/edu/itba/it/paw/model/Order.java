@@ -50,4 +50,8 @@ public class Order {
 	public List<OrderDetail> getDetails() {
 		return details;
 	}
+	
+	public void setDetails(List<OrderDetail> details) {
+		this.details = details;
+	}
 }

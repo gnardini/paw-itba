@@ -34,6 +34,10 @@
 		<servlet-class>ar.edu.itba.it.paw.controller.ManagerPanelController</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>UserPanelController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.UserPanelController</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>NewManagerController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.NewManagerController</servlet-class>
 	</servlet>
@@ -90,6 +94,10 @@
 	<servlet-mapping>
 		<servlet-name>ManagerPanelController</servlet-name>
 		<url-pattern>/managerPanel</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserPanelController</servlet-name>
+		<url-pattern>/userPanel</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>NewManagerController</servlet-name>

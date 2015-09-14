@@ -44,6 +44,9 @@
 			</form>
 		</div>
 	</div>
+	
+	
+	<%@ include file="orders.jsp"%>
 </div>
 
 <%@ include file="footer.jsp"%>
