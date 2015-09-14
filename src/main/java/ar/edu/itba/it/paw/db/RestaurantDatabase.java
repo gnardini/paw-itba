@@ -39,14 +39,10 @@ public class RestaurantDatabase extends Database<Restaurant> {
 	public void addRestaurant(Restaurant restaurant) {
 		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
 	}
-
-	// TODO: Move these to their respective classes
-	public void addComment(Comment comment) {
-		System.out.println("NEW COMMENT");
-	}
 	
-	public void addOrder(int code, Order order) {
-		System.out.println("NEW ORDER");
+	public void deleteRestaurant(long restaurantId) {
+		delete("delete from restaurant "
+				+ "where id=" + restaurantId);
 	}
 	
 	@Override

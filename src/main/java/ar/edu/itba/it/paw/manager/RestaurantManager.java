@@ -28,5 +28,7 @@ public interface RestaurantManager {
 	
 	public Dish getDish(long dishId);
 	
+	public void deleteRestaurant(long restaurantId);
+	
 	public void deleteComment(long userId, long restaurantId);
 }

@@ -18,6 +18,11 @@
 			<p>Horario: ${restaurant.openingHours}</p>
 			<p>Costo de envio: ${restaurant.deliveryCost}</p>
 			<p>Costo minimo: ${restaurant.minCost}</p>
+			
+			<form role="form" action="deleteRestaurant" method="POST">
+				<input type="hidden" name="restaurant_id" value="${restaurant.id}">
+				<button type="submit" class="btn btn-default">Eliminar Restoran</button>
+			</form>
 		</div>
 	</div>
 </div>
