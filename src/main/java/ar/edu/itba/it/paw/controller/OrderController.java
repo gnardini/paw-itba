@@ -24,6 +24,6 @@ public class OrderController extends BaseController {
 			Order order = validator.getOrder();
 			orderManager.addOrder(order);
 		}
-		resp.sendRedirect("/restaurant?code=" + req.getParameter("code"));
+		resp.sendRedirect("/restaurant?code=" + req.getParameter("restaurant_id"));
 	}
 }

@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.db;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,9 +16,11 @@ public class UserDatabase extends Database<User> {
 	private static final int LAST_NAME = 3;
 	private static final int ADDRESS = 4;
 	private static final int EMAIL = 5;
-	private static final int BIRTHDATE = 6;
-	private static final int PASSWORD = 7;
-	private static final int ROLE = 8;
+	private static final int DAY = 6;
+	private static final int MONTH = 7;
+	private static final int YEAR = 8;
+	private static final int PASSWORD = 9;
+	private static final int ROLE = 10;
 
 	public User getUser(long userId) {
 		return doQuery("select * from users where id='" + userId + "'");
@@ -34,7 +35,7 @@ public class UserDatabase extends Database<User> {
 	}
 	
 	public User storeUser(User user) {
-		return insert("insert into users (firstname, lastname, address, email, birthdate, pass, type) values(?, ?, ?, ?, ?, ?, ?)", user);
+		return insert("insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values(?, ?, ?, ?, ?, ?, ?, ?, ?)", user);
 	}
 	
 	public void updateUserRole(User user) {
@@ -49,7 +50,9 @@ public class UserDatabase extends Database<User> {
 				rs.getString(LAST_NAME),
 				rs.getString(ADDRESS),
 				rs.getString(EMAIL),
-				rs.getDate(BIRTHDATE),
+				rs.getInt(DAY),
+				rs.getInt(MONTH),
+				rs.getInt(YEAR),
 				RoleUtils.getRoleFromString(rs.getString(ROLE)),
 				rs.getString(PASSWORD));
 	}
@@ -60,7 +63,9 @@ public class UserDatabase extends Database<User> {
 		pst.setString(LAST_NAME - 1, user.getLastName());
 		pst.setString(ADDRESS - 1, user.getAddress());
 		pst.setString(EMAIL - 1, user.getEmail());
-		pst.setDate(BIRTHDATE - 1, user.getBirthdate());
+		pst.setInt(DAY - 1, user.getBirthDay());
+		pst.setInt(MONTH - 1, user.getBirthMonth());
+		pst.setInt(YEAR - 1, user.getBirthYear());
 		pst.setString(ROLE - 1, user.getRole().toString());
 		pst.setString(PASSWORD - 1, user.getPassword());
 	}

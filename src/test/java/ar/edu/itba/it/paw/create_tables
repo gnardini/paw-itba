@@ -5,7 +5,9 @@ firstname varchar(20) not null,
 lastname varchar(20) not null,
 address varchar(50) not null,
 email varchar(40) not null unique,
-birthdate date not null,
+birthday integer not null,
+birthmonth integer not null,
+birthyear integer not null,
 pass varchar(20) not null,
 type varchar(20) not null
 );
@@ -70,11 +72,11 @@ foreign key (userid) references users(id),
 foreign key (restaurantid) references restaurant(id)
 );
 
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('admin', 'admin', 'admin address', 'admin@admin.admin', '10-10-1999', 'admin', 'admin');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('Manager', 'One', 'manager one address', 'manager@one.com', '10-10-1999', 'manager', 'manager');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('Manager', 'Two', 'manager two address', 'manager@two.com', '10-10-1999', 'manager', 'manager');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('Manager', 'Three', 'manager three address', 'manager@three.com', '10-10-1999', 'manager', 'manager');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('User', 'One', 'user one address', 'user@one.com', '10-10-1999', 'user', 'normal');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('User', 'Two', 'user two address', 'user@two.com', '10-10-1999', 'user', 'normal');
-insert into users (firstname, lastname, address, email, birthdate, pass, type) values('User', 'Three', 'user three address', 'user@three.com', '10-10-1999', 'user', 'normal');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('admin', 'admin', 'admin address', 'admin@admin.admin', 2, 10, 1999, 'admin', 'admin');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('Manager', 'One', 'manager one address', 'manager@one.com', 2, 10, 1999, 'manager', 'manager');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('Manager', 'Two', 'manager two address', 'manager@two.com', 2, 10, 1999, 'manager', 'manager');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('Manager', 'Three', 'manager three address', 'manager@three.com', 2, 10, 1999, 'manager', 'manager');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('User', 'One', 'user one address', 'user@one.com', 2, 10, 1999, 'user', 'normal');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('User', 'Two', 'user two address', 'user@two.com', 2, 10, 1999, 'user', 'normal');
+insert into users (firstname, lastname, address, email, birthday, birthmonth, birthyear, pass, type) values('User', 'Three', 'user three address', 'user@three.com', 2, 10, 1999, 'user', 'normal');
 end

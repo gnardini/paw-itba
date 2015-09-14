@@ -1,12 +1,11 @@
 package ar.edu.itba.it.paw.helper;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.DateUtils;
+import ar.edu.itba.it.paw.util.NumberUtils;
 
 public class UserValidationHelper {
 
@@ -31,13 +30,13 @@ public class UserValidationHelper {
 				|| lastName == ""
 				|| address == ""
 				|| email == ""
-				|| day == ""
-				|| month == ""
-				|| year == ""
+				|| !NumberUtils.isInteger(day)
+				|| !NumberUtils.isInteger(month)
+				|| !NumberUtils.isInteger(year)
 				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))
 				|| password == "")
 			return false;
-		mUser = new User(0, firstName, lastName, address, email, new java.sql.Date(Integer.valueOf(year), Integer.valueOf(month), Integer.valueOf(day) ), role, password);
+		mUser = new User(firstName, lastName, address, email, Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year), role, password);
 		return true;
 	}
 	
