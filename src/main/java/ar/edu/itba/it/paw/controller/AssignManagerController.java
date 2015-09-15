@@ -10,6 +10,8 @@ import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.UserManagerImpl;
+import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class AssignManagerController extends BaseController {
 	
@@ -17,10 +19,10 @@ public class AssignManagerController extends BaseController {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserManager userManager = new UserManagerImpl();
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		long managerId = Long.valueOf(req.getParameter("managerId"));
-		long restaurantId = Long.valueOf(req.getParameter("restaurantId"));
+		long managerId = Long.valueOf(req.getParameter(Parameter.MANAGER_ID));
+		long restaurantId = Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID));
 		if (userManager.assignManager(managerId, restaurantId)) setMessage(req, "Se completo la operacion");
 		else setMessage(req, "No se pudo completar la operacion");
-		resp.sendRedirect("adminPanel");
+		resp.sendRedirect(Page.ADMIN_PANEL);
 	}
 }

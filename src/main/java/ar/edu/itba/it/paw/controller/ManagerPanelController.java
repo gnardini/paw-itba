@@ -13,6 +13,7 @@ import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class ManagerPanelController extends ControlPanelController {
 
@@ -22,7 +23,7 @@ public class ManagerPanelController extends ControlPanelController {
 		if (!mPermissionGranted) return;
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
 		SessionManager sessionManager = new SessionManagerImpl(req);
-		req.setAttribute(RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getEmail()));
+		req.setAttribute(Parameter.RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getEmail()));
 		req.getRequestDispatcher(JspLocationUtils.MANAGER_PANEL).forward(req, resp);
 	}
 	

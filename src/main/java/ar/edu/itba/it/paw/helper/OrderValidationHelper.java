@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.util.NumberUtils;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class OrderValidationHelper {
 
@@ -22,7 +23,7 @@ public class OrderValidationHelper {
 		mRestaurantManager = new RestaurantManagerImpl();
 		mOrder = new Order(
 				userId,
-				Long.valueOf(mRequest.getParameter("restaurant_id")),
+				Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)),
 				new Date());
 	}
 	

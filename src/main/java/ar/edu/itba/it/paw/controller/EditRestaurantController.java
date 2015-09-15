@@ -19,8 +19,6 @@ import ar.edu.itba.it.paw.util.Page;
 import ar.edu.itba.it.paw.util.Parameter;
 
 public class EditRestaurantController extends BaseController {
-
-	private static final String RESTAURANT = "restaurant";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +26,7 @@ public class EditRestaurantController extends BaseController {
 		if (!isAdmin(req, resp)) return;
 		
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		req.setAttribute(RESTAURANT, restaurantManager.getRestaurant(Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID))));
+		req.setAttribute(Parameter.RESTAURANT, restaurantManager.getRestaurant(Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID))));
 		req.getRequestDispatcher(JspLocationUtils.RESTAURANT_EDIT).forward(req, resp);
 	}
 	

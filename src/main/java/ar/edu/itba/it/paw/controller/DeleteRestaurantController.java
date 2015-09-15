@@ -11,6 +11,7 @@ import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.util.Header;
 import ar.edu.itba.it.paw.util.Page;
 import ar.edu.itba.it.paw.util.Parameter;
 
@@ -20,7 +21,7 @@ public class DeleteRestaurantController extends BaseController {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SessionManager sessionManager = new SessionManagerImpl(req);
 		if (sessionManager.getUser().getRole() != Role.ADMIN) {
-			resp.sendRedirect(req.getHeader("Referer"));
+			resp.sendRedirect(req.getHeader(Header.REFERER));
 			return;
 		}
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();

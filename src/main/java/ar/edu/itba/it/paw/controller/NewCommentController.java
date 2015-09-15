@@ -11,6 +11,8 @@ import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class NewCommentController extends BaseController {
 	
@@ -23,8 +25,8 @@ public class NewCommentController extends BaseController {
 			restaurantManager.addComment(validator.getComment());
 		} else {
 			//TODO mensajes lindos
-			req.setAttribute("message", "No se pudo crear el comentario");
+			req.setAttribute(Parameter.MESSAGE, "No se pudo crear el comentario");
 		}
-		resp.sendRedirect("/restaurant?code=" + req.getParameter("restaurant_id"));
+		resp.sendRedirect(String.format(Page.RESTAURANT_DETAIL, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID))));
 	}
 }

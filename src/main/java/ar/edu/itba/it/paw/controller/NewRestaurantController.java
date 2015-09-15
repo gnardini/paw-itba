@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.helper.RestaurantValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
+import ar.edu.itba.it.paw.util.Page;
 
 public class NewRestaurantController extends BaseController {
 
@@ -22,6 +23,6 @@ public class NewRestaurantController extends BaseController {
 		} else {
 			setMessage(req, "No se pudo agregar un nuevo restoran");
 		}	
-		resp.sendRedirect("adminPanel");
+		resp.sendRedirect(Page.ADMIN_PANEL);
 	}
 }

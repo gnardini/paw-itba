@@ -12,14 +12,14 @@
 			<div class="form-group">
 			
 				<label for="managers">Seleccione gerente:</label> 
-				<select class="form-control" id="managers" name="managerId">
+				<select class="form-control" id="managers" name="manager_id">
 					<c:forEach items="${managers}" var="manager">
 						<option value="${manager.id}">${manager.email}</option>
 					</c:forEach>
 				</select>
 				
 				<label for="restaurants">Seleccione restoran:</label> 
-				<select class="form-control" id="restaurants" name="restaurantId">
+				<select class="form-control" id="restaurants" name="restaurant_id">
 					<c:forEach items="${restaurants}" var="restaurant">
 						<option value="${restaurant.id}">${restaurant.name}</option>
 					</c:forEach>
@@ -35,7 +35,7 @@
 		<form role="form" action="newManager" method="POST">
 			<div class="form-group">
 				<label for="users">Seleccione de lista de usuarios:</label> 
-				<select class="form-control" id="users" name="userId">
+				<select class="form-control" id="users" name="user_id">
 					<c:forEach items="${users}" var="user">
 						<option value="${user.id}">${user.email}</option>
 					</c:forEach>

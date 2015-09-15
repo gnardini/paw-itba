@@ -14,7 +14,7 @@
 			<form role="form" action=managerPanel method="POST">
 			
 				<div class="form-group">
-				<select class="form-control" id="restaurants" name="restaurantId">
+				<select class="form-control" id="restaurants" name="restaurant_id">
 					<c:forEach items="${restaurants}" var="restaurant">
 						<option value="${restaurant.id}">${restaurant.name}</option>
 					</c:forEach>

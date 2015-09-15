@@ -12,11 +12,10 @@ import ar.edu.itba.it.paw.manager.implementation.OrderManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public abstract class ControlPanelController extends BaseController {
-	
-	protected static final String RESTAURANTS = "restaurants";
-	protected static final String ORDERS = "orders";
 	
 	protected boolean mPermissionGranted;
 	
@@ -26,13 +25,13 @@ public abstract class ControlPanelController extends BaseController {
 		OrderManager orderManager = new OrderManagerImpl();
 				
 		User loggedUser = sessionManager.getUser();
-		if (!(Boolean) req.getAttribute(LOGGED)
+		if (!(Boolean) req.getAttribute(Parameter.LOGGED)
 				|| loggedUser.getRole() != getRolePanel()) {
-			resp.sendRedirect("/restaurants");
+			resp.sendRedirect(Page.RESTAURANTS);
 			mPermissionGranted = false;
 		} else {
 			mPermissionGranted = true;
-			req.setAttribute(ORDERS, orderManager.getOrders(loggedUser.getId()));
+			req.setAttribute(Parameter.ORDERS, orderManager.getOrders(loggedUser.getId()));
 		}
 	}
 	

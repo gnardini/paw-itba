@@ -11,28 +11,25 @@ import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class BaseController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	protected static final String LOGGED = "logged";
-	protected static final String ADMIN = "admin";
-	protected static final String MANAGER = "manager";
-	protected static final String NORMAL = "normal";
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SessionManager manager = new SessionManagerImpl(req);	
-		req.setAttribute(LOGGED, manager.isLogged());
+		req.setAttribute(Parameter.LOGGED, manager.isLogged());
 		if (manager.isLogged()) {
 			User user = manager.getUser();
-			req.setAttribute(ADMIN, user.getRole() == Role.ADMIN);
-			req.setAttribute(MANAGER, user.getRole() == Role.MANAGER);
-			req.setAttribute(NORMAL, user.getRole() == Role.NORMAL);
+			req.setAttribute(Parameter.USER_ADMIN, user.getRole() == Role.ADMIN);
+			req.setAttribute(Parameter.USER_MANAGER, user.getRole() == Role.MANAGER);
+			req.setAttribute(Parameter.USER_NORMAL, user.getRole() == Role.NORMAL);
 		}
 	}
 	
 	protected void setMessage(HttpServletRequest req, String message) {
-		req.setAttribute("message", message);
+		req.setAttribute(Parameter.MESSAGE, message);
 	}
 }

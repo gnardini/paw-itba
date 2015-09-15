@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.util.Header;
 
 public class LogOutController extends Authentication {
 
@@ -15,6 +16,6 @@ public class LogOutController extends Authentication {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SessionManager manager = new SessionManagerImpl(req);
 		manager.logout();
-		resp.sendRedirect(req.getHeader("Referer"));
+		resp.sendRedirect(req.getHeader(Header.REFERER));
 	}
 }

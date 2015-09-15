@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.util.NumberUtils;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class CommentValidationHelper {
 
@@ -17,14 +18,14 @@ public class CommentValidationHelper {
 	}
 	
 	public boolean isValidComment() {
-		String text = mRequest.getParameter("text");
-		String rating = mRequest.getParameter("rating");
+		String text = mRequest.getParameter(Parameter.TEXT);
+		String rating = mRequest.getParameter(Parameter.RATING);
 		if (!NumberUtils.isInteger(rating)) return false;
 		int ratingNumber = Integer.valueOf(rating);
 		if (text == "" 
 				|| ratingNumber < 1
 				|| ratingNumber > 5) return false;
-		mComment = new Comment(mUserId, Long.valueOf(mRequest.getParameter("restaurant_id")), ratingNumber, text);
+		mComment = new Comment(mUserId, Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), ratingNumber, text);
 		return true;
 	}
 	

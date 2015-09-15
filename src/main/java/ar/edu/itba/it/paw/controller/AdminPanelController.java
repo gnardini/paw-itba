@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.UserManagerImpl;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class AdminPanelController extends ControlPanelController {
 	
@@ -21,9 +22,9 @@ public class AdminPanelController extends ControlPanelController {
 		if (!mPermissionGranted) return;
 		UserManager userManager = new UserManagerImpl();
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		req.setAttribute("users", userManager.getUsers(Role.NORMAL));
-		req.setAttribute("managers", userManager.getUsers(Role.MANAGER));
-		req.setAttribute("restaurants", restaurantManager.getRestaurants());
+		req.setAttribute(Parameter.USERS, userManager.getUsers(Role.NORMAL));
+		req.setAttribute(Parameter.MANAGERS, userManager.getUsers(Role.MANAGER));
+		req.setAttribute(Parameter.RESTAURANTS, restaurantManager.getRestaurants());
 		req.getRequestDispatcher(JspLocationUtils.ADMIN_PANEL).forward(req, resp);
 	}
 	

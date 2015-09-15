@@ -10,15 +10,17 @@ import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.UserManagerImpl;
+import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class NewManagerController extends BaseController {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserManager userManager = new UserManagerImpl();
-		long userId = Long.valueOf(req.getParameter("userId"));
+		long userId = Long.valueOf(req.getParameter(Parameter.USER_ID));
 		if (userManager.makeUserManager(userId)) setMessage(req, "Se completo la operacion");
 		else setMessage(req, "No se pudo completar la operacion");
-		resp.sendRedirect("adminPanel");
+		resp.sendRedirect(Page.ADMIN_PANEL);
 	}
 }
