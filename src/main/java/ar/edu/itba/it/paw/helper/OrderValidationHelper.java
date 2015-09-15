@@ -38,7 +38,7 @@ public class OrderValidationHelper {
 				if (amount.length == 1 && NumberUtils.isInteger(amount[0])) {
 					dishCount = Integer.valueOf(amount[0]);
 					dish = mRestaurantManager.getDish(Long.valueOf(dishId));
-					if (dishCount > 0) mOrder.addDetail(dish.getName(), dish.getPrice(), dishCount);
+					if (dishCount > 0) mOrder.addDetail(dish.getName(), dishCount, dish.getPrice());
 				}
 			}
 		}
