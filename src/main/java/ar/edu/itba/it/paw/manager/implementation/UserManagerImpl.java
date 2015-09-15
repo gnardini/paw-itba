@@ -44,7 +44,7 @@ public class UserManagerImpl implements UserManager {
 	
 	@Override
 	public boolean assignManager(long managerId, long restaurantId) {
-		// TODO make some checks?
+		if (mManagerDatabase.getManagerRelation(managerId, restaurantId) != null) return false;
 		mManagerDatabase.assignManager(managerId, restaurantId);
 		return true;
 	}

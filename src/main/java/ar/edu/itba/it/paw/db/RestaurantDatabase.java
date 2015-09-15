@@ -31,10 +31,11 @@ public class RestaurantDatabase extends Database<Restaurant> {
 		return doListQuery("select * from restaurant");
 	}
 	
-	public List<Restaurant> getManagersRestaurants(String email) {
+	public List<Restaurant> getManagersRestaurants(long managerId) {
 		return doListQuery("select restaurant.id, name, address, opening_hours, delivery_cost, min_cost, menu_type, description "
 				+ "from restaurant, managers "
-				+ "where restaurant.id = managers.restaurantid");
+				+ "where restaurant.id = managers.restaurantid "
+				+ "and managers.userid=" + managerId);
 	}
 	
 	public void addRestaurant(Restaurant restaurant) {

@@ -31,8 +31,8 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
-	public List<Restaurant> getRestaurantsByManager(String email) {
-		return mRestaurantDatabase.getManagersRestaurants(email);
+	public List<Restaurant> getRestaurantsByManager(long managerId) {
+		return mRestaurantDatabase.getManagersRestaurants(managerId);
 	}
 	
 	@Override

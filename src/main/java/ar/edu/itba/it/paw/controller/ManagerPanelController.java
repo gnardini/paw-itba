@@ -23,7 +23,7 @@ public class ManagerPanelController extends ControlPanelController {
 		if (!mPermissionGranted) return;
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
 		SessionManager sessionManager = new SessionManagerImpl(req);
-		req.setAttribute(Parameter.RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getEmail()));
+		req.setAttribute(Parameter.RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getId()));
 		req.getRequestDispatcher(JspLocationUtils.MANAGER_PANEL).forward(req, resp);
 	}
 	

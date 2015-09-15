@@ -12,7 +12,7 @@ public interface RestaurantManager {
 	
 	public List<Restaurant> getRestaurants();
 	
-	public List<Restaurant> getRestaurantsByManager(String email);
+	public List<Restaurant> getRestaurantsByManager(long managerId);
 	
 	public List<Comment> getRestaurantComments(long restaurantId);
 	

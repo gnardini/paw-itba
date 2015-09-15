@@ -15,6 +15,12 @@ public class ManagerDatabase extends Database<Manager> {
 		insert("insert into managers values (?, ?)", new Manager(managerId, restaurantId));
 	}
 	
+	public Manager getManagerRelation(long managerId, long restaurantId) {
+		return doQuery("select * from managers "
+				+ "where userid=" + managerId
+				+ " and restaurantid=" + restaurantId);
+	}
+	
 	@Override
 	protected Manager generate(ResultSet rs) throws SQLException {
 		return new Manager(
