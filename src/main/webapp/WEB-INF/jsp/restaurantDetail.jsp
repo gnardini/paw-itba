@@ -164,7 +164,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-10 vertical-align">Calificacion: ${comment.rating}</div>
+								<div class="col-md-10 vertical-align">${comment.userName}</div>
 								<c:if test="${admin}">
 									<div class="col-md-2 align-right">
 										<input type="submit" value="X">
@@ -172,6 +172,7 @@
 								</c:if>
 							</div>
 						</div>
+						<div class="panel-body">Calificacion: ${comment.rating}</div>
 						<div class="panel-body">${comment.text}</div>
 					</div>
 				</div>

@@ -9,6 +9,7 @@ import ar.edu.itba.it.paw.model.Comment;
 
 public class CommentDatabase extends Database<Comment> {
 	
+	private static final int USER_NAME = 1;
 	private static final int USER_ID = 1;
 	private static final int RESTAURANT_ID = 2;
 	private static final int RATING = 3;
@@ -19,14 +20,16 @@ public class CommentDatabase extends Database<Comment> {
 	}
 	
 	public List<Comment> getRestaurantComments(long restaurantId) {
-		return doListQuery("select * from comments "
-				+ "where restaurantid=" + restaurantId);
+		return doListQuery("select firstname, restaurantid, rating, text from comments, users "
+				+ "where restaurantid=" + restaurantId
+				+ " and userid=users.id");
 	}
 	
 	public Comment getUserComment(long userId, long restaurantId) {
-		return doQuery("select * from comments "
+		return doQuery("select firstname, restaurantid, rating, text from comments, users "
 				+ "where userid=" + userId 
-				+ " and restaurantid=" + restaurantId);
+				+ " and restaurantid=" + restaurantId
+				+ " and userid=users.id");
 	}
 	
 	public void deleteComment(long userId, long restaurantId) {
@@ -38,7 +41,7 @@ public class CommentDatabase extends Database<Comment> {
 	@Override
 	protected Comment generate(ResultSet rs) throws SQLException {
 		return new Comment(
-				rs.getLong(USER_ID),
+				rs.getString(USER_NAME),
 				rs.getLong(RESTAURANT_ID),
 				rs.getInt(RATING),
 				rs.getString(TEXT));
