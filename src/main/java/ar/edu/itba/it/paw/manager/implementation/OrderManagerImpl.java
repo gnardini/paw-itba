@@ -30,7 +30,12 @@ public class OrderManagerImpl implements OrderManager {
 	@Override
 	public List<Order> getOrders(long userId) {
 		List<Order> orders = mOrderDatabase.getOrders(userId);
-		for (Order order : orders) order.setDetails(mOrderDetailDatabase.getOrderDetails(order.getId()));
+		for (Order order : orders) {
+			float price = 0;
+			order.setDetails(mOrderDetailDatabase.getOrderDetails(order.getId()));
+			for (OrderDetail detail: order.getDetails()) price += detail.getPrice() * detail.getAmount();
+			order.setPrice(price);
+		}
 		return orders;
 	}
 }

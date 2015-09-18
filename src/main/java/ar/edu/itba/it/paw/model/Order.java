@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,6 +11,8 @@ public class Order {
 	private long userId;
 	private long restaurantId;
 	private Date made;
+	private String price;
+	private String orderDate;
 	private List<OrderDetail> details;
 	
 	public Order(long id, long userId, long restaurantId, long madeMillis) {
@@ -17,6 +20,7 @@ public class Order {
 		this.userId = userId;
 		this.restaurantId = restaurantId;
 		this.made = new Date(madeMillis);
+		orderDate = new SimpleDateFormat("dd/MM").format(made);
 		details = new LinkedList<>();
 	}
 	
@@ -45,6 +49,18 @@ public class Order {
 	
 	public Date getMade() {
 		return made;
+	}
+	
+	public String getPrice() {
+		return price;
+	}
+	
+	public void setPrice(float price) {
+		this.price = String.format("$%.2f", price);
+	}
+	
+	public String getOrderDate() {
+		return orderDate;
 	}
 	
 	public List<OrderDetail> getDetails() {
