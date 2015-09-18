@@ -4,7 +4,7 @@
 <br/>
 <div class="container">
 	<div class="well well-sm">
-		<strong>Restaurants</strong>
+		<strong>Restoranes</strong>
 	</div>
 	<div id="products" class="row list-group">
 		<c:forEach items="${restaurants}" var="restaurant">

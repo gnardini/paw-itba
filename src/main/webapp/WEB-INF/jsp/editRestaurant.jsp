@@ -5,11 +5,11 @@
 <ol class="breadcrumb">
 	<li><a href="/">Brand</a></li>
 	<li><a href="/restaurant?code=${restaurant.id}">${restaurant.name}</a></li>
-	<li class="active">Editar Restauran</li>
+	<li class="active">Editar Restoran</li>
 </ol>
 
 <div class="container">
-	<H3>Editar Restaurant</H3>
+	<H3>Editar Restoran</H3>
 
 	<form role="form" action="editRestaurant" method="POST">
 		<input type="hidden" name="restaurant_id" value="${restaurant.id}">

@@ -2,6 +2,11 @@
 
 <%@ include file="header.jsp"%>
 
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li class="active">Panel De Control</li>
+</ol>
+
 <div class="container">
 	<H3>Panel de Control</H3>
 

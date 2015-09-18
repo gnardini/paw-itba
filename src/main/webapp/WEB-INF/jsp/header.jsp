@@ -37,10 +37,10 @@
 			<c:if test="${logged}">
 				<li><a href="javascript:;"
 					onclick="document.getElementById('form1').submit();">Cerrar
-						sesión</a></li>
+						Sesión</a></li>
 			</c:if>
 			<c:if test="${!logged}">
-				<li><a href="/login">Iniciar sesión</a></li>
+				<li><a href="/login">Iniciar Sesión</a></li>
 			</c:if>
 		</ul>
 	</div>

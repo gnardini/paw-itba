@@ -9,8 +9,6 @@
 
 <%@ include file="message.jsp"%>
 
-
-
 <div class="row">
 	<div class="panel panel-default col-md-offset-3 col-md-6">
 		<div class="panel-body">
@@ -19,18 +17,20 @@
 			<p>Descripcion: ${restaurant.description}</p>
 			<p>Direccion: ${restaurant.address}</p>
 			<p>Horario: ${restaurant.openingHours}</p>
-			<p>Costo de envio: ${restaurant.deliveryCost}</p>
-			<p>Costo minimo: ${restaurant.minCost}</p>
-			
+			<p>Costo de envio: $${restaurant.deliveryCost}</p>
+			<p>Costo minimo: $${restaurant.minCost}</p>
+
 			<c:if test="${admin}">
 				<div class="row">
 					<form role="form" action="editRestaurant" method="GET">
 						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-						<button type="submit" class="btn btn-default">Editar Restoran</button>
+						<button type="submit" class="btn btn-default">Editar
+							Restoran</button>
 					</form>
 					<form role="form" action="deleteRestaurant" method="POST">
 						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-						<button type="submit" class="btn btn-default">Eliminar Restoran</button>
+						<button type="submit" class="btn btn-default">Eliminar
+							Restoran</button>
 					</form>
 				</div>
 			</c:if>
@@ -107,7 +107,8 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-10 vertical-align">Calificacion: ${comment.rating}</div>
+								<div class="col-md-10 vertical-align">Calificacion:
+									${comment.rating}</div>
 								<c:if test="${admin}">
 									<div class="col-md-2 align-right">
 										<input type="submit" value="X">
@@ -125,14 +126,25 @@
 </div>
 
 <c:if test="${can_comment}">
-	<h4>Nuevo Comentario:</h4>
 	<div class="container">
-		<form role="form" action="newComment" method="POST">
-			Comentario: <input type="text" name="text"><br />
-			Puntuacion: <input type="number" name="rating"><br /> <br />
-			<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-			<input type="submit" value="Enviar"><br />
-		</form>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-default back-panel">
+					<div class="panel-heading">Nuevo Comentario</div>
+					<div class="panel-body">
+						<form role="form" action="newComment" method="POST">
+							<input class="form-control" placeholder="Puntaje" type="number"
+								min="1" max="5" name="rating"><br /> <input
+								class="form-control" placeholder="Comentario" type="text"
+								name="text"> <input type="hidden" name="restaurant_id"
+								value="${restaurant.id}"><br />
+							<button type="submit" value="Enviar" class="btn btn-default">Enviar
+								Comentario</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </c:if>
 

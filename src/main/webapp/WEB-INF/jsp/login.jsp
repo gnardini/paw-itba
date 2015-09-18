@@ -12,7 +12,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-			<H3>Iniciar sesión</H3>
+			<H3>Iniciar Sesión</H3>
 
 			<form role="form" action="login" method="POST">
 				<div class="form-group">

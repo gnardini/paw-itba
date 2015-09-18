@@ -54,7 +54,7 @@
 	</div>
 
 	<div class="container">
-		<h3>Nuevo restaurant</h3>
+		<h3>Nuevo Restoran</h3>
 		<form role="form" action="newRestaurant" method="POST">
 			<input type="hidden" name="create" value="restaurant">
 			<div class="form-group">
@@ -82,7 +82,7 @@
 					name="minCost">
 			</div>
 			<button type="submit" value="Agregar" class="btn btn-default">Agregar
-				Restaurant</button>
+				Restoran</button>
 		</form>
 	</div>
 	<br/>	
