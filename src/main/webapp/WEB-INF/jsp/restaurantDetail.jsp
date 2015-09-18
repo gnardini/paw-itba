@@ -12,6 +12,8 @@
 <div class="row">
 	<div class="panel panel-default col-md-offset-3 col-md-6">
 		<div class="panel-body">
+		<div class="row">
+		<div class="col-md-9">
 			<h1>${restaurant.name}</h1>
 			<p>Puntuacion: ${restaurant.ranking}</p>
 			<p>Descripcion: ${restaurant.description}</p>
@@ -19,14 +21,17 @@
 			<p>Horario: ${restaurant.openingHours}</p>
 			<p>Costo de envio: $${restaurant.deliveryCost}</p>
 			<p>Costo minimo: $${restaurant.minCost}</p>
-
+			</div>
+			<div class="col-md-3">
 			<c:if test="${admin}">
 				<div class="row">
+					<br/>
 					<form role="form" action="editRestaurant" method="GET">
 						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
 						<button type="submit" class="btn btn-default">Editar
 							Restoran</button>
 					</form>
+					<br/>
 					<form role="form" action="deleteRestaurant" method="POST">
 						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
 						<button type="submit" class="btn btn-default">Eliminar
@@ -34,6 +39,8 @@
 					</form>
 				</div>
 			</c:if>
+			</div>
+		</div>
 		</div>
 	</div>
 </div>
