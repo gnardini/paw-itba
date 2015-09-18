@@ -2,12 +2,14 @@
 
 <%@ include file="header.jsp"%>
 
-<%@ include file="message.jsp"%>
-
 <ol class="breadcrumb">
 	<li><a href="/">Brand</a></li>
 	<li class="active">${restaurant.name}</li>
 </ol>
+
+<%@ include file="message.jsp"%>
+
+
 
 <div class="row">
 	<div class="panel panel-default col-md-offset-3 col-md-6">

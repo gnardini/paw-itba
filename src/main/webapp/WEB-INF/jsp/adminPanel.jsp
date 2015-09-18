@@ -1,6 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="header.jsp"%>
+
+
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li class="active">Panel De Control</li>
+</ol>
+
 <div class="container">
 	<H2>Panel de Control</H2>
 

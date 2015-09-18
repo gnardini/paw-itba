@@ -15,6 +15,10 @@
 	vertical-align: middle;
 }
 
+.navbar{
+	margin-bottom: 0px;
+}
+
 .price{
 	color: red;
 	text-align: center;

@@ -2,6 +2,12 @@
 
 <%@ include file="header.jsp"%>
 
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li><a href="/restaurant?code=${restaurant.id}">${restaurant.name}</a></li>
+	<li class="active">Editar Restauran</li>
+</ol>
+
 <div class="container">
 	<H3>Editar Restaurant</H3>
 
