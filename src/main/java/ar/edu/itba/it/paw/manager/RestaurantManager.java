@@ -22,7 +22,7 @@ public interface RestaurantManager {
 	
 	public void addDish(Dish dish);
 	
-	public void addRestaurant(Restaurant restaurant);
+	public boolean addRestaurant(Restaurant restaurant);
 	
 	public boolean canUserComment(long userId, long restaurantId);
 	

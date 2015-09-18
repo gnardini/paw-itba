@@ -48,8 +48,8 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
-	public void addRestaurant(Restaurant restaurant) {
-		mRestaurantDatabase.addRestaurant(restaurant);
+	public boolean addRestaurant(Restaurant restaurant) {
+		return mRestaurantDatabase.addRestaurant(restaurant) != null;
 	}
 	
 	public void addComment(Comment comment) {

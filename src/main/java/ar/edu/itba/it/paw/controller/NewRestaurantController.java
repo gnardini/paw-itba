@@ -18,12 +18,11 @@ public class NewRestaurantController extends AdminPanelController {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RestaurantManager manager = new RestaurantManagerImpl();
 		RestaurantValidationHelper validator = new RestaurantValidationHelper(req);
-		if (validator.isValidRestaurant()) {
-			manager.addRestaurant(validator.getRestaurant());
+		if (validator.isValidRestaurant() && manager.addRestaurant(validator.getRestaurant())) {
 			setMessage(req, "Nuevo restoran agregado con exito");
-			setMessageType(req, Parameter.SUCCESS);
+			setMessageType(req, Parameter.SUCCESS);			
 		} else {
-			setMessage(req, "No se pudo agregar un nuevo restoran");
+			setMessage(req, "Campos invalidos. No se pudo agregar el restoran");
 			setMessageType(req, Parameter.ERROR);
 		}	
 		doGet(req, resp);

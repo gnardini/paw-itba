@@ -38,8 +38,8 @@ public class RestaurantDatabase extends Database<Restaurant> {
 				+ "and managers.userid=" + managerId);
 	}
 	
-	public void addRestaurant(Restaurant restaurant) {
-		insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
+	public Restaurant addRestaurant(Restaurant restaurant) {
+		return insert("insert into restaurant (name, address, opening_hours, delivery_cost, min_cost, menu_type, description) values (?, ?, ?, ?, ?, ?, ?)", restaurant);
 	}
 	
 	public void updateRestaurant(Restaurant restaurant) {

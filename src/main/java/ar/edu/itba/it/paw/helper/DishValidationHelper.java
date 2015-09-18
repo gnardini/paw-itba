@@ -29,7 +29,7 @@ public class DishValidationHelper {
 			return false;
 		Type type = getType(menu);
 		int numPrice = Integer.valueOf(price);
-		if (numPrice <= 0 || numPrice > 1000000) return false;
+		if (numPrice <= 0 || numPrice > 10000) return false;
 		mDish = new Dish(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), name, description, numPrice, type);
 		return true;
 	}
