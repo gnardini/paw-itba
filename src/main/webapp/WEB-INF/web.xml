@@ -69,6 +69,10 @@
 		<servlet-name>OrderController</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.controller.OrderController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>MyOrdersController</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.controller.MyOrdersController</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>LoginController</servlet-name>
@@ -134,6 +138,10 @@
 	<servlet-mapping>
 		<servlet-name>DeleteCommentController</servlet-name>
 		<url-pattern>/deleteComment</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>MyOrdersController</servlet-name>
+		<url-pattern>/myOrders</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>OrderController</servlet-name>
