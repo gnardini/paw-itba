@@ -18,8 +18,11 @@ public class SignUpController extends Authentication {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SessionManager manager = new SessionManagerImpl(req);
 		UserValidationHelper validator = new UserValidationHelper(req);
-		if (!validator.isValidUser(Role.NORMAL) || !manager.signup(validator.getUser())) {
-			setMessage(req, "No se pudo completar el registro");
+		if (!validator.isValidUser(Role.NORMAL)) {
+			setMessage(req, "Datos de registro invalidos");
+			setMessageType(req, Parameter.ERROR);
+		} else if (!manager.signup(validator.getUser())) {
+			setMessage(req, "El usuario ya existe");
 			setMessageType(req, Parameter.ERROR);
 		}
 		doGet(req, resp);
