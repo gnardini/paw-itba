@@ -11,6 +11,7 @@ import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
+import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.JspLocationUtils;
 import ar.edu.itba.it.paw.util.Parameter;
@@ -29,15 +30,21 @@ public class ManagerPanelController extends ControlPanelController {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RestaurantManager manager = new RestaurantManagerImpl();
+		RestaurantManager restaurantManager = new RestaurantManagerImpl();
+		SessionManager sessionManager = new SessionManagerImpl(req);
+		long loggedUserId = sessionManager.getUser().getId();
+		
 		DishValidationHelper validator = new DishValidationHelper(req);
-		if (validator.isValidDish()) {
-			manager.addDish(validator.getDish());
-			setMessage(req, "Nuevo plato agregado con exito");
-			setMessageType(req, Parameter.SUCCESS);
-		} else {
+		if (!validator.isValidDish()) {
 			setMessage(req, "No se pudo agregar un nuevo plato");
 			setMessageType(req, Parameter.ERROR);
+		} else if (!isRestaurantManager(loggedUserId, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID)), restaurantManager)) {
+			setMessage(req, "Reportado, no toques el HTML");
+			setMessageType(req, Parameter.ERROR);
+		} else {
+			restaurantManager.addDish(validator.getDish());
+			setMessage(req, "Nuevo plato agregado con exito");
+			setMessageType(req, Parameter.SUCCESS);
 		}
 		doGet(req, resp);
 	}
@@ -45,5 +52,12 @@ public class ManagerPanelController extends ControlPanelController {
 	@Override
 	protected Role getRolePanel() {
 		return Role.MANAGER;
+	}
+	
+	private boolean isRestaurantManager(long loggedUserId, long restaurantId, RestaurantManager restaurantManager) {
+		for (Restaurant restaurant: restaurantManager.getRestaurantsByManager(loggedUserId)) {
+			if (restaurant.getId() == restaurantId) return true;
+		}
+		return false;
 	}
 }
