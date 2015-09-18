@@ -13,6 +13,7 @@
 	<div class="panel panel-default col-md-offset-3 col-md-6">
 		<div class="panel-body">
 			<h1>${restaurant.name}</h1>
+			<p>Puntuacion: ${restaurant.ranking}</p>
 			<p>Descripcion: ${restaurant.description}</p>
 			<p>Direccion: ${restaurant.address}</p>
 			<p>Horario: ${restaurant.openingHours}</p>

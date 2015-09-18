@@ -38,6 +38,12 @@ public class CommentDatabase extends Database<Comment> {
 				+ " and restaurantid=" + restaurantId);
 	}
 	
+	public float getRatingAverage(long restaurantId) {
+		Float avg = doGetFloatQuery("select avg(rating) from comments "
+				+ "where restaurantid=" + restaurantId);
+		return avg == null ? 0 : avg;
+	}
+	
 	@Override
 	protected Comment generate(ResultSet rs) throws SQLException {
 		return new Comment(

@@ -13,6 +13,7 @@ public class Restaurant {
 	String menuType;
 	String description;
 	List<Dish> dishes;
+	String ranking;
 	List<Comment> comments;
 	
 	public Restaurant(long id,
@@ -75,6 +76,14 @@ public class Restaurant {
 
 	public String getDescription() {
 		return description;
+	}
+	
+	public String getRanking() {
+		return ranking;
+	}
+	
+	public void setRanking(float ranking) {
+		this.ranking = String.format("%.2f", ranking);
 	}
 	
 	public List<Comment> getComments() {

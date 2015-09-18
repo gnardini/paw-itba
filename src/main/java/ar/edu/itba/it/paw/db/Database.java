@@ -46,6 +46,20 @@ public abstract class Database<T> {
 		return null;
 	}
 	
+	protected Float doGetFloatQuery(String sql) {
+		try {
+			Statement statement = mDbConnection.createStatement();
+			ResultSet rs = statement.executeQuery(sql);
+			if (!rs.next()) return null;
+			float elem = rs.getFloat(1);
+			rs.close();
+			return elem;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	protected void delete(String sql) {
 		try {
 			Statement statement = mDbConnection.createStatement();
