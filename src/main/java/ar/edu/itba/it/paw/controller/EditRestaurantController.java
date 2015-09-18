@@ -44,6 +44,7 @@ public class EditRestaurantController extends BaseController {
 			resp.sendRedirect(String.format(Page.RESTAURANT_DETAIL, restaurantId));
 		} else {
 			setMessage(req, "No se pudo agregar un nuevo restoran");
+			setMessageType(req, Parameter.ERROR);
 			doGet(req, resp);
 		}	
 	}

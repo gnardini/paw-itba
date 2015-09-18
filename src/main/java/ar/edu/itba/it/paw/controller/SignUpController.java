@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.helper.UserValidationHelper;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.util.Parameter;
 
 public class SignUpController extends Authentication {
 	
@@ -19,6 +20,7 @@ public class SignUpController extends Authentication {
 		UserValidationHelper validator = new UserValidationHelper(req);
 		if (!validator.isValidUser(Role.NORMAL) || !manager.signup(validator.getUser())) {
 			setMessage(req, "No se pudo completar el registro");
+			setMessageType(req, Parameter.ERROR);
 		}
 		doGet(req, resp);
 	}

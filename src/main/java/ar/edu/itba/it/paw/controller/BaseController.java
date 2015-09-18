@@ -32,4 +32,8 @@ public class BaseController extends HttpServlet {
 	protected void setMessage(HttpServletRequest req, String message) {
 		req.setAttribute(Parameter.MESSAGE, message);
 	}
+	
+	protected void setMessageType(HttpServletRequest req, String type) {
+		req.setAttribute(type, true);
+	}
 }

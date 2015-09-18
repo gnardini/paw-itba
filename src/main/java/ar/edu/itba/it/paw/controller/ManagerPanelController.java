@@ -34,8 +34,10 @@ public class ManagerPanelController extends ControlPanelController {
 		if (validator.isValidDish()) {
 			manager.addDish(validator.getDish());
 			setMessage(req, "Nuevo plato agregado con exito");
+			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo agregar un nuevo plato");
+			setMessageType(req, Parameter.ERROR);
 		}
 		doGet(req, resp);
 	}

@@ -15,7 +15,7 @@ import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.util.Page;
 import ar.edu.itba.it.paw.util.Parameter;
 
-public class OrderController extends BaseController {
+public class OrderController extends RestaurantDetailController {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +29,13 @@ public class OrderController extends BaseController {
 		if (validator.isValid()) {
 			Order order = validator.getOrder();
 			orderManager.addOrder(order);
+			setMessage(req, "Pedido realizado con exito");
+			setMessageType(req, Parameter.SUCCESS);
+		} else {
+			setMessage(req, "No se pudo realizar el pedido");
+			setMessageType(req, Parameter.ERROR);
 		}
-		resp.sendRedirect(String.format(Page.RESTAURANT_DETAIL, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID))));
+		req.setAttribute(Parameter.RESTAURANT_ID, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID)));
+		doGet(req, resp);
 	}
 }

@@ -37,6 +37,7 @@ public class Parameter {
 	public static final String EMAIL = "email";
 	public static final String PASSWORD = "password";
 	
-	// Error
+	// Message Type
+	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
 }

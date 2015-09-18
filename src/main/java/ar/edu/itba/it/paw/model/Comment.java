@@ -15,7 +15,8 @@ public class Comment {
 		this.text = text;
 	}
 	
-	public Comment(String userName, long restaurantId, int rating, String text) {
+	public Comment(long userId, String userName, long restaurantId, int rating, String text) {
+		this.userId = userId;
 		this.userName = userName;
 		this.restaurantId = restaurantId;
 		this.rating = rating;

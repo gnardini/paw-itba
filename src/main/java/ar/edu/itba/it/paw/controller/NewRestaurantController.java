@@ -10,8 +10,9 @@ import ar.edu.itba.it.paw.helper.RestaurantValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.util.Page;
+import ar.edu.itba.it.paw.util.Parameter;
 
-public class NewRestaurantController extends BaseController {
+public class NewRestaurantController extends AdminPanelController {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,9 +21,11 @@ public class NewRestaurantController extends BaseController {
 		if (validator.isValidRestaurant()) {
 			manager.addRestaurant(validator.getRestaurant());
 			setMessage(req, "Nuevo restoran agregado con exito");
+			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo agregar un nuevo restoran");
+			setMessageType(req, Parameter.ERROR);
 		}	
-		resp.sendRedirect(Page.ADMIN_PANEL);
+		doGet(req, resp);
 	}
 }

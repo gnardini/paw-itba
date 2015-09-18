@@ -9,7 +9,10 @@
 </ol>
 
 <div class="container">
+
 	<H3>Editar Restoran</H3>
+	
+	<%@ include file="message.jsp"%>
 
 	<form role="form" action="editRestaurant" method="POST">
 		<input type="hidden" name="restaurant_id" value="${restaurant.id}">
