@@ -6,15 +6,26 @@
 </div>
 
 <c:forEach items="${orders}" var="order">
-	<div class="row list-group">
-		<c:forEach items="${order.details}" var="detail">
-			<div class="item  col-xs-4 col-lg-4">
-				<div class="caption">
-					<h4 class="group inner list-group-item-heading">${detail.name}</h4>
-					<p class="group inner list-group-item-text">Precio: ${detail.price}</p>
-					<p class="group inner list-group-item-text">Cantidad: ${detail.amount}</p>
-				</div>
+	<div class="panel panel-default back-panel">
+		<div class="panel-heading">TODO: Informacion del pedido, como el precio o la fecha</div>
+		<div class="panel-body">
+			<div class="row list-group">
+				<c:forEach items="${order.details}" var="detail">
+					<div class="item  col-xs-4 col-lg-4">
+						<div class="panel panel-default elem-panel">
+							<div class="panel-body">
+								<div class="caption align-center">
+									<h4 class="group inner list-group-item-heading">${detail.name}</h4>
+									<p class="group inner list-group-item-text">Precio:
+										${detail.price}</p>
+									<p class="group inner list-group-item-text">Cantidad:
+										${detail.amount}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
-		</c:forEach>
+		</div>
 	</div>
 </c:forEach>
