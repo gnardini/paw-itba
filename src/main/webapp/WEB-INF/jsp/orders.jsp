@@ -20,7 +20,7 @@
 								<div class="caption align-center">
 									<h4 class="group inner list-group-item-heading">${detail.name}</h4>
 									<p class="group inner list-group-item-text">Precio:
-										${detail.price}</p>
+										$${detail.price}</p>
 									<p class="group inner list-group-item-text">Cantidad:
 										${detail.amount}</p>
 								</div>
