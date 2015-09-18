@@ -4,9 +4,19 @@
 }
 
 .align-right{
-	text-aling: right;
+	text-align: right;
+}
+
+.align-center{
+	text-align: center;
 }
 
 .vertical-align{
 	vertical-align: middle;
+}
+
+.price{
+	color: red;
+	text-align: center;
+	font-size: 24px; 
 }

@@ -44,22 +44,7 @@
 			<div id="products" class="row list-group">
 				<c:forEach items="${restaurant.dishes}" var="dish">
 					<c:if test="${dish.type == 'ENTRY' }">
-						<div class="item  col-xs-4 col-lg-4">
-							<div class="thumbnail">
-								<img class="group list-group-image"
-									src="http://placehold.it/400x250/000/fff" alt="" />
-								<div class="caption">
-									<h4 class="group inner list-group-item-heading">${dish.name}</h4>
-									<p class="group inner list-group-item-text">${dish.description}</p>
-									<div class="row">
-										<div class="col-md-offset-6 col-md-6">
-											Cantidad solicitada: <input type="number"
-												class="form-control" min="0" name="${dish.id}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<%@ include file="dishesInfo.jsp"%>
 					</c:if>
 				</c:forEach>
 			</div>
@@ -71,22 +56,7 @@
 			<div id="products" class="row list-group">
 				<c:forEach items="${restaurant.dishes}" var="dish">
 					<c:if test="${dish.type == 'MAIN' }">
-						<div class="item  col-xs-4 col-lg-4">
-							<div class="thumbnail">
-								<img class="group list-group-image"
-									src="http://placehold.it/400x250/000/fff" alt="" />
-								<div class="caption">
-									<h4 class="group inner list-group-item-heading">${dish.name}</h4>
-									<p class="group inner list-group-item-text">${dish.description}</p>
-									<div class="row">
-										<div class="col-md-offset-6 col-md-6">
-											Cantidad solicitada: <input type="number"
-												class="form-control" min="0" name="${dish.id}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<%@ include file="dishesInfo.jsp"%>
 					</c:if>
 				</c:forEach>
 			</div>
@@ -98,22 +68,7 @@
 			<div id="products" class="row list-group">
 				<c:forEach items="${restaurant.dishes}" var="dish">
 					<c:if test="${dish.type == 'DESSERT' }">
-						<div class="item  col-xs-4 col-lg-4">
-							<div class="thumbnail">
-								<img class="group list-group-image"
-									src="http://placehold.it/400x250/000/fff" alt="" />
-								<div class="caption">
-									<h4 class="group inner list-group-item-heading">${dish.name}</h4>
-									<p class="group inner list-group-item-text">${dish.description}</p>
-									<div class="row">
-										<div class="col-md-offset-6 col-md-6">
-											Cantidad solicitada: <input type="number"
-												class="form-control" min="0" name="${dish.id}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<%@ include file="dishesInfo.jsp"%>
 					</c:if>
 				</c:forEach>
 			</div>
@@ -125,22 +80,7 @@
 			<div id="products" class="row list-group">
 				<c:forEach items="${restaurant.dishes}" var="dish">
 					<c:if test="${dish.type == 'DRINK' }">
-						<div class="item  col-xs-4 col-lg-4">
-							<div class="thumbnail">
-								<img class="group list-group-image"
-									src="http://placehold.it/400x250/000/fff" alt="" />
-								<div class="caption">
-									<h4 class="group inner list-group-item-heading">${dish.name}</h4>
-									<p class="group inner list-group-item-text">${dish.description}</p>
-									<div class="row">
-										<div class="col-md-offset-6 col-md-6">
-											Cantidad solicitada: <input type="number"
-												class="form-control" min="0" name="${dish.id}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<%@ include file="dishesInfo.jsp"%>
 					</c:if>
 				</c:forEach>
 			</div>
@@ -164,7 +104,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<div class="row">
-								<div class="col-md-10 vertical-align">${comment.userName}</div>
+								<div class="col-md-10 vertical-align">Calificacion: ${comment.rating}</div>
 								<c:if test="${admin}">
 									<div class="col-md-2 align-right">
 										<input type="submit" value="X">
@@ -172,7 +112,7 @@
 								</c:if>
 							</div>
 						</div>
-						<div class="panel-body">Calificacion: ${comment.rating}</div>
+						<div class="panel-body">${comment.userName}:</div>
 						<div class="panel-body">${comment.text}</div>
 					</div>
 				</div>
