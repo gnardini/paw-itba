@@ -28,7 +28,9 @@ public class DishValidationHelper {
 				|| menu == "")
 			return false;
 		Type type = getType(menu);
-		mDish = new Dish(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), name, description, Integer.valueOf(price), type);
+		int numPrice = Integer.valueOf(price);
+		if (numPrice <= 0 || numPrice > 1000000) return false;
+		mDish = new Dish(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), name, description, numPrice, type);
 		return true;
 	}
 	

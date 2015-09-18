@@ -35,7 +35,7 @@ public class OrderValidationHelper {
 		for (String dishId: map.keySet()) {
 			if (NumberUtils.isInteger(dishId)) {
 				amount = map.get(dishId);
-				if (amount.length == 1 && NumberUtils.isInteger(amount[0])) {
+				if (amount.length == 1 && NumberUtils.isInteger(amount[0]) && amount[0].length() <= 6) {
 					dishCount = Integer.valueOf(amount[0]);
 					dish = mRestaurantManager.getDish(Long.valueOf(dishId));
 					if (dishCount > 0) mOrder.addDetail(dish.getName(), dishCount, dish.getPrice());

@@ -14,14 +14,15 @@ public class OrderDatabase extends Database<Order> {
 	private static final int USER_ID = 2;
 	private static final int RESTAURANT_ID = 3;
 	private static final int MADE = 4;
-
+	private static final int RESTAURANT_NAME = 5;
+	
 	public long addOrder(Order order) {
 		return insertGetId("insert into orders (userid, restaurantid, made) values (?, ?, ?)", order);
 	}
 	
 	public List<Order> getOrders(long userId) {
-		return doListQuery("select * from orders "
-				+ "where userid=" + userId);
+		return doListQuery("select orders.id, userid, restaurantid, made, name from orders, restaurant "
+				+ "where userid=" + userId + " and restaurantid=restaurant.id");
 	}
 	
 	@Override
@@ -30,7 +31,8 @@ public class OrderDatabase extends Database<Order> {
 				rs.getLong(ID),
 				rs.getLong(USER_ID),
 				rs.getLong(RESTAURANT_ID),
-				rs.getDate(MADE).getTime());
+				rs.getDate(MADE).getTime(),
+				rs.getString(RESTAURANT_NAME));
 	}
 
 	@Override

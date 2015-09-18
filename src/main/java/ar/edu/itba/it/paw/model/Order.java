@@ -10,16 +10,18 @@ public class Order {
 	private long id;
 	private long userId;
 	private long restaurantId;
+	private String restaurantName;
 	private Date made;
 	private String price;
 	private String orderDate;
 	private List<OrderDetail> details;
 	
-	public Order(long id, long userId, long restaurantId, long madeMillis) {
+	public Order(long id, long userId, long restaurantId, long madeMillis, String restaurantName) {
 		this.id = id;
 		this.userId = userId;
 		this.restaurantId = restaurantId;
 		this.made = new Date(madeMillis);
+		this.restaurantName = restaurantName;
 		orderDate = new SimpleDateFormat("dd/MM").format(made);
 		details = new LinkedList<>();
 	}
@@ -45,6 +47,10 @@ public class Order {
 	
 	public long getRestaurantId() {
 		return restaurantId;
+	}
+	
+	public String getRestaurantName() {
+		return restaurantName;
 	}
 	
 	public Date getMade() {
