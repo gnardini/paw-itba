@@ -36,9 +36,6 @@
 				<c:if test="${manager}">
 					<li><a href="/managerPanel">Panel de Control</a></li>
 				</c:if>
-				<c:if test="${normal}">
-					<li><a href="/userPanel">Panel de Control</a></li>
-				</c:if>
 				<c:if test="${logged}">
 					<li><a href="javascript:;"
 						onclick="document.getElementById('form1').submit();">Cerrar

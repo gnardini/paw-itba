@@ -6,8 +6,6 @@
 	<H3>Panel de Control</H3>
 
 	<%@ include file="message.jsp"%>
-		
-	<%@ include file="orders.jsp"%>
 	
 </div>
 
