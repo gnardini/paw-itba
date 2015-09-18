@@ -11,7 +11,7 @@
 			<div class="item  col-xs-4 col-lg-4">
 				<div class="thumbnail">
 					<img class="group list-group-image"
-						src="http://placehold.it/400x250/000/fff" alt="" />
+						src="http://www.comohotels.com/metropolitanbangkok/sites/default/files/styles/background_image/public/images/background/metbkk_bkg_nahm_restaurant.jpg?itok=GSmnYYaU" alt="" />
 					<div class="caption">
 						<h4 class="group inner list-group-item-heading">${restaurant.name}</h4>
 						<p class="group inner list-group-item-text">${restaurant.description}</p>
