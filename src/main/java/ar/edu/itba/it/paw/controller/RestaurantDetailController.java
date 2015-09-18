@@ -26,7 +26,6 @@ public class RestaurantDetailController extends BaseController {
 		
 		User loggedUser = sessionManager.getUser();
 		long restaurantId = getRestaurantId(req);
-		System.out.println(restaurantId);
 		boolean canComment = loggedUser != null;
 		if (canComment) canComment = restaurantManager.canUserComment(loggedUser.getId(), restaurantId);
 		req.setAttribute(Parameter.CAN_COMMENT, canComment);
