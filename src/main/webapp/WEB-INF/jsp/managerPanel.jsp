@@ -34,7 +34,7 @@
 						name="description">
 				</div>
 				<div class="form-group">
-					<input type="number" class="form-control" placeholder="Precio" min="0" 
+					<input type="number" class="form-control" placeholder="Precio" min="1" max="10000"
 						name="price">
 				</div>
 				<div class="form-group">

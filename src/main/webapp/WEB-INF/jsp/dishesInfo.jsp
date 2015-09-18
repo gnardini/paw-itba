@@ -9,7 +9,7 @@
 				<div class="col-md-4 price">$${dish.price}</div>
 				<div class="col-md-8">
 					<input type="number" class="form-control"
-						placeholder="Cantidad solicitada" min="0" name="${dish.id}">
+						placeholder="Cantidad solicitada" min="0" max="100" name="${dish.id}">
 				</div>
 			</div>
 		</div>
