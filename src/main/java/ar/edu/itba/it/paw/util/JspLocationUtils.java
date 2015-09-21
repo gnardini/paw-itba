@@ -10,4 +10,5 @@ public class JspLocationUtils {
 	public static final String USER_PANEL = "/WEB-INF/jsp/userPanel.jsp";
 	public static final String ORDERS = "/WEB-INF/jsp/myOrders.jsp";
 	public static final String LOGIN = "/WEB-INF/jsp/login.jsp"; 
+	public static final String ERROR = "/WEB-INF/jsp/error.jsp"; 
 }
