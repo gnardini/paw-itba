@@ -21,11 +21,15 @@
 				value="${restaurant.name}" name="name">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Descripcion"
+				<input type="text" class="form-control" placeholder="Tipo de Menú"
+					value="${restaurant.menuType}" name="menuType">
+			</div>
+		<div class="form-group">
+			<input type="text" class="form-control" placeholder="Descripción"
 				value="${restaurant.description}" name="description">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Direccion"
+			<input type="text" class="form-control" placeholder="Dirección"
 				value="${restaurant.address}" name="address">
 		</div>
 		<div class="form-group">
@@ -33,11 +37,11 @@
 				value="${restaurant.openingHours}" name="openingHours">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Costo de Delivery" 
+			<input type="text" class="form-control" placeholder="Costo de Delivery" min="0"
 			value="${restaurant.deliveryCost}" name="deliveryCost">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Costo minimo"
+			<input type="text" class="form-control" placeholder="Costo mínimo" min="0"
 				value="${restaurant.minCost}" name="minCost">
 		</div>
 		<button type="submit" class="btn btn-default">Guardar Cambios</button>

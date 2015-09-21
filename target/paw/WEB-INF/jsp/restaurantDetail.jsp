@@ -15,12 +15,13 @@
 		<div class="row">
 		<div class="col-md-9">
 			<h1>${restaurant.name}</h1>
-			<p>Puntuacion: ${restaurant.ranking}</p>
-			<p>Descripcion: ${restaurant.description}</p>
-			<p>Direccion: ${restaurant.address}</p>
+			<p>Puntuación: ${restaurant.ranking}</p>
+			<p>Tipo de Menú: ${restaurant.menuType}</p>
+			<p>Descripción: ${restaurant.description}</p>
+			<p>Dirección: ${restaurant.address}</p>
 			<p>Horario: ${restaurant.openingHours}</p>
-			<p>Costo de envio: $${restaurant.deliveryCost}</p>
-			<p>Costo minimo: $${restaurant.minCost}</p>
+			<p>Costo de envío: $${restaurant.deliveryCost}</p>
+			<p>Costo mínimo: $${restaurant.minCost}</p>
 			</div>
 			<div class="col-md-3">
 			<c:if test="${admin}">

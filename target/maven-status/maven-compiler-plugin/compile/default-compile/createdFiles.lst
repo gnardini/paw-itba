@@ -14,8 +14,8 @@ ar/edu/itba/it/paw/controller/UserPanelController.class
 ar/edu/itba/it/paw/manager/implementation/UserManagerImpl.class
 ar/edu/itba/it/paw/controller/AdminPanelController.class
 ar/edu/itba/it/paw/manager/implementation/OrderManagerImpl.class
-ar/edu/itba/it/paw/util/Header.class
 ar/edu/itba/it/paw/db/RestaurantDatabase.class
+ar/edu/itba/it/paw/util/Header.class
 ar/edu/itba/it/paw/db/OrderDatabase.class
 ar/edu/itba/it/paw/controller/LoginController.class
 ar/edu/itba/it/paw/controller/DeleteRestaurantController.class
@@ -35,10 +35,10 @@ ar/edu/itba/it/paw/controller/LogOutController.class
 ar/edu/itba/it/paw/util/NumberUtils.class
 ar/edu/itba/it/paw/controller/NewRestaurantController.class
 ar/edu/itba/it/paw/model/User.class
-ar/edu/itba/it/paw/manager/UserManager.class
 ar/edu/itba/it/paw/helper/CommentValidationHelper.class
-ar/edu/itba/it/paw/manager/OrderManager.class
+ar/edu/itba/it/paw/manager/UserManager.class
 ar/edu/itba/it/paw/db/CommentDatabase.class
+ar/edu/itba/it/paw/manager/OrderManager.class
 ar/edu/itba/it/paw/controller/DeleteCommentController.class
 ar/edu/itba/it/paw/db/ManagerDatabase.class
 ar/edu/itba/it/paw/helper/OrderValidationHelper.class
@@ -52,8 +52,8 @@ ar/edu/itba/it/paw/controller/RestaurantsController.class
 ar/edu/itba/it/paw/model/Dish.class
 ar/edu/itba/it/paw/manager/RestaurantManager.class
 ar/edu/itba/it/paw/controller/EditRestaurantController.class
-ar/edu/itba/it/paw/manager/SessionManager.class
 ar/edu/itba/it/paw/helper/RestaurantValidationHelper.class
+ar/edu/itba/it/paw/manager/SessionManager.class
 ar/edu/itba/it/paw/helper/UserValidationHelper.class
 ar/edu/itba/it/paw/controller/NewManagerController.class
 ar/edu/itba/it/paw/util/Parameter.class

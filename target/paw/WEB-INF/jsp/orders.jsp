@@ -9,7 +9,7 @@
 	<div class="panel panel-default back-panel">
 		<div class="panel-heading">
 			<p>Restoran: ${order.restaurantName}</p>
-			<p>Precio Total: ${order.price}</p>
+			<p>Precio (sin contar el precio del envío): ${order.price}</p>
 			<p>Fecha del pedido: ${order.orderDate}</p></div>
 		<div class="panel-body">
 			<div class="row list-group">

@@ -14,7 +14,7 @@
 	<%@ include file="message.jsp"%>
 	
 	<div class="container">
-		<h4>Asignar Gerente a Restoran</h4>
+		<h3>Asignar Gerente a Restoran</h3>
 		<form role="form" action="assignManager" method="POST">
 			<div class="form-group">
 			
@@ -38,7 +38,7 @@
 	</div>
 
 	<div class="container">
-		<h4>Registrar Nuevo Gerente</h4>
+		<h3>Registrar Nuevo Gerente</h3>
 		<form role="form" action="newManager" method="POST">
 			<div class="form-group">
 				<label for="users">Seleccione de lista de usuarios:</label> 
@@ -62,11 +62,15 @@
 					name="name">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Descripcion"
+				<input type="text" class="form-control" placeholder="Tipo de Menú"
+					name="menuType">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Descripción"
 					name="description">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Direccion"
+				<input type="text" class="form-control" placeholder="Dirección"
 					name="address">
 			</div>
 			<div class="form-group">
@@ -78,7 +82,7 @@
 					placeholder="Costo de Delivery" name="deliveryCost">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Costo minimo"
+				<input type="text" class="form-control" placeholder="Costo mínimo"
 					name="minCost">
 			</div>
 			<button type="submit" value="Agregar" class="btn btn-default">Agregar
