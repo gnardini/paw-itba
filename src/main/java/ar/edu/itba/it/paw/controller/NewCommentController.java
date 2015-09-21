@@ -23,7 +23,7 @@ public class NewCommentController extends RestaurantDetailController {
 		CommentValidationHelper validator = new CommentValidationHelper(req, sessionManager.getUser().getId());
 		if (validator.isValidComment()) {
 			restaurantManager.addComment(validator.getComment());
-			setMessage(req, "Comentario creado con exito");
+			setMessage(req, "Comentario creado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo crear el comentario");

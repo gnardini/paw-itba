@@ -85,4 +85,5 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	public void deleteComment(long userId, long restaurantId) {
 		mCommentDatabase.deleteComment(userId, restaurantId);
 	}
+
 }
