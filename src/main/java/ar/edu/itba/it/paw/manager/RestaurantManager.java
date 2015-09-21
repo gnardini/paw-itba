@@ -26,7 +26,7 @@ public interface RestaurantManager {
 	
 	public boolean canUserComment(long userId, long restaurantId);
 	
-	public Dish getDish(long dishId);
+	public Dish getDishFromRestaurant(long dishId, long restaurantId);
 	
 	public void updateRestaurant(Restaurant restaurant);
 	

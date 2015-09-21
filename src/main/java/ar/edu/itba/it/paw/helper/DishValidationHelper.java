@@ -24,12 +24,14 @@ public class DishValidationHelper {
 		if (name == "" 
 				|| description == ""
 				|| price == ""
+				|| price.length()>7
 				|| !NumberUtils.isInteger(price)
 				|| menu == "")
 			return false;
 		Type type = getType(menu);
+		if(type==null)
+			return false;
 		int numPrice = Integer.valueOf(price);
-		if (numPrice <= 0 || numPrice > 10000) return false;
 		mDish = new Dish(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), name, description, numPrice, type);
 		return true;
 	}

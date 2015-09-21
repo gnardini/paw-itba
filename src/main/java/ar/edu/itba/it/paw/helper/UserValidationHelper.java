@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.DateUtils;
+import ar.edu.itba.it.paw.util.EmailUtils;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 public class UserValidationHelper {
@@ -30,6 +31,7 @@ public class UserValidationHelper {
 				|| lastName == ""
 				|| address == ""
 				|| email == ""
+				|| !EmailUtils.isEmail(email)
 				|| !NumberUtils.isInteger(day)
 				|| !NumberUtils.isInteger(month)
 				|| !NumberUtils.isInteger(year)

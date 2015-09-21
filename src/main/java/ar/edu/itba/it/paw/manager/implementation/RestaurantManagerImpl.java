@@ -24,7 +24,7 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	
 	public Restaurant getRestaurant(long id) {
 		Restaurant restaurant = mRestaurantDatabase.getRestaurant(id);
-		restaurant.setRanking(mCommentDatabase.getRatingAverage(id));
+		if(restaurant!=null) restaurant.setRanking(mCommentDatabase.getRatingAverage(id));
 		return restaurant;
 	}
 	
@@ -62,8 +62,8 @@ public class RestaurantManagerImpl implements RestaurantManager {
 	}
 	
 	@Override
-	public Dish getDish(long dishId) {
-		return mDishDatabase.getDish(dishId);
+	public Dish getDishFromRestaurant(long dishId, long restaurantId) {
+		return mDishDatabase.getDishFromRestaurant(dishId, restaurantId);
 	}
 	
 	@Override

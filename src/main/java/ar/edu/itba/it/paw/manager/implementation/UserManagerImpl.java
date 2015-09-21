@@ -36,7 +36,7 @@ public class UserManagerImpl implements UserManager {
 	@Override
 	public boolean makeUserManager(long id) {
 		User user = getUser(id);
-		if (user == null) return false;
+		if (user == null || user.getRole()!=Role.NORMAL) return false;
 		user.setRole(Role.MANAGER);
 		mUserDatabase.updateUserRole(user);
 		return true;

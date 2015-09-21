@@ -19,10 +19,10 @@ public class NewRestaurantController extends AdminPanelController {
 		RestaurantManager manager = new RestaurantManagerImpl();
 		RestaurantValidationHelper validator = new RestaurantValidationHelper(req);
 		if (validator.isValidRestaurant() && manager.addRestaurant(validator.getRestaurant())) {
-			setMessage(req, "Nuevo restoran agregado con exito");
+			setMessage(req, "Nuevo restoran agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);			
 		} else {
-			setMessage(req, "Campos invalidos. No se pudo agregar el restoran");
+			setMessage(req, "Campos inválidos. No se pudo agregar el restoran");
 			setMessageType(req, Parameter.ERROR);
 		}	
 		doGet(req, resp);

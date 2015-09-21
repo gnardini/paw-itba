@@ -20,7 +20,7 @@ public class CommentValidationHelper {
 	public boolean isValidComment() {
 		String text = mRequest.getParameter(Parameter.TEXT);
 		String rating = mRequest.getParameter(Parameter.RATING);
-		if (!NumberUtils.isInteger(rating)) return false;
+		if (rating=="" || rating.length()>1 || !NumberUtils.isInteger(rating)) return false;
 		int ratingNumber = Integer.valueOf(rating);
 		if (text == "" 
 				|| ratingNumber < 1

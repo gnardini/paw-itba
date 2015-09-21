@@ -19,7 +19,7 @@ public class SignUpController extends Authentication {
 		SessionManager manager = new SessionManagerImpl(req);
 		UserValidationHelper validator = new UserValidationHelper(req);
 		if (!validator.isValidUser(Role.NORMAL)) {
-			setMessage(req, "Datos de registro invalidos");
+			setMessage(req, "Datos de registro inválidos");
 			setMessageType(req, Parameter.ERROR);
 		} else if (!manager.signup(validator.getUser())) {
 			setMessage(req, "El usuario ya existe");

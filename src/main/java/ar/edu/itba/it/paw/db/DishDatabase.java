@@ -22,8 +22,8 @@ public class DishDatabase extends Database<Dish> {
 		insert("insert into dish (restaurantid, name, description, price, type) values(?, ?, ?, ?, ?)", dish);
 	}
 	
-	public Dish getDish(long dishId) {
-		return doQuery("select * from dish where id=" + dishId);
+	public Dish getDishFromRestaurant(long dishId, long restaurantId) {
+		return doQuery("select * from dish where id=" + dishId+" and restaurantid="+restaurantId);
 	}
 	
 	public List<Dish> getRestaurantDishes(long restaurantId) {

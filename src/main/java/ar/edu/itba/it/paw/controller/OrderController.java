@@ -26,10 +26,14 @@ public class OrderController extends RestaurantDetailController {
 			return;
 		}
 		OrderValidationHelper validator = new OrderValidationHelper(req, sessionManager.getUser().getId());
-		if (validator.isValid()) {
+		Boolean valid=validator.isValid();
+		if (valid==null) {
+			setMessage(req, "El costo del pedido no alcanza el costo mínimo");
+			setMessageType(req, Parameter.ERROR);
+		}else if(valid){
 			Order order = validator.getOrder();
 			orderManager.addOrder(order);
-			setMessage(req, "Pedido realizado con exito");
+			setMessage(req, "Pedido realizado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo realizar el pedido");

@@ -35,15 +35,15 @@ public class ManagerPanelController extends ControlPanelController {
 		long loggedUserId = sessionManager.getUser().getId();
 		
 		DishValidationHelper validator = new DishValidationHelper(req);
-		if (!validator.isValidDish()) {
-			setMessage(req, "No se pudo agregar un nuevo plato");
+		if (req.getParameter(Parameter.RESTAURANT_ID)==null || !validator.isValidDish()) {
+			setMessage(req, "No se pudo agregar el nuevo plato");
 			setMessageType(req, Parameter.ERROR);
 		} else if (!isRestaurantManager(loggedUserId, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID)), restaurantManager)) {
 			setMessage(req, "Reportado, no toques el HTML");
 			setMessageType(req, Parameter.ERROR);
 		} else {
 			restaurantManager.addDish(validator.getDish());
-			setMessage(req, "Nuevo plato agregado con exito");
+			setMessage(req, "Nuevo plato agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		}
 		doGet(req, resp);

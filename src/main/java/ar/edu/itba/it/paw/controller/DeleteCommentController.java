@@ -29,7 +29,7 @@ public class DeleteCommentController extends RestaurantDetailController {
 		long userId = Long.valueOf(req.getParameter(Parameter.USER_ID));
 		long restaurantId = Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID));
 		restaurantManager.deleteComment(userId, restaurantId);
-		setMessage(req, "Comentario borrado con exito");
+		setMessage(req, "Comentario borrado con éxito");
 		setMessageType(req, Parameter.SUCCESS);
 		req.setAttribute(Parameter.RESTAURANT_ID, restaurantId);
 		doGet(req, resp);

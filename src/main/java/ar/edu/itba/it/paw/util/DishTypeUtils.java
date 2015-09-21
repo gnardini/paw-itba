@@ -8,6 +8,7 @@ public class DishTypeUtils {
 		if ("entry".equals(type)) return Type.ENTRY;
 		else if ("main".equals(type)) return Type.MAIN;
 		else if ("dessert".equals(type)) return Type.DESSERT;
-		else return Type.DRINK;
+		else if ("drink".equals(type)) return Type.DRINK;
+		else return null;
 	}
 }
