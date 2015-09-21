@@ -14,23 +14,32 @@ import java.util.Properties;
 public class DatabaseConnection {
 	
 	private static Connection sDbConnection;
+	private Properties prop;
+	
+	
+	public DatabaseConnection() throws IOException{
+		prop = new Properties();
+		String propFileName = "config.properties";
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+		if (inputStream != null) {
+			prop.load(inputStream);
+		}
+	}
+	
+	private String getSSLOff(){
+		return prop.getProperty("ssloff"); 
+	}
+	
+	private String getURI() throws IOException{
+		return prop.getProperty("uri");
+	}
+	
 	
 	public synchronized static Connection getConnection() {
 		if (sDbConnection == null) initConnection();
 		return sDbConnection;
 	}
-	
-	private String getURI() throws IOException{
-		Properties prop = new Properties();
-		String propFileName = "config.properties";
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
-
-		if (inputStream != null) {
-			prop.load(inputStream);
-		}
-		return prop.getProperty("URI");
-	}
-	
 	
 	private static void initConnection() {
 		URI dbUri;
@@ -46,7 +55,7 @@ public class DatabaseConnection {
 			Properties prop = new Properties();
 			prop.setProperty("user", username);
 			prop.setProperty("password", password);
-			String ssloff = "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+			String ssloff = db.getSSLOff();
 
 			/*
 			 * String dbUrl = "jdbc:postgresql://localhost/paw";
