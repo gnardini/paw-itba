@@ -9,5 +9,4 @@
 .project
 .settings/*
 .DS_Store
-/target/
 /pom.properties
