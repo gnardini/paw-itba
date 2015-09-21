@@ -1,5 +1,9 @@
 package ar.edu.itba.it.paw.db;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -16,9 +20,23 @@ public class DatabaseConnection {
 		return sDbConnection;
 	}
 	
+	private String getURI() throws IOException{
+		Properties prop = new Properties();
+		String propFileName = "config.properties";
+		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
+
+		if (inputStream != null) {
+			prop.load(inputStream);
+		}
+		return prop.getProperty("URI");
+	}
+	
+	
 	private static void initConnection() {
 		URI dbUri;
 		try {
+			DatabaseConnection db = new DatabaseConnection();
+			String URI=db.getURI();
 			dbUri = new URI("postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@ec2-54-83-55-214.compute-1.amazonaws.com:5432/djnrag8vu0hpu"); 
 			//dbUri = new URI("postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@localhost:3000/djnrag8vu0hpu");
 			String username = dbUri.getUserInfo().split(":")[0];
@@ -48,6 +66,9 @@ public class DatabaseConnection {
 				e.printStackTrace();
 			}
 		} catch (URISyntaxException e1) {
+			System.out.println("No se pudo conectar con la base de datos");
+			e1.printStackTrace();
+		} catch (IOException e1) {
 			System.out.println("No se pudo conectar con la base de datos");
 			e1.printStackTrace();
 		}

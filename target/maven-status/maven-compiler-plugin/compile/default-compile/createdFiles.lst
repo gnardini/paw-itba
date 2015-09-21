@@ -13,6 +13,7 @@ ar/edu/itba/it/paw/model/User$Role.class
 ar/edu/itba/it/paw/controller/UserPanelController.class
 ar/edu/itba/it/paw/manager/implementation/UserManagerImpl.class
 ar/edu/itba/it/paw/controller/AdminPanelController.class
+ar/edu/itba/it/paw/util/EmailUtils.class
 ar/edu/itba/it/paw/manager/implementation/OrderManagerImpl.class
 ar/edu/itba/it/paw/db/RestaurantDatabase.class
 ar/edu/itba/it/paw/util/Header.class
@@ -57,3 +58,4 @@ ar/edu/itba/it/paw/manager/SessionManager.class
 ar/edu/itba/it/paw/helper/UserValidationHelper.class
 ar/edu/itba/it/paw/controller/NewManagerController.class
 ar/edu/itba/it/paw/util/Parameter.class
+ar/edu/itba/it/paw/controller/ErrorController.class
