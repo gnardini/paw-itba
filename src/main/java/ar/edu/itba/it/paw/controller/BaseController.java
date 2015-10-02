@@ -1,32 +1,39 @@
 package ar.edu.itba.it.paw.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 import ar.edu.itba.it.paw.util.Parameter;
 
-public class BaseController extends HttpServlet {
+public abstract class BaseController {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		SessionManager manager = new SessionManagerImpl(req);	
-		req.setAttribute(Parameter.LOGGED, manager.isLogged());
-		if (manager.isLogged()) {
-			User user = manager.getUser();
-			req.setAttribute(Parameter.USER_ADMIN, user.getRole() == Role.ADMIN);
-			req.setAttribute(Parameter.USER_MANAGER, user.getRole() == Role.MANAGER);
-			req.setAttribute(Parameter.USER_NORMAL, user.getRole() == Role.NORMAL);
+	protected SessionManager mSessionManager;
+
+	public BaseController(SessionManager sessionManager) {
+		mSessionManager = sessionManager;
+	}
+	
+	protected ModelAndView createModelAndView(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		mSessionManager.setSession(req.getSession());
+		mav.addObject(Parameter.LOGGED, mSessionManager.isLogged());
+		if (mSessionManager.isLogged()) {
+			User user = mSessionManager.getUser();
+			mav.addObject(Parameter.USER_ADMIN, user.getRole() == Role.ADMIN);
+			mav.addObject(Parameter.USER_MANAGER, user.getRole() == Role.MANAGER);
+			mav.addObject(Parameter.USER_NORMAL, user.getRole() == Role.NORMAL);
 		}
+		return mav;
+	}
+	
+	protected void init(HttpServletRequest req) {
+		mSessionManager.setSession(req.getSession());
 	}
 	
 	protected void setMessage(HttpServletRequest req, String message) {

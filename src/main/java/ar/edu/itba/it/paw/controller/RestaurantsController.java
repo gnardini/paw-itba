@@ -1,25 +1,36 @@
 package ar.edu.itba.it.paw.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.manager.RestaurantManager;
-import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
+import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.util.JspLocationUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
+@Controller
 public class RestaurantsController extends BaseController {
 	
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
-		super.doGet(req, resp);
-		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		List<Restaurant> restaurants = restaurantManager.getRestaurants();
-		req.setAttribute(Parameter.RESTAURANTS, restaurants);
-		req.getRequestDispatcher(JspLocationUtils.RESTAURANTS).forward(req, resp);
+	private final RestaurantManager mRestaurantManager;
+	
+	@Autowired
+	public RestaurantsController(SessionManager sessionManager, RestaurantManager restaurantManager) {
+		super(sessionManager);
+		this.mRestaurantManager = restaurantManager;
+	}
+
+	@RequestMapping(value="/restaurants", method = RequestMethod.GET)
+	public ModelAndView showRestaurants(HttpServletRequest req) {
+		ModelAndView mav = createModelAndView(req);
+		List<Restaurant> restaurants = mRestaurantManager.getRestaurants();
+		mav.addObject(Parameter.RESTAURANTS, restaurants);
+		return mav;
 	}
 }

@@ -25,7 +25,7 @@ public class DishValidationHelper {
 				|| description == ""
 				|| price == ""
 				|| price.length()>7
-				|| !NumberUtils.isInteger(price)
+				|| !NumberUtils.isNumber(price)
 				|| menu == "")
 			return false;
 		Type type = getType(menu);

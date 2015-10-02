@@ -2,12 +2,15 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.db.OrderDatabase;
 import ar.edu.itba.it.paw.db.OrderDetailDatabase;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.model.OrderDetail;
 
+@Service
 public class OrderManagerImpl implements OrderManager {
 
 	private OrderDatabase mOrderDatabase;

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <%@ include file="header.jsp"%>
 
@@ -29,26 +30,26 @@
 		</div>
 		<div class="col-md-6">
 			<H3>Registro</H3>
-			<form role="form" action="signup" method="POST">
+			<form:form role="form" action="signup" method="POST" commandName="signUpForm">
 				<div class="form-group">
-					<input type="email" class="form-control" placeholder="Mail"
-						name="email">
+					<form:input type="email" class="form-control" placeholder="Mail"
+						path="email" />
 				</div>
 				<div class="form-group">
-					<input type="password" class="form-control"
-						placeholder="Contraseña" name="password">
+					<form:input type="password" class="form-control"
+						placeholder="Contraseña" path="password" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Nombre"
-						name="firstName">
+					<form:input type="text" class="form-control" placeholder="Nombre"
+						path="firstName" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Apellido"
-						name="lastName">
+					<form:input type="text" class="form-control" placeholder="Apellido"
+						path="lastName" />
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Dirección"
-						name="address">
+					<form:input type="text" class="form-control" placeholder="Dirección"
+						path="address" />
 				</div>
 
 				<div class="row">
@@ -57,26 +58,27 @@
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<input type="number" class="form-control" min="1" max="31"
-								placeholder="Dia" name="day">
+							<form:input type="number" class="form-control" min="1" max="31"
+								placeholder="Dia" path="birthDay" />
 						</div>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
-							<input type="number" class="form-control" min="1" max="12"
-								placeholder="Mes" name="month">
+							<form:input type="number" class="form-control" min="1" max="12"
+								placeholder="Mes" path="birthMonth" />
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
-							<input type="number" class="form-control" min="1900"
-								placeholder="Año" name="year">
+							<form:input type="number" class="form-control" min="1900"
+								placeholder="Año" path="birthYear" />
 						</div>
 					</div>
 				</div>
-
+				
+				<form:errors path="*" />
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>
-			</form>
+			</form:form>
 		</div>
 	</div>
 </div>

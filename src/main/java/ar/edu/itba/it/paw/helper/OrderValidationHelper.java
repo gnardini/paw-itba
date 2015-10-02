@@ -27,7 +27,7 @@ public class OrderValidationHelper {
 	}
 	
 	public Boolean isValid() {
-		if(mRequest.getParameter(Parameter.RESTAURANT_ID)==null || !NumberUtils.isInteger(mRequest.getParameter(Parameter.RESTAURANT_ID)))
+		if(mRequest.getParameter(Parameter.RESTAURANT_ID)==null || !NumberUtils.isNumber(mRequest.getParameter(Parameter.RESTAURANT_ID)))
 			return false;
 		mOrder = new Order(
 				userId,
@@ -42,9 +42,9 @@ public class OrderValidationHelper {
 		Dish dish;
 		long totalAmount=0;
 		for (String dishId: map.keySet()) {
-			if (NumberUtils.isInteger(dishId)) {
+			if (NumberUtils.isNumber(dishId)) {
 				amount = map.get(dishId);
-				if (amount.length == 1 && NumberUtils.isInteger(amount[0]) && amount[0].length() <= 3) {
+				if (amount.length == 1 && NumberUtils.isNumber(amount[0]) && amount[0].length() <= 3) {
 					dishCount = Integer.valueOf(amount[0]);
 					dish = mRestaurantManager.getDishFromRestaurant((Long.valueOf(dishId)), restaurant.getId());
 					if (dishCount > 0){

@@ -15,12 +15,13 @@ import ar.edu.itba.it.paw.util.JspLocationUtils;
 import ar.edu.itba.it.paw.util.Page;
 import ar.edu.itba.it.paw.util.Parameter;
 
-public class MyOrdersController extends BaseController {
+public class MyOrdersController extends OldBaseController {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		super.doGet(req, resp);
-		SessionManager sessionManager = new SessionManagerImpl(req);
+		SessionManager sessionManager = new SessionManagerImpl();
+		sessionManager.setSession(req.getSession());
 		OrderManager orderManager = new OrderManagerImpl();
 				
 		User loggedUser = sessionManager.getUser();

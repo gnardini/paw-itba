@@ -31,11 +31,11 @@ public class RestaurantValidationHelper {
 				|| openingHours == ""
 				|| deliveryCost == ""
 				|| deliveryCost.length() > 6
-				|| !NumberUtils.isInteger(deliveryCost)
+				|| !NumberUtils.isNumber(deliveryCost)
 				|| Integer.valueOf(deliveryCost)<0
 				|| minCost == ""
 				|| minCost.length() > 6
-				|| !NumberUtils.isInteger(minCost)
+				|| !NumberUtils.isNumber(minCost)
 				|| Integer.valueOf(minCost)<0)
 			return false;
 		mRestaurant = new Restaurant(-1, name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description);

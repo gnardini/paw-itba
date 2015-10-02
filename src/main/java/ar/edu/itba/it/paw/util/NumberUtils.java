@@ -6,7 +6,7 @@ public class NumberUtils {
 	
 	private static final String INTEGER_PATTERN = "0|-?[1-9][0-9]*";
 
-	public static boolean isInteger(String s) {
+	public static boolean isNumber(String s) {
 	    return Pattern.matches(INTEGER_PATTERN, s);
 	}
 }

@@ -3,10 +3,13 @@ package ar.edu.itba.it.paw.manager.implementation;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.db.UserDatabase;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.User;
 
+@Service
 public class SessionManagerImpl implements SessionManager {
 	
 	private static String EMAIL = "email";
@@ -14,9 +17,12 @@ public class SessionManagerImpl implements SessionManager {
 	private HttpSession mSession;
 	private UserDatabase mDatabase;
 	
-	public SessionManagerImpl(HttpServletRequest request) {
-		mSession = request.getSession();
+	public SessionManagerImpl() {
 		mDatabase = new UserDatabase();
+	}
+	
+	public void setSession(HttpSession session) {
+		mSession = session;
 	}
 	
 	public boolean isLogged() {

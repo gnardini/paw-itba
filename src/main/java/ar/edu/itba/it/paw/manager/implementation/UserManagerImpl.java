@@ -2,12 +2,15 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.db.ManagerDatabase;
 import ar.edu.itba.it.paw.db.UserDatabase;
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
 
+@Service
 public class UserManagerImpl implements UserManager {
 
 	private UserDatabase mUserDatabase;

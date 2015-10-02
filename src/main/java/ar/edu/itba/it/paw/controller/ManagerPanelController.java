@@ -23,7 +23,8 @@ public class ManagerPanelController extends ControlPanelController {
 		super.doGet(req, resp);
 		if (!mPermissionGranted) return;
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		SessionManager sessionManager = new SessionManagerImpl(req);
+		SessionManager sessionManager = new SessionManagerImpl();
+		sessionManager.setSession(req.getSession());
 		req.setAttribute(Parameter.RESTAURANTS, restaurantManager.getRestaurantsByManager(sessionManager.getUser().getId()));
 		req.getRequestDispatcher(JspLocationUtils.MANAGER_PANEL).forward(req, resp);
 	}
@@ -31,7 +32,8 @@ public class ManagerPanelController extends ControlPanelController {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RestaurantManager restaurantManager = new RestaurantManagerImpl();
-		SessionManager sessionManager = new SessionManagerImpl(req);
+		SessionManager sessionManager = new SessionManagerImpl();
+		sessionManager.setSession(req.getSession());
 		long loggedUserId = sessionManager.getUser().getId();
 		
 		DishValidationHelper validator = new DishValidationHelper(req);

@@ -2,6 +2,8 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.db.CommentDatabase;
 import ar.edu.itba.it.paw.db.DishDatabase;
 import ar.edu.itba.it.paw.db.RestaurantDatabase;
@@ -10,6 +12,7 @@ import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 
+@Service
 public class RestaurantManagerImpl implements RestaurantManager {
 
 	private RestaurantDatabase mRestaurantDatabase;

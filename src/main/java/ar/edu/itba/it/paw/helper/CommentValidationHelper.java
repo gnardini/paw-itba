@@ -25,13 +25,13 @@ public class CommentValidationHelper {
 		String text = mRequest.getParameter(Parameter.TEXT);
 		String rating = mRequest.getParameter(Parameter.RATING);
 		String resturantIdString = mRequest.getParameter(Parameter.RESTAURANT_ID);
-		if(resturantIdString==null || !NumberUtils.isInteger(resturantIdString))
+		if(resturantIdString==null || !NumberUtils.isNumber(resturantIdString))
 			return false;
 		long restaurantId = Long.valueOf(resturantIdString); 
 		if(!mRestaurantManager.canUserComment(mUserId, restaurantId)){
 			return false;
 		}
-		if (rating=="" || rating.length()>1 || !NumberUtils.isInteger(rating)) return false;
+		if (rating=="" || rating.length()>1 || !NumberUtils.isNumber(rating)) return false;
 		int ratingNumber = Integer.valueOf(rating);
 		if (text == "" 
 				|| ratingNumber < 1
