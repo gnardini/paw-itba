@@ -57,6 +57,7 @@ public class AuthenticationController extends BaseController {
 	protected ModelAndView showSignUp(HttpServletRequest req, SignUpForm form, Errors errors) {
 		mSessionManager.setSession(req.getSession());
 		mSignUpValidator.validate(form, errors);
+		System.out.println("asd");
 		if (errors.hasErrors()) {
 			setMessage(req, "Datos de registro inválidos");
 			setMessageType(req, Parameter.ERROR);

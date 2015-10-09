@@ -19,3 +19,8 @@ insert into dish values (3, 1, 'Gaseosa Mediana', 'Bebida refrescante de la marc
 insert into dish values (4, 1, 'Sundae', 'Helado de crema americana o dulce de leche', 15, 'dessert');
 insert into dish values (5, 2, 'Whopper Doble', 'Doble hamburguesa con lechuga, tomate y pepinos', 40, 'main');
 insert into dish values (6, 2, 'Papas Fritas Medianas', 'Papas fritas saladas', 18, 'entry');
+
+ALTER SEQUENCE users_id_seq restart with 10;
+ALTER SEQUENCE restaurant_id_seq restart with 10;
+ALTER SEQUENCE dish_id_seq restart with 10;
+	

@@ -58,8 +58,8 @@ public class CommentDatabase extends Database<Comment> {
 	@Override
 	protected void storeData(PreparedStatement pst, Comment comment) throws SQLException {
 		pst.setLong(USER_ID, comment.getUserId());
-		pst.setLong(RESTAURANT_ID - 1, comment.getRestaurantId());
-		pst.setInt(RATING - 1, comment.getRating());
-		pst.setString(TEXT - 1, comment.getText());
+		pst.setLong(RESTAURANT_ID - 2, comment.getRestaurantId());
+		pst.setInt(RATING - 2, comment.getRating());
+		pst.setString(TEXT - 2, comment.getText());
 	}
 }

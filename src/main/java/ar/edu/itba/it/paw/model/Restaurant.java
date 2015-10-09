@@ -34,6 +34,9 @@ public class Restaurant {
 		this.description = description;
 	}
 	
+	public Restaurant() {
+	}
+	
 	public void addComment(Comment comment) {
 		comments.add(comment);
 	}
