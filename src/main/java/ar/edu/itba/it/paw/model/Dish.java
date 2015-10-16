@@ -1,6 +1,10 @@
 package ar.edu.itba.it.paw.model;
 
-public class Dish {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Dish extends PersistentEntity {
 
 	public enum Type {
 		ENTRY,
@@ -13,36 +17,28 @@ public class Dish {
 		}
 	}
 	
-	long id;
-	long restaurantId;
+	@ManyToOne
+	Restaurant restaurant;
+	
 	String name;
 	String description;
 	int price;
 	Type type;
 	
-	public Dish(long id, long restaurantId, String name, String description, int price, Type type) {
-		this.id = id;
-		this.restaurantId = restaurantId;
+	public Dish() {
+		
+	}
+	
+	public Dish(Restaurant restaurant, String name, String description, int price, Type type) {
+		this.restaurant = restaurant;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.type = type;
 	}
 	
-	public Dish(long restaurantId, String name, String description, int price, Type type) {
-		this.restaurantId = restaurantId;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.type = type;
-	}
-
-	public long getId() {
-		return id;
-	}
-	
-	public long getRestaurantId() {
-		return restaurantId;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
 	
 	public String getName() {

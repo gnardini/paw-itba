@@ -2,53 +2,44 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.db.ManagerDatabase;
-import ar.edu.itba.it.paw.db.UserDatabase;
 import ar.edu.itba.it.paw.manager.UserManager;
+import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.repository.UserRepo;
 
 @Service
 public class UserManagerImpl implements UserManager {
 
-	private UserDatabase mUserDatabase;
-	private ManagerDatabase mManagerDatabase;
+	private UserRepo userRepo;
 	
-	public UserManagerImpl() {
-		mUserDatabase = new UserDatabase();
-		mManagerDatabase = new ManagerDatabase();
+	@Autowired
+	public UserManagerImpl(UserRepo userRepo) {
+		this.userRepo = userRepo;
 	}
 	
 	@Override
 	public User getUser(long id) {
-		return mUserDatabase.getUser(id);
+		return userRepo.getUser(id);
 	}
 
 	@Override
 	public User getUser(String email) {
-		return mUserDatabase.getUser(email);
+		return userRepo.getUser(email);
 	}
 
 	@Override
 	public List<User> getUsers(Role role) {
-		return mUserDatabase.getUsers(role);
-	}
-
-	@Override
-	public boolean makeUserManager(long id) {
-		User user = getUser(id);
-		if (user == null || user.getRole()!=Role.NORMAL) return false;
-		user.setRole(Role.MANAGER);
-		mUserDatabase.updateUserRole(user);
-		return true;
+		return userRepo.getUsers(role);
 	}
 	
 	@Override
-	public boolean assignManager(long managerId, long restaurantId) {
-		if (mManagerDatabase.getManagerRelation(managerId, restaurantId) != null) return false;
-		mManagerDatabase.assignManager(managerId, restaurantId);
+	public boolean assignManager(User user, Restaurant restaurant) {
+		if (user.isManagerOf(restaurant)) return false;
+		user.addRestaurantToManage(restaurant);
 		return true;
 	}
 }

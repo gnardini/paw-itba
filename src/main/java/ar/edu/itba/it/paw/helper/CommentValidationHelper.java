@@ -2,9 +2,9 @@ package ar.edu.itba.it.paw.helper;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
-import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.model.Comment;
+import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
@@ -12,31 +12,25 @@ public class CommentValidationHelper {
 
 	private HttpServletRequest mRequest;
 	private Comment mComment;
-	private long mUserId;
-	private RestaurantManager mRestaurantManager;
+	private User mUser;
+	private Restaurant mRestaurant;
 	
-	public CommentValidationHelper(HttpServletRequest request, long userId) {
+	public CommentValidationHelper(HttpServletRequest request, User user, Restaurant restaurant) {
 		mRequest = request;
-		mUserId = userId;
-		mRestaurantManager = new RestaurantManagerImpl();
+		mUser = user;
+		mRestaurant = restaurant;
 	}
 	
 	public boolean isValidComment() {
 		String text = mRequest.getParameter(Parameter.TEXT);
 		String rating = mRequest.getParameter(Parameter.RATING);
-		String resturantIdString = mRequest.getParameter(Parameter.RESTAURANT_ID);
-		if(resturantIdString==null || !NumberUtils.isNumber(resturantIdString))
-			return false;
-		long restaurantId = Long.valueOf(resturantIdString); 
-		if(!mRestaurantManager.canUserComment(mUserId, restaurantId)){
-			return false;
-		}
+		if(!mRestaurant.canUserComment(mUser)) return false;
 		if (rating=="" || rating.length()>1 || !NumberUtils.isNumber(rating)) return false;
 		int ratingNumber = Integer.valueOf(rating);
 		if (text == "" 
 				|| ratingNumber < 1
 				|| ratingNumber > 5) return false;
-		mComment = new Comment(mUserId, restaurantId, ratingNumber, text);
+		mComment = new Comment(mUser, mRestaurant, ratingNumber, text);
 		return true;
 	}
 	

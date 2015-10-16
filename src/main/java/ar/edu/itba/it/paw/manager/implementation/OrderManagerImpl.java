@@ -1,44 +1,32 @@
 package ar.edu.itba.it.paw.manager.implementation;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.db.OrderDatabase;
-import ar.edu.itba.it.paw.db.OrderDetailDatabase;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.model.OrderDetail;
+import ar.edu.itba.it.paw.repository.OrderDetailRepo;
+import ar.edu.itba.it.paw.repository.OrderRepo;
 
 @Service
 public class OrderManagerImpl implements OrderManager {
 
-	private OrderDatabase mOrderDatabase;
-	private OrderDetailDatabase mOrderDetailDatabase;
+	private OrderRepo orderRepo;
+	private OrderDetailRepo orderDetailRepo;
 	
-	public OrderManagerImpl() {
-		mOrderDatabase = new OrderDatabase();
-		mOrderDetailDatabase = new OrderDetailDatabase();
+	@Autowired
+	public OrderManagerImpl(OrderRepo orderRepo, OrderDetailRepo orderDetailRepo) {
+		this.orderRepo = orderRepo;
+		this.orderDetailRepo = orderDetailRepo;
 	}
 	
 	@Override
 	public void addOrder(Order order) {
-		long orderId = mOrderDatabase.addOrder(order);
+		orderRepo.addOrder(order);
 		for (OrderDetail detail : order.getDetails()) {
-			detail.setOrderId(orderId);
-			mOrderDetailDatabase.storeOrderDetail(detail);
+			detail.setOrder(order);
+			orderDetailRepo.storeOrderDetail(detail);
 		}
-	}
-	
-	@Override
-	public List<Order> getOrders(long userId) {
-		List<Order> orders = mOrderDatabase.getOrders(userId);
-		for (Order order : orders) {
-			float price = 0;
-			order.setDetails(mOrderDetailDatabase.getOrderDetails(order.getId()));
-			for (OrderDetail detail: order.getDetails()) price += detail.getPrice() * detail.getAmount();
-			order.setPrice(price);
-		}
-		return orders;
 	}
 }

@@ -1,18 +1,27 @@
 package ar.edu.itba.it.paw.controller;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.util.JspLocationUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-public class ErrorController extends OldBaseController {
+import ar.edu.itba.it.paw.manager.SessionManager;
 
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		super.doGet(req, resp);
-		req.getRequestDispatcher(JspLocationUtils.ERROR).forward(req, resp);
+@Controller
+public class ErrorController extends BaseController {
+
+	@Autowired
+	public ErrorController(SessionManager sessionManager) {
+		super(sessionManager);
+	}
+	
+	@RequestMapping(value="/error", method = RequestMethod.GET)
+	protected ModelAndView showError(HttpServletRequest req) {
+		ModelAndView mav = createModelAndView(req);
+		mav.setViewName("error");
+		return mav;
 	}
 }

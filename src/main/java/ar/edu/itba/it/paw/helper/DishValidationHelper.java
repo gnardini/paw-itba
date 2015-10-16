@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Dish.Type;
+import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
@@ -11,9 +12,11 @@ public class DishValidationHelper {
 	
 	private HttpServletRequest mRequest;
 	private Dish mDish;
+	private Restaurant mRestaurant;
 	
-	public DishValidationHelper(HttpServletRequest request) {
+	public DishValidationHelper(HttpServletRequest request, Restaurant restaurant) {
 		mRequest = request;
+		mRestaurant = restaurant;
 	}
 
 	public boolean isValidDish() {
@@ -32,7 +35,7 @@ public class DishValidationHelper {
 		if(type==null)
 			return false;
 		int numPrice = Integer.valueOf(price);
-		mDish = new Dish(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)), name, description, numPrice, type);
+		mDish = new Dish(mRestaurant, name, description, numPrice, type);
 		return true;
 	}
 	

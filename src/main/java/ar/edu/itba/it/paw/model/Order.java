@@ -5,30 +5,43 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Order {
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-	private long id;
-	private long userId;
-	private long restaurantId;
+@Entity
+public class Order extends PersistentEntity {
+
+	@ManyToOne
+	private User user;
+	
+	@ManyToOne
+	private Restaurant restaurant;
+
+	@OneToMany
+	private List<OrderDetail> details;
+	
 	private String restaurantName;
 	private Date made;
 	private String price;
 	private String orderDate;
-	private List<OrderDetail> details;
 	
-	public Order(long id, long userId, long restaurantId, long madeMillis, String restaurantName) {
-		this.id = id;
-		this.userId = userId;
-		this.restaurantId = restaurantId;
+	public Order() {
+		
+	}
+	
+	public Order(User user, Restaurant restaurant, long madeMillis, String restaurantName) {
+		this.user = user;
+		this.restaurant = restaurant;
 		this.made = new Date(madeMillis);
 		this.restaurantName = restaurantName;
 		orderDate = new SimpleDateFormat("dd/MM").format(made);
 		details = new LinkedList<>();
 	}
 	
-	public Order(long userId, long restaurantId, Date made) {
-		this.userId = userId;
-		this.restaurantId = restaurantId;
+	public Order(User user, Restaurant restaurant, Date made) {
+		this.user = user;
+		this.restaurant = restaurant;
 		this.made = made;
 		details = new LinkedList<>();
 	}
@@ -37,16 +50,12 @@ public class Order {
 		details.add(new OrderDetail(name, price, amount));
 	}
 	
-	public long getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 	
-	public long getUserId() {
-		return userId;
-	}
-	
-	public long getRestaurantId() {
-		return restaurantId;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
 	
 	public String getRestaurantName() {

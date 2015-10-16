@@ -5,37 +5,28 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
-import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Order;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.User;
 import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
 public class OrderValidationHelper {
 
 	private HttpServletRequest mRequest;
-	private RestaurantManager mRestaurantManager;
 	private Order mOrder;
-	private Long userId;
+	private User user;
+	private Restaurant restaurant;
 	
-	public OrderValidationHelper(HttpServletRequest request, long userId) {
+	public OrderValidationHelper(HttpServletRequest request, User user, Restaurant restaurant) {
 		mRequest = request;
-		mRestaurantManager = new RestaurantManagerImpl();
-		this.userId=userId;
+		this.user = user;
+		this.restaurant = restaurant;
 	}
 	
 	public Boolean isValid() {
-		if(mRequest.getParameter(Parameter.RESTAURANT_ID)==null || !NumberUtils.isNumber(mRequest.getParameter(Parameter.RESTAURANT_ID)))
-			return false;
-		mOrder = new Order(
-				userId,
-				Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)),
-				new Date());
-		Restaurant restaurant = mRestaurantManager.getRestaurant(Long.valueOf(mRequest.getParameter(Parameter.RESTAURANT_ID)));
-		if(restaurant==null)
-			return false;
+		mOrder = new Order(user,restaurant, new Date());
 		Map<String, String[]> map = mRequest.getParameterMap();
 		String[] amount;
 		int dishCount;
@@ -46,7 +37,7 @@ public class OrderValidationHelper {
 				amount = map.get(dishId);
 				if (amount.length == 1 && NumberUtils.isNumber(amount[0]) && amount[0].length() <= 3) {
 					dishCount = Integer.valueOf(amount[0]);
-					dish = mRestaurantManager.getDishFromRestaurant((Long.valueOf(dishId)), restaurant.getId());
+					dish = restaurant.getDish(Long.valueOf(dishId));
 					if (dishCount > 0){
 						if(dish==null)
 							return false;

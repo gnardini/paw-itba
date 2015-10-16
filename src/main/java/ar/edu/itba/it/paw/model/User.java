@@ -1,5 +1,12 @@
 package ar.edu.itba.it.paw.model;
-	
+
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+
+@Entity
 public class User {
 
 	public enum Role {
@@ -12,7 +19,6 @@ public class User {
 		}
 	}
 	
-	long id;
 	String firstName;
 	String lastName;
 	String address;
@@ -23,20 +29,10 @@ public class User {
 	Role role;
 	String password;
 	
-	public User() {
-	}
+	@ManyToMany
+	List<Restaurant> restaurants;
 	
-	public User(long id, String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.email = email;
-		this.birthDay = birthDay;
-		this.birthMonth = birthMonth;
-		this.birthYear = birthYear;
-		this.role = role;
-		this.password = password;
+	public User() {
 	}
 	
 	public User(String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password) {
@@ -49,10 +45,7 @@ public class User {
 		this.birthYear = birthYear;
 		this.role = role;
 		this.password = password;
-	}
-
-	public long getId() {
-		return id;
+		restaurants = new LinkedList<>();
 	}
 	
 	public String getFirstName() {
@@ -93,5 +86,17 @@ public class User {
 	
 	public void setRole(Role role) {
 		this.role = role;
+	}
+	
+	public List<Restaurant> getRestaurants() {
+		return restaurants;
+	}
+	
+	public boolean isManagerOf(Restaurant restaurant) {
+		return restaurants.contains(restaurant);
+	}
+	
+	public void addRestaurantToManage(Restaurant restaurant) {
+		restaurants.add(restaurant);
 	}
 }

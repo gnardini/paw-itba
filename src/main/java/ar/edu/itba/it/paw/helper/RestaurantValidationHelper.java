@@ -17,7 +17,6 @@ public class RestaurantValidationHelper {
 	}
 	
 	public boolean isValidRestaurant() {
-		
 		String name = mRequest.getParameter("name");
 		String address = mRequest.getParameter("address");
 		String openingHours = mRequest.getParameter("openingHours");
@@ -38,7 +37,7 @@ public class RestaurantValidationHelper {
 				|| !NumberUtils.isNumber(minCost)
 				|| Integer.valueOf(minCost)<0)
 			return false;
-		mRestaurant = new Restaurant(-1, name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description);
+		mRestaurant = new Restaurant(name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description);
 		return true;
 	}
 	

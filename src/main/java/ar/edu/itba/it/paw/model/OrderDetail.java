@@ -1,14 +1,24 @@
 package ar.edu.itba.it.paw.model;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class OrderDetail {
 
-	private long orderId;
+	@ManyToOne
+	private Order order;
+	
 	private String name;
 	private int amount;
 	private int price;
 	
-	public OrderDetail(long orderId, String name, int amount, int price) {
-		this.orderId = orderId;
+	public OrderDetail() {
+		
+	}
+	
+	public OrderDetail(Order order, String name, int amount, int price) {
+		this.order = order;
 		this.name = name;
 		this.amount = amount;
 		this.price = price;
@@ -20,12 +30,12 @@ public class OrderDetail {
 		this.amount = amount;
 	}	
 	
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 	
-	public long getOrderId() {
-		return orderId;
+	public Order getOrder() {
+		return order;
 	}
 	
 	public String getName() {

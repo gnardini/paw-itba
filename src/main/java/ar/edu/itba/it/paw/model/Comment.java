@@ -1,34 +1,39 @@
 package ar.edu.itba.it.paw.model;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Comment {
 
-	long userId;
-	long restaurantId;
+	@ManyToOne
+	User user;
+	
+	@ManyToOne
+	Restaurant restaurant;
+	
 	String userName;
 	int rating;
 	String text;
 	
-	public Comment(long userId, long restaurantId, int rating, String text) {
-		this.userId = userId;
-		this.restaurantId = restaurantId;
+	public Comment() {
+		
+	}
+	
+	public Comment(User user, Restaurant restaurant, int rating, String text) {
+		this.user = user;
+		this.userName = user.getFirstName();
+		this.restaurant = restaurant;
 		this.rating = rating;
 		this.text = text;
 	}
 	
-	public Comment(long userId, String userName, long restaurantId, int rating, String text) {
-		this.userId = userId;
-		this.userName = userName;
-		this.restaurantId = restaurantId;
-		this.rating = rating;
-		this.text = text;
+	public User getUser() {
+		return user;
 	}
 	
-	public long getUserId() {
-		return userId;
-	}
-	
-	public long getRestaurantId() {
-		return restaurantId;
+	public Restaurant getRestaurant() {
+		return restaurant;
 	}
 	
 	public String getUserName() {

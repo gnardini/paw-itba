@@ -2,9 +2,12 @@ package ar.edu.itba.it.paw.model;
 
 import java.util.List;
 
-public class Restaurant {
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
-	long id;
+@Entity
+public class Restaurant extends PersistentEntity {
+
 	String name;
 	String address;
 	String openingHours;
@@ -12,19 +15,21 @@ public class Restaurant {
 	int minCost;
 	String menuType;
 	String description;
-	List<Dish> dishes;
 	String ranking;
+	
+	@OneToMany
+	List<Dish> dishes;
+	
+	@OneToMany
 	List<Comment> comments;
 	
-	public Restaurant(long id,
-					String name,
+	public Restaurant(String name,
 					String address,
 					String openingHours,
 					int deliveryCost,
 					int minCost,
 					String menuType,
 					String description) {
-		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.openingHours = openingHours;
@@ -45,12 +50,18 @@ public class Restaurant {
 		dishes.add(dish);
 	}
 
-	public long getId() {
-		return id;
+	public boolean canUserComment(User user) {
+		for (Comment comment: comments) {
+			if (comment.getUser().equals(user)) return false;
+		}
+		return true;
 	}
 	
-	public void setId(long id) {
-		this.id = id;
+	public Dish getDish(long dishId) {
+		for (Dish dish: dishes) {
+			if (dish.getId() == dishId) return dish;
+		}
+		return null;
 	}
 	
 	public String getName() {
