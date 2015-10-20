@@ -6,27 +6,27 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Dish;
-import ar.edu.itba.it.paw.model.Order;
+import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
 public class OrderValidationHelper {
 
 	private HttpServletRequest mRequest;
-	private Order mOrder;
-	private User user;
+	private Orders mOrder;
+	private Users user;
 	private Restaurant restaurant;
 	
-	public OrderValidationHelper(HttpServletRequest request, User user, Restaurant restaurant) {
+	public OrderValidationHelper(HttpServletRequest request, Users user, Restaurant restaurant) {
 		mRequest = request;
 		this.user = user;
 		this.restaurant = restaurant;
 	}
 	
 	public Boolean isValid() {
-		mOrder = new Order(user,restaurant, new Date());
+		mOrder = new Orders(user,restaurant, new Date());
 		Map<String, String[]> map = mRequest.getParameterMap();
 		String[] amount;
 		int dishCount;
@@ -52,7 +52,7 @@ public class OrderValidationHelper {
 		return mOrder.getDetails().size() != 0;
 	}
 	
-	public Order getOrder() {
+	public Orders getOrder() {
 		return mOrder;
 	}
 }

@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 
@@ -12,10 +12,10 @@ public class CommentValidationHelper {
 
 	private HttpServletRequest mRequest;
 	private Comment mComment;
-	private User mUser;
+	private Users mUser;
 	private Restaurant mRestaurant;
 	
-	public CommentValidationHelper(HttpServletRequest request, User user, Restaurant restaurant) {
+	public CommentValidationHelper(HttpServletRequest request, Users user, Restaurant restaurant) {
 		mRequest = request;
 		mUser = user;
 		mRestaurant = restaurant;

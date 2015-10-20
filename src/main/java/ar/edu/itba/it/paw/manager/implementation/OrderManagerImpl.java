@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.manager.OrderManager;
-import ar.edu.itba.it.paw.model.Order;
+import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
@@ -22,7 +22,7 @@ public class OrderManagerImpl implements OrderManager {
 	}
 	
 	@Override
-	public void addOrder(Order order) {
+	public void addOrder(Orders order) {
 		orderRepo.addOrder(order);
 		for (OrderDetail detail : order.getDetails()) {
 			detail.setOrder(order);

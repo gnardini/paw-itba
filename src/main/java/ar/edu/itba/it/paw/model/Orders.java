@@ -8,12 +8,13 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class Order extends PersistentEntity {
+public class Orders extends PersistentEntity {
 
 	@ManyToOne
-	private User user;
+	private Users user;
 	
 	@ManyToOne
 	private Restaurant restaurant;
@@ -26,11 +27,11 @@ public class Order extends PersistentEntity {
 	private String price;
 	private String orderDate;
 	
-	public Order() {
+	public Orders() {
 		
 	}
 	
-	public Order(User user, Restaurant restaurant, long madeMillis, String restaurantName) {
+	public Orders(Users user, Restaurant restaurant, long madeMillis, String restaurantName) {
 		this.user = user;
 		this.restaurant = restaurant;
 		this.made = new Date(madeMillis);
@@ -39,7 +40,7 @@ public class Order extends PersistentEntity {
 		details = new LinkedList<>();
 	}
 	
-	public Order(User user, Restaurant restaurant, Date made) {
+	public Orders(Users user, Restaurant restaurant, Date made) {
 		this.user = user;
 		this.restaurant = restaurant;
 		this.made = made;
@@ -50,7 +51,7 @@ public class Order extends PersistentEntity {
 		details.add(new OrderDetail(name, price, amount));
 	}
 	
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 	

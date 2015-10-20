@@ -2,91 +2,62 @@ package ar.edu.itba.it.paw.manager.implementation;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.db.CommentDatabase;
-import ar.edu.itba.it.paw.db.DishDatabase;
-import ar.edu.itba.it.paw.db.RestaurantDatabase;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.repository.CommentRepo;
+import ar.edu.itba.it.paw.repository.DishRepo;
+import ar.edu.itba.it.paw.repository.RestaurantRepo;
 
 @Service
 public class RestaurantManagerImpl implements RestaurantManager {
 
-	private RestaurantDatabase mRestaurantDatabase;
-	private DishDatabase mDishDatabase;
-	private CommentDatabase mCommentDatabase;
+	private RestaurantRepo mRestaurantRepo;
+	private DishRepo mDishRepo;
+	private CommentRepo mCommentRepo;
 	
-	public RestaurantManagerImpl() {
-		mRestaurantDatabase = new RestaurantDatabase();
-		mDishDatabase = new DishDatabase();
-		mCommentDatabase = new CommentDatabase();
+	@Autowired
+	public RestaurantManagerImpl(RestaurantRepo restaurantRepo, DishRepo dishRepo, CommentRepo commentRepo) {
+		mRestaurantRepo = restaurantRepo;
+		mDishRepo = dishRepo;
+		mCommentRepo = commentRepo;
 	}
 	
 	public Restaurant getRestaurant(long id) {
-		Restaurant restaurant = mRestaurantDatabase.getRestaurant(id);
-		if(restaurant!=null) restaurant.setRanking(mCommentDatabase.getRatingAverage(id));
+		Restaurant restaurant = mRestaurantRepo.getRestaurant(id);
 		return restaurant;
 	}
 	
 	public List<Restaurant> getRestaurants() {
-		return mRestaurantDatabase.getRestaurants();
+		return mRestaurantRepo.getRestaurants();
 	}
 	
 	@Override
-	public List<Restaurant> getRestaurantsByManager(long managerId) {
-		return mRestaurantDatabase.getManagersRestaurants(managerId);
-	}
-	
-	@Override
-	public List<Comment> getRestaurantComments(long restaurantId) {
-		return mCommentDatabase.getRestaurantComments(restaurantId);
-	}
-	
-	@Override
-	public List<Dish> getRestaurantDishes(long restaurantId) {
-		return mDishDatabase.getRestaurantDishes(restaurantId);
-	}
-	
-	@Override
-	public boolean addRestaurant(Restaurant restaurant) {
-		return mRestaurantDatabase.addRestaurant(restaurant) != null;
+	public void addRestaurant(Restaurant restaurant) {
+		mRestaurantRepo.storeRestaurant(restaurant);
 	}
 	
 	public void addComment(Comment comment) {
-		mCommentDatabase.addComment(comment);
+		mCommentRepo.addComment(comment);
 	}
 	
 	@Override
 	public void addDish(Dish dish) {
-		mDishDatabase.addDish(dish);
+		mDishRepo.addDish(dish);
 	}
 	
 	@Override
-	public Dish getDishFromRestaurant(long dishId, long restaurantId) {
-		return mDishDatabase.getDishFromRestaurant(dishId, restaurantId);
+	public void deleteRestaurant(Restaurant restaurant) {
+		mRestaurantRepo.deleteRestaurant(restaurant);
 	}
 	
 	@Override
-	public boolean canUserComment(long userId, long restaurantId) {
-		return mCommentDatabase.getUserComment(userId, restaurantId) == null;
-	}
-	
-	@Override
-	public void updateRestaurant(Restaurant restaurant) {
-		mRestaurantDatabase.updateRestaurant(restaurant);
-	}
-	
-	@Override
-	public void deleteRestaurant(long restaurantId) {
-		mRestaurantDatabase.deleteRestaurant(restaurantId);
-	}
-	
-	@Override
-	public void deleteComment(long userId, long restaurantId) {
-		mCommentDatabase.deleteComment(userId, restaurantId);
+	public void deleteComment(Comment comment) {
+		mCommentRepo.deleteComment(comment);
 	}
 
 }

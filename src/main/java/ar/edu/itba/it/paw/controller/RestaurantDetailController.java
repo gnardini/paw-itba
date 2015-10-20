@@ -14,12 +14,10 @@ import ar.edu.itba.it.paw.helper.OrderValidationHelper;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.manager.implementation.RestaurantManagerImpl;
-import ar.edu.itba.it.paw.model.Order;
+import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
-import ar.edu.itba.it.paw.util.NumberUtils;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
@@ -36,105 +34,102 @@ public class RestaurantDetailController extends BaseController {
 	}
 	
 	@RequestMapping(value="/restaurant", method = RequestMethod.GET)
-	protected ModelAndView showRestaurant(HttpServletRequest req, @RequestParam("code") String restaurantIdString) {
+	protected ModelAndView showRestaurant(HttpServletRequest req, @RequestParam(Parameter.CODE) Restaurant restaurant) {
 		ModelAndView mav = createModelAndView(req);
-		if (restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString)) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
-		Restaurant restaurant = mRestaurantManager.getRestaurant(Long.valueOf(restaurantIdString));
-		if (restaurant == null)	return new ModelAndView("redirect:restaurants");
 		
-		User loggedUser = mSessionManager.getUser();
+		Users loggedUser = mSessionManager.getUser();
 		boolean canComment = loggedUser != null;
-		if (canComment) canComment = mRestaurantManager.canUserComment(loggedUser.getId(), restaurant.getId());
+		if (canComment) canComment = restaurant.canUserComment(loggedUser);
 		mav.addObject(Parameter.CAN_COMMENT, canComment);
 		
-		restaurant.setDishes(mRestaurantManager.getRestaurantDishes(restaurant.getId()));
-		restaurant.setComments(mRestaurantManager.getRestaurantComments(restaurant.getId()));
+		restaurant.setDishes(restaurant.getDishes());
+		restaurant.setComments(restaurant.getComments());
 		mav.addObject(Parameter.RESTAURANT, restaurant);
 		mav.setViewName("restaurantDetail");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/newComment", method = RequestMethod.POST)
-	protected ModelAndView showNewComment(HttpServletRequest req, @RequestParam("restaurant_id") String restaurantIdString) {
-		if (restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString)) {
+	protected ModelAndView showNewComment(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
-		Restaurant restaurant = mRestaurantManager.getRestaurant(Long.valueOf(restaurantIdString));
-		if (restaurant == null) return new ModelAndView("redirect:restaurants");
 		init(req);
-		CommentValidationHelper validator = new CommentValidationHelper(req, mSessionManager.getUser().getId());
+		CommentValidationHelper validator = new CommentValidationHelper(req, mSessionManager.getUser(), restaurant);
 		if (validator.isValidComment()) {
-			mRestaurantManager.addComment(validator.getComment());
+			restaurant.addComment(validator.getComment());
 			setMessage(req, "Comentario creado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo crear el comentario");
 			setMessageType(req, Parameter.ERROR);
 		}
-		return showRestaurant(req, String.valueOf(restaurant.getId()));
+		return showRestaurant(req, restaurant);
 	}
 	
 	@RequestMapping(value = "deleteComment", method = RequestMethod.POST)
-	protected ModelAndView showDeleteComment(HttpServletRequest req, @RequestParam("restaurant_id") String restaurantIdString) {
-		if ((restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString))) {
+	protected ModelAndView showDeleteComment(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam(Parameter.USER_ID) Users user) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
-		Restaurant restaurant = mRestaurantManager.getRestaurant(Long.valueOf(restaurantIdString));
 		init(req);
 		
 		if (!mSessionManager.isLogged() || mSessionManager.getUser().getRole() != Role.ADMIN) {
 			// shouldn't happen
 			return new ModelAndView("redirect:restaurants");
 		}
-		long userId = Long.valueOf(req.getParameter(Parameter.USER_ID));
-		mRestaurantManager.deleteComment(userId, restaurant.getId());
-		setMessage(req, "Comentario borrado con éxito");
-		setMessageType(req, Parameter.SUCCESS);
-		
-		return showRestaurant(req, String.valueOf(restaurant.getId()));
+		if (user != null) {
+			restaurant.deleteUserComment(user);
+			setMessage(req, "Comentario borrado con éxito");
+			setMessageType(req, Parameter.SUCCESS);
+		} else {
+			setMessage(req, "No se pudo borrar el comentario");
+			setMessageType(req, Parameter.ERROR);
+		}
+		return showRestaurant(req, restaurant);
 	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	protected ModelAndView showDoOrder(HttpServletRequest req, @RequestParam("restaurant_id") String restaurantIdString) {
+	protected ModelAndView showDoOrder(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
 		init(req);
 		if (!mSessionManager.isLogged()) {
 			return new ModelAndView("redirect:login");
 		}
-		OrderValidationHelper validator = new OrderValidationHelper(req, mSessionManager.getUser().getId());
-		Boolean valid=validator.isValid();
-		if (valid==null) {
+		Users user = mSessionManager.getUser();
+		OrderValidationHelper validator = new OrderValidationHelper(req, user, restaurant);
+		Boolean valid = validator.isValid();
+		if (valid == null) {
 			setMessage(req, "El costo del pedido no alcanza el costo mínimo");
 			setMessageType(req, Parameter.ERROR);
-		}else if(valid){
-			Order order = validator.getOrder();
-			mOrderManager.addOrder(order);
+		} else if (valid) {
+			Orders order = validator.getOrder();
+			user.addOrder(order);
 			setMessage(req, "Pedido realizado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {
 			setMessage(req, "No se pudo realizar el pedido");
 			setMessageType(req, Parameter.ERROR);
 		}
-		req.setAttribute(Parameter.RESTAURANT_ID, Long.valueOf(req.getParameter(Parameter.RESTAURANT_ID)));
-		return showRestaurant(req, restaurantIdString);
+		req.setAttribute(Parameter.RESTAURANT_ID, restaurant.getId());
+		return showRestaurant(req, restaurant);
 	}
 	
 	@RequestMapping(value = "/deleteRestaurant", method = RequestMethod.POST)
-	protected ModelAndView showDeleteRestaurant(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) String restaurantIdString) {
-		if ((restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString))) {
+	protected ModelAndView showDeleteRestaurant(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
-		Restaurant restaurant = mRestaurantManager.getRestaurant(Long.valueOf(restaurantIdString));
-		if (restaurant == null) return new ModelAndView("redirect:restaurants");
 		init(req);
 		
 		if (mSessionManager.getUser().getRole() != Role.ADMIN) {
 			setMessage(req, "Solo el Admin puede borrar restoranes");
 			setMessageType(req, Parameter.ERROR);
-			return showRestaurant(req, restaurantIdString);
+			return showRestaurant(req, restaurant);
 		}
-		mRestaurantManager.deleteRestaurant(restaurant.getId());
+		mRestaurantManager.deleteRestaurant(restaurant);
 		return new ModelAndView("redirect:restaurants");
 	}
 }

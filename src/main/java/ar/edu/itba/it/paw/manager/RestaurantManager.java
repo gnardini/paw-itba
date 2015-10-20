@@ -12,25 +12,13 @@ public interface RestaurantManager {
 	
 	public List<Restaurant> getRestaurants();
 	
-	public List<Restaurant> getRestaurantsByManager(long managerId);
-	
-	public List<Comment> getRestaurantComments(long restaurantId);
-	
-	public List<Dish> getRestaurantDishes(long restaurantId);
-	
 	public void addComment(Comment comment);
 	
 	public void addDish(Dish dish);
 	
-	public boolean addRestaurant(Restaurant restaurant);
+	public void addRestaurant(Restaurant restaurant);
 	
-	public boolean canUserComment(long userId, long restaurantId);
+	public void deleteRestaurant(Restaurant restaurant);
 	
-	public Dish getDishFromRestaurant(long dishId, long restaurantId);
-	
-	public void updateRestaurant(Restaurant restaurant);
-	
-	public void deleteRestaurant(long restaurantId);
-	
-	public void deleteComment(long userId, long restaurantId);
+	public void deleteComment(Comment comment);
 }

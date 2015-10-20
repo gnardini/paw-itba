@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.UserRepo;
 
 @Service
@@ -22,22 +22,22 @@ public class UserManagerImpl implements UserManager {
 	}
 	
 	@Override
-	public User getUser(long id) {
+	public Users getUser(long id) {
 		return userRepo.getUser(id);
 	}
 
 	@Override
-	public User getUser(String email) {
+	public Users getUser(String email) {
 		return userRepo.getUser(email);
 	}
 
 	@Override
-	public List<User> getUsers(Role role) {
+	public List<Users> getUsers(Role role) {
 		return userRepo.getUsers(role);
 	}
 	
 	@Override
-	public boolean assignManager(User user, Restaurant restaurant) {
+	public boolean assignManager(Users user, Restaurant restaurant) {
 		if (user.isManagerOf(restaurant)) return false;
 		user.addRestaurantToManage(restaurant);
 		return true;

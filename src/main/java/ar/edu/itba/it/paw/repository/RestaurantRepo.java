@@ -21,7 +21,7 @@ public class RestaurantRepo extends AbstractHibernateRepo {
 	}
 	
 	public List<Restaurant> getRestaurants() {
-		return find("from restaurant");
+		return find("from Restaurant");
 	}
 	
 	public void storeRestaurant(Restaurant restaurant) {

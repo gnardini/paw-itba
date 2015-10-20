@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.Parameter;
 
 public abstract class BaseController {
@@ -24,7 +24,7 @@ public abstract class BaseController {
 		mSessionManager.setSession(req.getSession());
 		mav.addObject(Parameter.LOGGED, mSessionManager.isLogged());
 		if (mSessionManager.isLogged()) {
-			User user = mSessionManager.getUser();
+			Users user = mSessionManager.getUser();
 			mav.addObject(Parameter.USER_ADMIN, user.getRole() == Role.ADMIN);
 			mav.addObject(Parameter.USER_MANAGER, user.getRole() == Role.MANAGER);
 			mav.addObject(Parameter.USER_NORMAL, user.getRole() == Role.NORMAL);

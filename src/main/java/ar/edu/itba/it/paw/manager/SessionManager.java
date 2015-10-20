@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.manager;
 
 import javax.servlet.http.HttpSession;
 
-import ar.edu.itba.it.paw.model.User;
+import ar.edu.itba.it.paw.model.Users;
 
 public interface SessionManager {
 
@@ -10,9 +10,9 @@ public interface SessionManager {
 	
 	public boolean isLogged();
 	
-	public User getUser();
+	public Users getUser();
 	
-	public boolean signup(User user);
+	public boolean signup(Users user);
 	
 	public boolean login(String email, String password);
 	

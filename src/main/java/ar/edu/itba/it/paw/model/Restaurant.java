@@ -1,9 +1,13 @@
 package ar.edu.itba.it.paw.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 public class Restaurant extends PersistentEntity {
@@ -22,6 +26,9 @@ public class Restaurant extends PersistentEntity {
 	
 	@OneToMany
 	List<Comment> comments;
+	
+	@ManyToMany(mappedBy="restaurants")
+	List<Users> managers;
 	
 	public Restaurant(String name,
 					String address,
@@ -50,7 +57,7 @@ public class Restaurant extends PersistentEntity {
 		dishes.add(dish);
 	}
 
-	public boolean canUserComment(User user) {
+	public boolean canUserComment(Users user) {
 		for (Comment comment: comments) {
 			if (comment.getUser().equals(user)) return false;
 		}
@@ -114,5 +121,27 @@ public class Restaurant extends PersistentEntity {
 	
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public void updateWithData(Restaurant updatedRestaurant) {
+		name = updatedRestaurant.getName();
+		address = updatedRestaurant.getAddress();
+		openingHours = updatedRestaurant.getOpeningHours();
+		deliveryCost = updatedRestaurant.getDeliveryCost();
+		minCost = updatedRestaurant.getMinCost();
+		menuType = updatedRestaurant.getMenuType();
+		description = updatedRestaurant.getDescription();
+		ranking = updatedRestaurant.getRanking();
+	}
+
+	public void deleteUserComment(Users user) {
+		Iterator<Comment> it = comments.iterator();	
+		while (it.hasNext()) {
+			Comment comment = it.next();
+			if (comment.getUser().equals(user)) {
+				it.remove();
+				return;
+			}
+		}
 	}
 }

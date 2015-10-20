@@ -3,16 +3,16 @@ package ar.edu.itba.it.paw.manager;
 import java.util.List;
 
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 
 public interface UserManager {
 
-	public User getUser(long id);
+	public Users getUser(long id);
 	
-	public User getUser(String email);
+	public Users getUser(String email);
 	
-	public List<User> getUsers(Role role);
+	public List<Users> getUsers(Role role);
 	
-	public boolean assignManager(User user, Restaurant restaurant);
+	public boolean assignManager(Users user, Restaurant restaurant);
 }

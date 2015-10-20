@@ -13,22 +13,17 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.form.SignUpForm;
 import ar.edu.itba.it.paw.helper.SignUpValidator;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.manager.UserManager;
-import ar.edu.itba.it.paw.manager.implementation.SessionManagerImpl;
 import ar.edu.itba.it.paw.util.Header;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
 public class AuthenticationController extends BaseController {
-
-	private UserManager mUserManager;
+	
 	private SignUpValidator mSignUpValidator;
 	
 	@Autowired
-	public AuthenticationController(SessionManager sessionManager, UserManager userManager,
-			SignUpValidator signUpValidator) {
+	public AuthenticationController(SessionManager sessionManager, SignUpValidator signUpValidator) {
 		super(sessionManager);
-		mUserManager = userManager;
 		mSignUpValidator = signUpValidator;
 	}	
 	

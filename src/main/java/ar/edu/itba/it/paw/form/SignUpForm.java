@@ -1,7 +1,7 @@
 package ar.edu.itba.it.paw.form;
 
-import ar.edu.itba.it.paw.model.User;
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 
 public class SignUpForm {
 
@@ -17,8 +17,8 @@ public class SignUpForm {
 	public SignUpForm() {
 	}
 	
-	public User build() {
-		return new User(firstName, lastName, address, email, Integer.valueOf(birthDay), Integer.valueOf(birthMonth), Integer.valueOf(birthYear), Role.NORMAL, password);
+	public Users build() {
+		return new Users(firstName, lastName, address, email, Integer.valueOf(birthDay), Integer.valueOf(birthMonth), Integer.valueOf(birthYear), Role.NORMAL, password);
 	}
 
 	public String getFirstName() {

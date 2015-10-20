@@ -5,9 +5,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
-public class User {
+public class Users extends PersistentEntity {
 
 	public enum Role {
 		NORMAL,
@@ -32,10 +33,13 @@ public class User {
 	@ManyToMany
 	List<Restaurant> restaurants;
 	
-	public User() {
+	@OneToMany
+	List<Orders> orders;
+	
+	public Users() {
 	}
 	
-	public User(String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password) {
+	public Users(String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -92,11 +96,29 @@ public class User {
 		return restaurants;
 	}
 	
+	public List<Orders> getOrders() {
+		return orders;
+	}
+	
 	public boolean isManagerOf(Restaurant restaurant) {
 		return restaurants.contains(restaurant);
 	}
 	
 	public void addRestaurantToManage(Restaurant restaurant) {
 		restaurants.add(restaurant);
+	}
+
+	public void assignRestaurant(Restaurant restaurant) {
+		restaurants.add(restaurant);
+	}
+
+	public boolean makeManager() {
+		if (role == Role.MANAGER) return false;
+		role = Role.MANAGER;
+		return true;
+	}
+
+	public void addOrder(Orders order) {
+		orders.add(order);
 	}
 }

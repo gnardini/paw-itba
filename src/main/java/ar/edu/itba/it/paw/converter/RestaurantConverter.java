@@ -1,25 +1,29 @@
 package ar.edu.itba.it.paw.converter;
 
-import javax.security.auth.Subject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component
-public class RestaurantConverter /*implements Converter<String, Restaurant> */{
-/*
-	private SubjectRepo subjects;
-
+public class RestaurantConverter implements Converter<String, Restaurant> {
+	
+	private RestaurantRepo restaurantRepo;
+	
 	@Autowired
-	public SubjectConverter(SubjectRepo subjects) {
-		this.subjects = subjects;
+	public RestaurantConverter(RestaurantRepo restaurantRepo) {
+		this.restaurantRepo = restaurantRepo;
 	}
-
-	public Subject convert(String arg0) {
-		return subjects.get(Integer.valueOf(arg0));
+	
+	@Override
+	public Restaurant convert(String restaurantIdString) {
+		if ((restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString))) {
+			return null;
+		}
+		long restaurantId = Long.valueOf(restaurantIdString);
+		return restaurantRepo.getRestaurant(restaurantId);
 	}
-	*/
 }

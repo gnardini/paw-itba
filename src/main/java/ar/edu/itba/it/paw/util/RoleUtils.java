@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.util;
 
-import ar.edu.itba.it.paw.model.User.Role;
+import ar.edu.itba.it.paw.model.Users.Role;
 
 public class RoleUtils {
 

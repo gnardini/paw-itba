@@ -2,12 +2,13 @@ package ar.edu.itba.it.paw.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class OrderDetail {
+public class OrderDetail extends PersistentEntity {
 
 	@ManyToOne
-	private Order order;
+	private Orders order;
 	
 	private String name;
 	private int amount;
@@ -17,7 +18,7 @@ public class OrderDetail {
 		
 	}
 	
-	public OrderDetail(Order order, String name, int amount, int price) {
+	public OrderDetail(Orders order, String name, int amount, int price) {
 		this.order = order;
 		this.name = name;
 		this.amount = amount;
@@ -30,11 +31,11 @@ public class OrderDetail {
 		this.amount = amount;
 	}	
 	
-	public void setOrder(Order order) {
+	public void setOrder(Orders order) {
 		this.order = order;
 	}
 	
-	public Order getOrder() {
+	public Orders getOrder() {
 		return order;
 	}
 	

@@ -2,12 +2,13 @@ package ar.edu.itba.it.paw.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Comment {
+public class Comment extends PersistentEntity  {
 
 	@ManyToOne
-	User user;
+	Users user;
 	
 	@ManyToOne
 	Restaurant restaurant;
@@ -20,7 +21,7 @@ public class Comment {
 		
 	}
 	
-	public Comment(User user, Restaurant restaurant, int rating, String text) {
+	public Comment(Users user, Restaurant restaurant, int rating, String text) {
 		this.user = user;
 		this.userName = user.getFirstName();
 		this.restaurant = restaurant;
@@ -28,7 +29,7 @@ public class Comment {
 		this.text = text;
 	}
 	
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 	
@@ -47,4 +48,26 @@ public class Comment {
 	public String getText() {
 		return text;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Comment other = (Comment) obj;
+		if (restaurant == null) {
+			if (other.restaurant != null)
+				return false;
+		} else if (!restaurant.equals(other.restaurant))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
+			return false;
+		return true;
+	}	
 }
