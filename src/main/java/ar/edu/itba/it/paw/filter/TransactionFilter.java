@@ -33,7 +33,6 @@ public class TransactionFilter extends OncePerRequestFilter {
 
 			// Call the next filter (continue request processing)
 			filterChain.doFilter(request, response);
-
 			// Commit the database transaction
 			sessionFactory.getCurrentSession().getTransaction().commit();
 

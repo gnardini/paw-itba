@@ -8,7 +8,7 @@ import ar.edu.itba.it.paw.model.Restaurant;
 
 public interface RestaurantManager {
 
-	public Restaurant getRestaurant(long id);
+	public Restaurant getRestaurant(int id);
 	
 	public List<Restaurant> getRestaurants();
 	

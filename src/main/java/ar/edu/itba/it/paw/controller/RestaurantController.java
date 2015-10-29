@@ -21,17 +21,18 @@ import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
-public class RestaurantDetailController extends BaseController {
+public class RestaurantController extends BaseController {
 	
 	protected RestaurantManager mRestaurantManager;
 	protected OrderManager mOrderManager;
 	
 	@Autowired
-	public RestaurantDetailController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager) {
+	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager) {
 		super(sessionManager);
 		mRestaurantManager = restaurantManager;
 		mOrderManager = orderManager;
 	}
+	
 	
 	@RequestMapping(value="/restaurant", method = RequestMethod.GET)
 	protected ModelAndView showRestaurant(HttpServletRequest req, @RequestParam(Parameter.CODE) Restaurant restaurant) {

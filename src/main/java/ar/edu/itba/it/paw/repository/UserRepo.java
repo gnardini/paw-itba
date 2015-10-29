@@ -17,11 +17,13 @@ public class UserRepo extends AbstractHibernateRepo {
 		super(sessionFactory);
 	}
 
-	public Users getUser(long id) {
+	public Users getUser(int id) {
 		return get(Users.class, id);
 	}
 	
 	public Users getUser(String email) {
+		if(email==null)
+			return null;
 		List<Users> user = find("from Users where email=?", email);
 		return user.isEmpty() ? null : user.get(0);
 	}

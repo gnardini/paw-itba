@@ -8,7 +8,7 @@ import ar.edu.itba.it.paw.model.Users.Role;
 
 public interface UserManager {
 
-	public Users getUser(long id);
+	public Users getUser(int id);
 	
 	public Users getUser(String email);
 	

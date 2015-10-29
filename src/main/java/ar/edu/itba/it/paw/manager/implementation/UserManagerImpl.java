@@ -22,7 +22,7 @@ public class UserManagerImpl implements UserManager {
 	}
 	
 	@Override
-	public Users getUser(long id) {
+	public Users getUser(int id) {
 		return userRepo.getUser(id);
 	}
 

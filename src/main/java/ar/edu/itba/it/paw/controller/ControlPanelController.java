@@ -54,6 +54,7 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/assignManager", method = RequestMethod.POST)
 	public ModelAndView showAssignManager(HttpServletRequest req, @RequestParam(Parameter.MANAGER_ID) Users manager, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
+		System.out.println("NOMBRE: "+manager.getFirstName());
 		if (manager == null || restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
@@ -70,6 +71,7 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/newManager", method = RequestMethod.POST)
 	public ModelAndView showNewManager(HttpServletRequest req, @RequestParam(Parameter.USER_ID) Users user) {
+		System.out.println("NOMBRE: "+user.getFirstName());
 		if (user == null) {
 			return new ModelAndView("redirect:restaurants");
 		}

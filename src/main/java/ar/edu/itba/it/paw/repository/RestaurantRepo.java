@@ -16,7 +16,7 @@ public class RestaurantRepo extends AbstractHibernateRepo {
 		super(sessionFactory);
 	}
 	
-	public Restaurant getRestaurant(long id) {
+	public Restaurant getRestaurant(int id) {
 		return get(Restaurant.class, id);
 	}
 	

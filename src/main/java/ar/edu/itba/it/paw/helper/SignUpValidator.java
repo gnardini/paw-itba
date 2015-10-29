@@ -23,8 +23,6 @@ public class SignUpValidator implements Validator {
 		String month = form.getBirthMonth();
 		String year = form.getBirthYear();
 		String password = form.getPassword();
-		
-		System.out.println(firstName);
 				
 		if (firstName == "" 
 				|| lastName == ""

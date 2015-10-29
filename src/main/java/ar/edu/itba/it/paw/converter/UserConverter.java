@@ -23,7 +23,7 @@ public class UserConverter implements Converter<String, Users> {
 		if ((userIdString == null || !NumberUtils.isNumber(userIdString))) {
 			return null;
 		}
-		long userId = Long.valueOf(userIdString);
+		int userId = Integer.valueOf(userIdString);
 		return userRepo.getUser(userId);
 	}
 }

@@ -26,6 +26,12 @@ public class RestaurantsController extends BaseController {
 		this.mRestaurantManager = restaurantManager;
 	}
 
+
+	@RequestMapping(value="/")
+	protected ModelAndView showRedirect(HttpServletRequest req){
+		return new ModelAndView("redirect:restaurants");
+	}
+	
 	@RequestMapping(value="/restaurants", method = RequestMethod.GET)
 	public ModelAndView showRestaurants(HttpServletRequest req) {
 		ModelAndView mav = createModelAndView(req);

@@ -23,7 +23,7 @@ public class RestaurantConverter implements Converter<String, Restaurant> {
 		if ((restaurantIdString == null || !NumberUtils.isNumber(restaurantIdString))) {
 			return null;
 		}
-		long restaurantId = Long.valueOf(restaurantIdString);
+		int restaurantId = Integer.valueOf(restaurantIdString);
 		return restaurantRepo.getRestaurant(restaurantId);
 	}
 }

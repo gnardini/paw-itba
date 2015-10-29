@@ -27,7 +27,7 @@ public class RestaurantManagerImpl implements RestaurantManager {
 		mCommentRepo = commentRepo;
 	}
 	
-	public Restaurant getRestaurant(long id) {
+	public Restaurant getRestaurant(int id) {
 		Restaurant restaurant = mRestaurantRepo.getRestaurant(id);
 		return restaurant;
 	}
