@@ -52,14 +52,19 @@ public class AuthenticationController extends BaseController {
 	protected ModelAndView showSignUp(HttpServletRequest req, SignUpForm form, Errors errors) {
 		mSessionManager.setSession(req.getSession());
 		mSignUpValidator.validate(form, errors);
+
+		ModelAndView mav = createModelAndView(req);
+		mav.setViewName("login");
 		if (errors.hasErrors()) {
 			setMessage(req, "Datos de registro inválidos");
 			setMessageType(req, Parameter.ERROR);
+			return mav;
 		} else if (!mSessionManager.signup(form.build())) {
 			setMessage(req, "El usuario ya existe");
 			setMessageType(req, Parameter.ERROR);
+			return mav;
 		}
-		return showLogin(req);
+		return new ModelAndView("redirect:restaurants");
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.POST)

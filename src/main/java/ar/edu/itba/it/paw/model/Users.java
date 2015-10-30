@@ -33,7 +33,7 @@ public class Users extends PersistentEntity {
 	@ManyToMany
 	List<Restaurant> restaurants;
 	
-	@OneToMany
+	@OneToMany(mappedBy="user")
 	List<Orders> orders;
 	
 	public Users() {
@@ -120,5 +120,45 @@ public class Users extends PersistentEntity {
 
 	public void addOrder(Orders order) {
 		orders.add(order);
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setBirthDay(int birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	public void setBirthMonth(int birthMonth) {
+		this.birthMonth = birthMonth;
+	}
+
+	public void setBirthYear(int birthYear) {
+		this.birthYear = birthYear;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setRestaurants(List<Restaurant> restaurants) {
+		this.restaurants = restaurants;
+	}
+
+	public void setOrders(List<Orders> orders) {
+		this.orders = orders;
 	}
 }

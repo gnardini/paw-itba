@@ -108,7 +108,7 @@
 	<c:forEach items="${restaurant.comments}" var="comment">
 
 		<form role="form" action="deleteComment" method="POST">
-			<input type="hidden" name="user_id" value="${comment.userId}">
+			<input type="hidden" name="user_id" value="${comment.user.id}">
 			<input type="hidden" name="restaurant_id" value="${restaurant.id}">
 			<div class="row">
 				<div class=" col-md-4">

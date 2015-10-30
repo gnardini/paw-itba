@@ -24,8 +24,11 @@ public class Restaurant extends PersistentEntity {
 	@OneToMany
 	List<Dish> dishes;
 	
-	@OneToMany
+	@OneToMany(mappedBy="restaurant")
 	List<Comment> comments;
+	
+	@OneToMany(mappedBy="restaurant")
+	List<Orders> orders;
 	
 	@ManyToMany(mappedBy="restaurants")
 	List<Users> managers;
@@ -121,6 +124,10 @@ public class Restaurant extends PersistentEntity {
 	
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public List<Orders> getOrders() {
+		return orders;
 	}
 
 	public void updateWithData(Restaurant updatedRestaurant) {

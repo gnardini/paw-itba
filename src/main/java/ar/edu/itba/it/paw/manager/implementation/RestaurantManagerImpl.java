@@ -32,6 +32,11 @@ public class RestaurantManagerImpl implements RestaurantManager {
 		return restaurant;
 	}
 	
+	@Override
+	public List<Restaurant> getTopRestaurants() {
+		return mRestaurantRepo.getTopRestaurants();
+	}
+	
 	public List<Restaurant> getRestaurants() {
 		return mRestaurantRepo.getRestaurants();
 	}

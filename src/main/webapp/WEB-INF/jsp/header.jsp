@@ -35,6 +35,9 @@
 				<li><a href="/managerPanel">Panel de Control</a></li>
 			</c:if>
 			<c:if test="${logged}">
+
+				<li><a href="/profile">Perfil</a></li>
+
 				<li><a href="javascript:;"
 					onclick="document.getElementById('form1').submit();">Cerrar
 						Sesión</a></li>
@@ -44,5 +47,4 @@
 			</c:if>
 		</ul>
 	</div>
-	<!-- /.navbar-collapse -->
-	<!-- /.container-fluid --> </nav>
+	<!-- /.navbar-collapse --> <!-- /.container-fluid --> </nav>

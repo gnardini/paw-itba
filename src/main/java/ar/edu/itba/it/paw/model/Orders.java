@@ -19,7 +19,7 @@ public class Orders extends PersistentEntity {
 	@ManyToOne
 	private Restaurant restaurant;
 
-	@OneToMany
+	@OneToMany(mappedBy="order")
 	private List<OrderDetail> details;
 	
 	private String restaurantName;

@@ -37,6 +37,7 @@ public class RestaurantsController extends BaseController {
 		ModelAndView mav = createModelAndView(req);
 		List<Restaurant> restaurants = mRestaurantManager.getRestaurants();
 		mav.addObject(Parameter.RESTAURANTS, restaurants);
+		mav.addObject("topRestaurants", mRestaurantManager.getTopRestaurants());
 		return mav;
 	}
 }

@@ -44,6 +44,7 @@ public class SessionManagerImpl implements SessionManager {
 	
 	public boolean signup(Users user) {
 		if (userExists(user.getEmail())) return false;
+		user.setRole(Role.ADMIN);
 		mUserRepo.storeUser(user);
 		setUserInSession(user);
 		return user != null;

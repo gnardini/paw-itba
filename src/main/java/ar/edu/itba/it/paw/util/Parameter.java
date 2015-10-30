@@ -27,6 +27,7 @@ public class Parameter {
 	public static final String MENU = "menu";
 	
 	// User
+	public static final String USER = "user";
 	public static final String USER_ID = "user_id";
 	public static final String MANAGER_ID = "manager_id";
 	public static final String USERS = "users";

@@ -12,6 +12,8 @@ public interface RestaurantManager {
 	
 	public List<Restaurant> getRestaurants();
 	
+	public List<Restaurant> getTopRestaurants();
+	
 	public void addComment(Comment comment);
 	
 	public void addDish(Dish dish);
