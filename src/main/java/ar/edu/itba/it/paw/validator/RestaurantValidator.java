@@ -12,7 +12,6 @@ public class RestaurantValidator {
 	private HttpServletRequest mRequest;
 	private Restaurant mRestaurant;
 	private NeighbourhoodRepo mNeighbourhoodRepo;
-	private Neighbourhood neighbourhood;
 	
 	public RestaurantValidator(HttpServletRequest request, NeighbourhoodRepo neighbourhoodRepo) {
 		mRequest = request;
@@ -22,7 +21,8 @@ public class RestaurantValidator {
 	public boolean isValidRestaurant() {
 		String name = mRequest.getParameter("name");
 		String address = mRequest.getParameter("address");
-		String openingHours = mRequest.getParameter("openingHours");
+		String openingHour = mRequest.getParameter("openingHour");
+		String closingHour = mRequest.getParameter("closingHour");
 		String deliveryCost = mRequest.getParameter("deliveryCost");
 		String minCost = mRequest.getParameter("minCost");
 		String description = mRequest.getParameter("description");
@@ -31,7 +31,10 @@ public class RestaurantValidator {
 		if (name == "" 
 				|| menuType == ""
 				|| address == ""
-				|| openingHours == ""
+				|| !NumberUtils.isNumber(openingHour)
+				|| !isHour(Integer.valueOf(openingHour))
+				|| !NumberUtils.isNumber(closingHour)
+				|| !isHour(Integer.valueOf(closingHour))
 				|| deliveryCost == ""
 				|| deliveryCost.length() > 6
 				|| !NumberUtils.isNumber(deliveryCost)
@@ -42,9 +45,9 @@ public class RestaurantValidator {
 				|| Integer.valueOf(minCost)<0
 				|| !NumberUtils.isNumber(neighbourhoodId))
 			return false;
-		neighbourhood = mNeighbourhoodRepo.getNeighbourhood(Integer.parseInt(neighbourhoodId));
+		Neighbourhood neighbourhood = mNeighbourhoodRepo.getNeighbourhood(Integer.parseInt(neighbourhoodId));
 		if (neighbourhood == null) return false;
-		mRestaurant = new Restaurant(name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description);
+		mRestaurant = new Restaurant(name, address, Integer.valueOf(openingHour), Integer.valueOf(closingHour), Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description, neighbourhood);
 		return true;
 	}
 	
@@ -52,7 +55,7 @@ public class RestaurantValidator {
 		return mRestaurant;
 	}
 	
-	public Neighbourhood getNeighbourhood() {
-		return neighbourhood;
+	private boolean isHour(int hour) {
+		return hour >= 0 && hour <= 23;
 	}
 }

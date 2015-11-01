@@ -55,6 +55,7 @@ public class ControlPanelController extends BaseController {
 		mav.addObject(Parameter.USERS, mUserManager.getUsers(Role.NORMAL));
 		mav.addObject(Parameter.MANAGERS, mUserManager.getUsers(Role.MANAGER));
 		mav.addObject(Parameter.RESTAURANTS, mRestaurantManager.getRestaurants());
+		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
 		mav.setViewName("adminPanel");
 		return mav;
 	}
@@ -139,7 +140,6 @@ public class ControlPanelController extends BaseController {
 		if (validator.isValidRestaurant()) {
 			Restaurant restaurant = validator.getRestaurant();
 			mRestaurantManager.addRestaurant(restaurant);
-			restaurant.addNeighbourhood(validator.getNeighbourhood());
 			setMessage(req, "Nuevo restoran agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);			
 		} else {

@@ -127,6 +127,11 @@ public class RestaurantController extends BaseController {
 			setMessageType(req, Parameter.ERROR);
 		} else if (valid) {
 			Orders order = validator.getOrder();
+			if (!restaurant.canOrder(order)) {
+				setMessage(req, "El restaurant no se encuentra abierto. Abre a las " + restaurant.getOpeningHour() + " horas.");
+				setMessageType(req, Parameter.ERROR);
+				return showRestaurant(req, restaurant);
+			}
 			mOrderRepo.addOrder(order);
 			for (OrderDetail detail: order.getDetails()) mOrderDetailRepo.storeOrderDetail(detail);
 			order.setOnDependants();

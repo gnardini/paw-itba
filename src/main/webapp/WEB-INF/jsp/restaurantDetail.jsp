@@ -19,7 +19,7 @@
 					<p>Tipo de Menú: ${restaurant.menuType}</p>
 					<p>Descripción: ${restaurant.description}</p>
 					<p>Dirección: ${restaurant.address}</p>
-					<p>Horario: ${restaurant.openingHours}</p>
+					<p>Horario: ${restaurant.openingHour} a ${restaurant.closingHour} horas</p>
 					<p>Costo de envío: $${restaurant.deliveryCost}</p>
 					<p>Costo mínimo: $${restaurant.minCost}</p>
 					<p>Barrios:</p>

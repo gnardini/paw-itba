@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.model;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -12,70 +13,82 @@ public class Restaurant extends PersistentEntity {
 
 	String name;
 	String address;
-	String openingHours;
+	int openingHour;
+	int closingHour;
 	int deliveryCost;
 	int minCost;
 	String menuType;
 	String description;
 	String ranking;
 
-	
 	@OneToMany
 	List<Dish> dishes;
-	
-	@OneToMany(mappedBy="restaurant")
+
+	@OneToMany(mappedBy = "restaurant")
 	List<Comment> comments;
-	
-	@OneToMany(mappedBy="restaurant")
+
+	@OneToMany(mappedBy = "restaurant")
 	List<Orders> orders;
-	
-	@ManyToMany(mappedBy="restaurants")
+
+	@ManyToMany(mappedBy = "restaurants")
 	List<Users> managers;
-	
+
 	@ManyToMany
 	List<Neighbourhood> neighbourhoods;
-	
-	public Restaurant(String name,
-					String address,
-					String openingHours,
-					int deliveryCost,
-					int minCost,
-					String menuType,
-					String description) {
+
+	public Restaurant(String name, String address, int openingHour, int closingHour, int deliveryCost, int minCost,
+			String menuType, String description) {
 		this.name = name;
 		this.address = address;
-		this.openingHours = openingHours;
+		this.openingHour = openingHour;
+		this.closingHour = closingHour;
 		this.deliveryCost = deliveryCost;
 		this.minCost = minCost;
 		this.menuType = menuType;
 		this.description = description;
 	}
-	
+
+	public Restaurant(String name, String address, int openingHour, int closingHour, int deliveryCost, int minCost,
+			String menuType, String description, Neighbourhood neighbourhood) {
+		this.name = name;
+		this.address = address;
+		this.openingHour = openingHour;
+		this.closingHour = closingHour;
+		this.deliveryCost = deliveryCost;
+		this.minCost = minCost;
+		this.menuType = menuType;
+		this.description = description;
+		neighbourhoods = new LinkedList<>();
+		neighbourhoods.add(neighbourhood);
+	}
+
 	public Restaurant() {
 	}
-	
+
 	public void addComment(Comment comment) {
 		comments.add(comment);
 	}
-	
+
 	public void addDish(Dish dish) {
 		dishes.add(dish);
 	}
 
 	public boolean canUserComment(Users user) {
-		for (Comment comment: comments) {
-			if (comment.getUser().equals(user)) return false;
+		for (Comment comment : comments) {
+			if (comment.getUser().equals(user))
+				return false;
 		}
 		return true;
 	}
-	
+
 	public Dish getDish(long dishId) {
-		for (Dish dish: dishes) {
-			if (dish.getId() == dishId) return dish;
+		for (Dish dish : dishes) {
+			if (dish.getId() == dishId)
+				return dish;
 		}
 		return null;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -84,18 +97,30 @@ public class Restaurant extends PersistentEntity {
 		return address;
 	}
 
-	public String getOpeningHours() {
-		return openingHours;
-	}
-
 	public int getDeliveryCost() {
 		return deliveryCost;
+	}
+
+	public int getOpeningHour() {
+		return openingHour;
+	}
+
+	public void setOpeningHour(int openingHour) {
+		this.openingHour = openingHour;
+	}
+
+	public int getClosingHour() {
+		return closingHour;
+	}
+
+	public void setClosingHour(int closingHour) {
+		this.closingHour = closingHour;
 	}
 
 	public int getMinCost() {
 		return minCost;
 	}
-	
+
 	public String getMenuType() {
 		return menuType;
 	}
@@ -103,31 +128,31 @@ public class Restaurant extends PersistentEntity {
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public String getRanking() {
 		return ranking;
 	}
-	
+
 	public void setRanking(float ranking) {
 		this.ranking = String.format("%.2f", ranking);
 	}
-	
+
 	public List<Comment> getComments() {
 		return comments;
 	}
-	
+
 	public List<Dish> getDishes() {
 		return dishes;
 	}
-	
+
 	public void setDishes(List<Dish> dishes) {
 		this.dishes = dishes;
 	}
-	
+
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
+
 	public List<Orders> getOrders() {
 		return orders;
 	}
@@ -135,7 +160,8 @@ public class Restaurant extends PersistentEntity {
 	public void updateWithData(Restaurant updatedRestaurant) {
 		name = updatedRestaurant.getName();
 		address = updatedRestaurant.getAddress();
-		openingHours = updatedRestaurant.getOpeningHours();
+		openingHour = updatedRestaurant.getOpeningHour();
+		closingHour = updatedRestaurant.getClosingHour();
 		deliveryCost = updatedRestaurant.getDeliveryCost();
 		minCost = updatedRestaurant.getMinCost();
 		menuType = updatedRestaurant.getMenuType();
@@ -144,7 +170,7 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	public void deleteUserComment(Users user) {
-		Iterator<Comment> it = comments.iterator();	
+		Iterator<Comment> it = comments.iterator();
 		while (it.hasNext()) {
 			Comment comment = it.next();
 			if (comment.getUser().equals(user)) {
@@ -172,5 +198,16 @@ public class Restaurant extends PersistentEntity {
 
 	public void removeNeighbourhood(Neighbourhood neighbourhood) {
 		neighbourhoods.remove(neighbourhood);
+	}
+
+	public boolean canOrder(Orders order) {
+		if (openingHour == closingHour)
+			return true;
+		int orderHour = order.getMade().getHours();
+		if (openingHour > closingHour) {
+			return orderHour >= openingHour || orderHour < closingHour;
+		} else {
+			return orderHour >= openingHour && orderHour < closingHour;
+		}
 	}
 }

@@ -33,9 +33,19 @@
 				value="${restaurant.address}" name="address">
 		</div>
 		<div class="form-group">
-			<input type="text" class="form-control" placeholder="Horario"
-				value="${restaurant.openingHours}" name="openingHours">
-		</div>
+				<div class="row">
+					<div class="col-md-3">
+						<input type="number" class="form-control"
+							placeholder="Horario de Apertura" min="0" max="23"
+							name="openingHour" value="${restaurant.openingHour}">
+					</div>
+					<div class="col-md-3">
+						<input type="number" class="form-control"
+							placeholder="Horario de Clausura" min="0" max="23"
+							name="closingHour" value="${restaurant.closingHour}">
+					</div>
+				</div>
+			</div>
 		<div class="form-group">
 			<input type="text" class="form-control" placeholder="Costo de Delivery" min="0"
 			value="${restaurant.deliveryCost}" name="deliveryCost">

@@ -27,5 +27,8 @@ ALTER SEQUENCE dish_id_seq restart with 10;
 
 insert into neighbourhood values(1, 'Caballito');
 insert into neighbourhood values(2, 'Palermo');
+insert into neighbourhood values(3, 'Puerto Madero');
+insert into neighbourhood values(4, 'Parque Patricios');
+insert into neighbourhood values(5, 'Retiro');
 
 ALTER SEQUENCE neighbourhood_id_seq restart with 10;
