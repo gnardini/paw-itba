@@ -14,10 +14,13 @@ import ar.edu.itba.it.paw.helper.OrderValidationHelper;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.repository.OrderDetailRepo;
+import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
@@ -25,12 +28,16 @@ public class RestaurantController extends BaseController {
 	
 	protected RestaurantManager mRestaurantManager;
 	protected OrderManager mOrderManager;
+	protected OrderRepo mOrderRepo;
+	protected OrderDetailRepo mOrderDetailRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager) {
+	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo) {
 		super(sessionManager);
 		mRestaurantManager = restaurantManager;
 		mOrderManager = orderManager;
+		mOrderRepo = orderRepo;
+		mOrderDetailRepo = orderDetailRepo;
 	}
 	
 	
@@ -107,7 +114,9 @@ public class RestaurantController extends BaseController {
 			setMessageType(req, Parameter.ERROR);
 		} else if (valid) {
 			Orders order = validator.getOrder();
-			user.addOrder(order);
+			mOrderRepo.addOrder(order);
+			for (OrderDetail detail: order.getDetails()) mOrderDetailRepo.storeOrderDetail(detail);
+			order.setOnDependants();
 			setMessage(req, "Pedido realizado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {

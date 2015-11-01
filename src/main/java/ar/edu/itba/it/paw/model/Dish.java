@@ -22,6 +22,7 @@ public class Dish extends PersistentEntity {
 	
 	String name;
 	String description;
+	// TODO hacer float
 	int price;
 	Type type;
 	

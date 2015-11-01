@@ -10,7 +10,6 @@ import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.util.NumberUtils;
-import ar.edu.itba.it.paw.util.Parameter;
 
 public class OrderValidationHelper {
 
@@ -41,14 +40,14 @@ public class OrderValidationHelper {
 					if (dishCount > 0){
 						if(dish==null)
 							return false;
-						mOrder.addDetail(dish.getName(), dishCount, dish.getPrice());
+						mOrder.addDetail(dish.getName(), dish.getPrice(), dishCount);
 						totalAmount+=(dish.getPrice()*dishCount);
 					}
 				}
 			}
 		}
-		if(totalAmount<restaurant.getMinCost())
-			return null;
+		if(totalAmount<restaurant.getMinCost()) return null;
+		else mOrder.setPrice(totalAmount);
 		return mOrder.getDetails().size() != 0;
 	}
 	

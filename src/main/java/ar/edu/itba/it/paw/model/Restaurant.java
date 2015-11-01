@@ -151,4 +151,8 @@ public class Restaurant extends PersistentEntity {
 			}
 		}
 	}
+
+	public void addOrder(Orders order) {
+		orders.add(order);
+	}
 }

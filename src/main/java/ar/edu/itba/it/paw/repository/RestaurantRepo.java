@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.repository;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +27,11 @@ public class RestaurantRepo extends AbstractHibernateRepo {
 		Collections.sort(restaurants, new Comparator<Restaurant>() {
 			@Override
 			public int compare(Restaurant r1, Restaurant r2) {
-				return Integer.compare(r1.getOrders().size(), r2.getOrders().size());
+				return -Integer.compare(r1.getOrders().size(), r2.getOrders().size());
 			}
 		});
-		return restaurants.subList(0, 3);
+		int top = Math.min(3, restaurants.size());
+		return restaurants.subList(0, top);
 	}
 	
 	public List<Restaurant> getRestaurants() {

@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 public class Orders extends PersistentEntity {
@@ -24,31 +23,23 @@ public class Orders extends PersistentEntity {
 	
 	private String restaurantName;
 	private Date made;
-	private String price;
+	private float price;
 	private String orderDate;
+	private boolean delivered;
 	
 	public Orders() {
-		
-	}
-	
-	public Orders(Users user, Restaurant restaurant, long madeMillis, String restaurantName) {
-		this.user = user;
-		this.restaurant = restaurant;
-		this.made = new Date(madeMillis);
-		this.restaurantName = restaurantName;
-		orderDate = new SimpleDateFormat("dd/MM").format(made);
-		details = new LinkedList<>();
 	}
 	
 	public Orders(Users user, Restaurant restaurant, Date made) {
 		this.user = user;
 		this.restaurant = restaurant;
 		this.made = made;
+		orderDate = new SimpleDateFormat("dd/MM").format(made);
 		details = new LinkedList<>();
 	}
 	
-	public void addDetail(String name, int price, int amount) {
-		details.add(new OrderDetail(name, price, amount));
+	public void addDetail(String name, float price, int amount) {
+		details.add(new OrderDetail(this, name, price, amount));
 	}
 	
 	public Users getUser() {
@@ -67,16 +58,24 @@ public class Orders extends PersistentEntity {
 		return made;
 	}
 	
-	public String getPrice() {
+	public float getPrice() {
 		return price;
 	}
 	
 	public void setPrice(float price) {
-		this.price = String.format("$%.2f", price);
+		this.price = price;
 	}
 	
 	public String getOrderDate() {
 		return orderDate;
+	}
+	
+	public void setDelivered(boolean delivered) {
+		this.delivered = delivered;
+	}
+	
+	public boolean isDelivered() {
+		return delivered;
 	}
 	
 	public List<OrderDetail> getDetails() {
@@ -85,5 +84,10 @@ public class Orders extends PersistentEntity {
 	
 	public void setDetails(List<OrderDetail> details) {
 		this.details = details;
+	}
+
+	public void setOnDependants() {
+		user.addOrder(this);
+		restaurant.addOrder(this);
 	}
 }

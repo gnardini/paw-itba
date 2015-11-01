@@ -14,9 +14,11 @@ import ar.edu.itba.it.paw.helper.RestaurantValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.UserManager;
+import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.repository.DishRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
@@ -24,12 +26,14 @@ public class ControlPanelController extends BaseController {
 	
 	private UserManager mUserManager;
 	private RestaurantManager mRestaurantManager;
+	private DishRepo mDishRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, UserManager userManager, RestaurantManager restaurantManager) {
+	public ControlPanelController(SessionManager sessionManager, UserManager userManager, RestaurantManager restaurantManager, DishRepo dishRepo) {
 		super(sessionManager);
 		mUserManager = userManager;
 		mRestaurantManager = restaurantManager;
+		mDishRepo = dishRepo;
 	}
 	
 	protected boolean hasPermission(HttpServletRequest req, Role requiredRole) {
@@ -54,7 +58,6 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/assignManager", method = RequestMethod.POST)
 	public ModelAndView showAssignManager(HttpServletRequest req, @RequestParam(Parameter.MANAGER_ID) Users manager, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
-		System.out.println("NOMBRE: "+manager.getFirstName());
 		if (manager == null || restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
@@ -71,7 +74,6 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/newManager", method = RequestMethod.POST)
 	public ModelAndView showNewManager(HttpServletRequest req, @RequestParam(Parameter.USER_ID) Users user) {
-		System.out.println("NOMBRE: "+user.getFirstName());
 		if (user == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
@@ -111,7 +113,9 @@ public class ControlPanelController extends BaseController {
 			setMessage(req, "Reportado, no toques el HTML");
 			setMessageType(req, Parameter.ERROR);
 		} else {
-			restaurant.addDish(validator.getDish());
+			Dish dish = validator.getDish();
+			mDishRepo.addDish(dish);
+			restaurant.addDish(dish);
 			setMessage(req, "Nuevo plato agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		}

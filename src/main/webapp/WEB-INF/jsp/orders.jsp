@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <div class="well well-sm">
@@ -7,10 +8,36 @@
 
 <c:forEach items="${orders}" var="order">
 	<div class="panel panel-default back-panel">
-		<div class="panel-heading">
-			<p>Restoran: ${order.restaurantName}</p>
-			<p>Precio (sin contar el precio del envío): ${order.price}</p>
-			<p>Fecha del pedido: ${order.orderDate}</p></div>
+		<div class="panel-heading ">
+			<div class="row">
+				<div class="col-md-9">
+					<p>Restoran: ${order.restaurant.name}</p>
+					<p>
+						Precio (sin contar el precio del envío):
+						<fmt:formatNumber type="currency" currencySymbol="$"
+							maxFractionDigits="2" minFractionDigits="2"
+							value="${order.price}" />
+					</p>
+					<p>Fecha del pedido: ${order.orderDate}</p>
+					<p>
+						Estado:
+						<c:if test="${!order.delivered}">No</c:if>
+						Entregado
+					</p>
+				</div>
+				<div class="col-md-3">
+					<c:if test="${!order.delivered}">
+						<div class="row">
+							<form role="form" action="orderDelivered" method="POST">
+								<input type="hidden" name="order_id" value="${order.id}">
+								<button type="submit" class="btn btn-default">Pedido
+									recibido</button>
+							</form>
+						</div>
+					</c:if>
+				</div>
+			</div>
+		</div>
 		<div class="panel-body">
 			<div class="row list-group">
 				<c:forEach items="${order.details}" var="detail">
