@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.helper;
+package ar.edu.itba.it.paw.validator;
 
 import javax.servlet.http.HttpServletRequest;
 

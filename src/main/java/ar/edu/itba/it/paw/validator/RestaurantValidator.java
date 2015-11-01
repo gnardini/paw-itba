@@ -1,19 +1,22 @@
-package ar.edu.itba.it.paw.helper;
-
-import java.io.UnsupportedEncodingException;
+package ar.edu.itba.it.paw.validator;
 
 import javax.servlet.http.HttpServletRequest;
 
+import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
-public class RestaurantValidationHelper {
+public class RestaurantValidator {
 
 	private HttpServletRequest mRequest;
 	private Restaurant mRestaurant;
+	private NeighbourhoodRepo mNeighbourhoodRepo;
+	private Neighbourhood neighbourhood;
 	
-	public RestaurantValidationHelper(HttpServletRequest request) {
+	public RestaurantValidator(HttpServletRequest request, NeighbourhoodRepo neighbourhoodRepo) {
 		mRequest = request;
+		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
 	
 	public boolean isValidRestaurant() {
@@ -24,6 +27,7 @@ public class RestaurantValidationHelper {
 		String minCost = mRequest.getParameter("minCost");
 		String description = mRequest.getParameter("description");
 		String menuType = mRequest.getParameter("menuType");
+		String neighbourhoodId = mRequest.getParameter("neighbourhoodId");
 		if (name == "" 
 				|| menuType == ""
 				|| address == ""
@@ -35,13 +39,20 @@ public class RestaurantValidationHelper {
 				|| minCost == ""
 				|| minCost.length() > 6
 				|| !NumberUtils.isNumber(minCost)
-				|| Integer.valueOf(minCost)<0)
+				|| Integer.valueOf(minCost)<0
+				|| !NumberUtils.isNumber(neighbourhoodId))
 			return false;
+		neighbourhood = mNeighbourhoodRepo.getNeighbourhood(Integer.parseInt(neighbourhoodId));
+		if (neighbourhood == null) return false;
 		mRestaurant = new Restaurant(name, address, openingHours, Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description);
 		return true;
 	}
 	
 	public Restaurant getRestaurant() {
 		return mRestaurant;
+	}
+	
+	public Neighbourhood getNeighbourhood() {
+		return neighbourhood;
 	}
 }

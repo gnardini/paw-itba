@@ -5,27 +5,29 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.form.EditProfileForm;
-import ar.edu.itba.it.paw.helper.EditProfileValidator;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.EditProfileValidator;
 
 @Controller
 public class ProfileController extends BaseController {
 
 	EditProfileValidator mEditProfileValidator;
+	NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ProfileController(SessionManager sessionManager, EditProfileValidator editProfileValidator) {
+	public ProfileController(SessionManager sessionManager, EditProfileValidator editProfileValidator, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mEditProfileValidator = editProfileValidator;
+		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
 	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
@@ -56,7 +58,7 @@ public class ProfileController extends BaseController {
 		if (errors.hasErrors()) {
 			return new ModelAndView("redirect:profile?result=failure");
 		} else {
-			form.build();
+			form.build(mNeighbourhoodRepo);
 			return new ModelAndView("redirect:profile?result=success");
 		}
 	}

@@ -23,4 +23,9 @@ insert into dish values (6, 2, 'Papas Fritas Medianas', 'Papas fritas saladas', 
 ALTER SEQUENCE users_id_seq restart with 10;
 ALTER SEQUENCE restaurant_id_seq restart with 10;
 ALTER SEQUENCE dish_id_seq restart with 10;
-	
+
+
+insert into neighbourhood values(1, 'Caballito');
+insert into neighbourhood values(2, 'Palermo');
+
+ALTER SEQUENCE neighbourhood_id_seq restart with 10;

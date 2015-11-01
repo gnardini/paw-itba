@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -14,10 +15,6 @@ public class Users extends PersistentEntity {
 		NORMAL,
 		MANAGER,
 		ADMIN;
-		
-		public String toString() {
-			return name();
-		}
 	}
 	
 	String firstName;
@@ -30,6 +27,9 @@ public class Users extends PersistentEntity {
 	Role role;
 	String password;
 	
+	@ManyToOne
+	Neighbourhood neighbourhood;
+	
 	@ManyToMany
 	List<Restaurant> restaurants;
 	
@@ -39,7 +39,7 @@ public class Users extends PersistentEntity {
 	public Users() {
 	}
 	
-	public Users(String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password) {
+	public Users(String firstName, String lastName, String address, String email, int birthDay, int birthMonth, int birthYear, Role role, String password, Neighbourhood neighbourhood) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
@@ -49,6 +49,7 @@ public class Users extends PersistentEntity {
 		this.birthYear = birthYear;
 		this.role = role;
 		this.password = password;
+		this.neighbourhood = neighbourhood;
 		restaurants = new LinkedList<>();
 	}
 	
@@ -86,6 +87,14 @@ public class Users extends PersistentEntity {
 	
 	public String getPassword() {
 		return password;
+	}
+	
+	public Neighbourhood getNeighbourhood() {
+		return neighbourhood;
+	}
+	
+	public void setNeighbourhood(Neighbourhood neighbourhood) {
+		this.neighbourhood = neighbourhood;
 	}
 	
 	public void setRole(Role role) {

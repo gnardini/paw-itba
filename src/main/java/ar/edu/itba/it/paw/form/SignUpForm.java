@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.form;
 
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 
 public class SignUpForm {
 
@@ -13,12 +14,13 @@ public class SignUpForm {
 	String birthMonth;
 	String birthYear;
 	String password;
+	String neighbourhoodId;
 	
 	public SignUpForm() {
 	}
 	
-	public Users build() {
-		return new Users(firstName, lastName, address, email, Integer.valueOf(birthDay), Integer.valueOf(birthMonth), Integer.valueOf(birthYear), Role.NORMAL, password);
+	public Users build(NeighbourhoodRepo neighbourhoodRepo) {
+		return new Users(firstName, lastName, address, email, Integer.valueOf(birthDay), Integer.valueOf(birthMonth), Integer.valueOf(birthYear), Role.NORMAL, password, neighbourhoodRepo.getNeighbourhood(Integer.valueOf(neighbourhoodId)));
 	}
 
 	public String getFirstName() {
@@ -83,5 +85,13 @@ public class SignUpForm {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getNeighbourhoodId() {
+		return neighbourhoodId;
+	}
+	
+	public void setNeighbourhoodId(String neighbourhoodId) {
+		this.neighbourhoodId = neighbourhoodId;
 	}
 }

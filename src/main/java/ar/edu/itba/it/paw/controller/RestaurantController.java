@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,19 +11,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.helper.CommentValidationHelper;
-import ar.edu.itba.it.paw.helper.OrderValidationHelper;
 import ar.edu.itba.it.paw.manager.OrderManager;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.CommentValidationHelper;
+import ar.edu.itba.it.paw.validator.OrderValidationHelper;
 
 @Controller
 public class RestaurantController extends BaseController {
@@ -30,16 +34,17 @@ public class RestaurantController extends BaseController {
 	protected OrderManager mOrderManager;
 	protected OrderRepo mOrderRepo;
 	protected OrderDetailRepo mOrderDetailRepo;
+	protected NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo) {
+	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mRestaurantManager = restaurantManager;
 		mOrderManager = orderManager;
 		mOrderRepo = orderRepo;
 		mOrderDetailRepo = orderDetailRepo;
+		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
-	
 	
 	@RequestMapping(value="/restaurant", method = RequestMethod.GET)
 	protected ModelAndView showRestaurant(HttpServletRequest req, @RequestParam(Parameter.CODE) Restaurant restaurant) {
@@ -55,6 +60,9 @@ public class RestaurantController extends BaseController {
 		
 		restaurant.setDishes(restaurant.getDishes());
 		restaurant.setComments(restaurant.getComments());
+		List<Neighbourhood> neighbourhoods = mNeighbourhoodRepo.getAllNeighbourhoods();
+		neighbourhoods.removeAll(restaurant.getNeighbourhoods());
+		mav.addObject("neighbourhoods", neighbourhoods);
 		mav.addObject(Parameter.RESTAURANT, restaurant);
 		mav.setViewName("restaurantDetail");
 		return mav;
@@ -107,6 +115,11 @@ public class RestaurantController extends BaseController {
 			return new ModelAndView("redirect:login");
 		}
 		Users user = mSessionManager.getUser();
+		if (user.getNeighbourhood() == null || !restaurant.reachesNeighbourhood(user.getNeighbourhood())) {
+			setMessage(req, "El restoran no tiene delivery en tu barrio");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
 		OrderValidationHelper validator = new OrderValidationHelper(req, user, restaurant);
 		Boolean valid = validator.isValid();
 		if (valid == null) {
@@ -141,5 +154,53 @@ public class RestaurantController extends BaseController {
 		}
 		mRestaurantManager.deleteRestaurant(restaurant);
 		return new ModelAndView("redirect:restaurants");
+	}
+	
+	@RequestMapping(value = "/addNeighbourhood", method = RequestMethod.POST)
+	protected ModelAndView showAddNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam("neighbourboodId") Neighbourhood neighbourhood) {
+		if (restaurant == null || neighbourhood == null) {
+			return new ModelAndView("redirect:restaurants");
+		}
+		init(req);
+		
+		if (mSessionManager.getUser().getRole() != Role.ADMIN) {
+			setMessage(req, "Solo el Admin puede agregar barrios a los restoranes");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
+		if (restaurant.reachesNeighbourhood(neighbourhood)) {
+			setMessage(req, "El barrio ya se encuentra agregado");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
+		restaurant.addNeighbourhood(neighbourhood);
+		return new ModelAndView("redirect:restaurant?code=" + restaurant.getId());
+	}
+	
+	//TODO mandar error por query param
+	@RequestMapping(value = "/removeNeighbourhood", method = RequestMethod.POST)
+	protected ModelAndView showRemoveNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam("neighbourboodId") Neighbourhood neighbourhood) {
+		if (restaurant == null || neighbourhood == null) {
+			return new ModelAndView("redirect:restaurants");
+		}
+		init(req);
+		
+		if (mSessionManager.getUser().getRole() != Role.ADMIN) {
+			setMessage(req, "Solo el Admin puede remover barrios de los restoranes");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
+		if (!restaurant.reachesNeighbourhood(neighbourhood)) {
+			setMessage(req, "El barrio no se encuentra agregado");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
+		if (restaurant.getNeighbourhoods().size() <= 1) {
+			setMessage(req, "No se puede quitar el restoran (tiene que haber por lo menos uno)");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant);
+		}
+		restaurant.removeNeighbourhood(neighbourhood);
+		return new ModelAndView("redirect:restaurant?code=" + restaurant.getId());
 	}
 }

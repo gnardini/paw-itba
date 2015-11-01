@@ -12,36 +12,66 @@
 <div class="row">
 	<div class="panel panel-default col-md-offset-3 col-md-6">
 		<div class="panel-body">
-		<div class="row">
-		<div class="col-md-9">
-			<h1>${restaurant.name}</h1>
-			<p>Puntuación: ${restaurant.ranking}</p>
-			<p>Tipo de Menú: ${restaurant.menuType}</p>
-			<p>Descripción: ${restaurant.description}</p>
-			<p>Dirección: ${restaurant.address}</p>
-			<p>Horario: ${restaurant.openingHours}</p>
-			<p>Costo de envío: $${restaurant.deliveryCost}</p>
-			<p>Costo mínimo: $${restaurant.minCost}</p>
-			</div>
-			<div class="col-md-3">
-			<c:if test="${admin}">
-				<div class="row">
-					<br/>
-					<form role="form" action="editRestaurant" method="GET">
-						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-						<button type="submit" class="btn btn-default">Editar
-							Restoran</button>
-					</form>
-					<br/>
-					<form role="form" action="deleteRestaurant" method="POST">
-						<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-						<button type="submit" class="btn btn-default">Eliminar
-							Restoran</button>
-					</form>
+			<div class="row">
+				<div class="col-md-9">
+					<h1>${restaurant.name}</h1>
+					<p>Puntuación: ${restaurant.ranking}</p>
+					<p>Tipo de Menú: ${restaurant.menuType}</p>
+					<p>Descripción: ${restaurant.description}</p>
+					<p>Dirección: ${restaurant.address}</p>
+					<p>Horario: ${restaurant.openingHours}</p>
+					<p>Costo de envío: $${restaurant.deliveryCost}</p>
+					<p>Costo mínimo: $${restaurant.minCost}</p>
+					<p>Barrios:</p>
+					<c:forEach items="${restaurant.neighbourhoods}" var="neighbourhood">
+						<p>	- ${neighbourhood.name}</p>
+					</c:forEach>
 				</div>
-			</c:if>
+				<div class="col-md-3">
+					<c:if test="${admin}">
+						<div class="row">
+							<br />
+							<form role="form" action="addNeighbourhood" method="POST">
+								<input type="hidden" name="restaurant_id"
+									value="${restaurant.id}"> <select class="form-control"
+									id="neighbourboodId" name="neighbourboodId">
+									<c:forEach items="${neighbourhoods}" var="neighbourhood">
+										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
+									</c:forEach>
+								</select>
+								<button type="submit" class="btn btn-default">Agregar
+									Barrio</button>
+							</form>
+							<br />
+							<form role="form" action="removeNeighbourhood" method="POST">
+								<input type="hidden" name="restaurant_id"
+									value="${restaurant.id}"> <select class="form-control"
+									id="neighbourboodId" name="neighbourboodId">
+									<c:forEach items="${restaurant.neighbourhoods}" var="neighbourhood">
+										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
+									</c:forEach>
+								</select>
+								<button type="submit" class="btn btn-default">Quitar
+									Barrio</button>
+							</form>
+							<br />
+							<form role="form" action="editRestaurant" method="GET">
+								<input type="hidden" name="restaurant_id"
+									value="${restaurant.id}">
+								<button type="submit" class="btn btn-default">Editar
+									Restoran</button>
+							</form>
+							<br />
+							<form role="form" action="deleteRestaurant" method="POST">
+								<input type="hidden" name="restaurant_id"
+									value="${restaurant.id}">
+								<button type="submit" class="btn btn-default">Eliminar
+									Restoran</button>
+							</form>
+						</div>
+					</c:if>
+				</div>
 			</div>
-		</div>
 		</div>
 	</div>
 </div>

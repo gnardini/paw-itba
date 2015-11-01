@@ -8,7 +8,7 @@
 	<li class="active">Iniciar Sesión</li>
 </ol>
 
-<%@ include file="message.jsp"%> 
+<%@ include file="message.jsp"%>
 
 <div class="container">
 	<div class="row">
@@ -30,7 +30,8 @@
 		</div>
 		<div class="col-md-6">
 			<H3>Registro</H3>
-			<form:form role="form" action="signup" method="POST" commandName="signUpForm">
+			<form:form role="form" action="signup" method="POST"
+				commandName="signUpForm">
 				<div class="form-group">
 					<form:input type="email" class="form-control" placeholder="Mail"
 						path="email" />
@@ -48,8 +49,8 @@
 						path="lastName" />
 				</div>
 				<div class="form-group">
-					<form:input type="text" class="form-control" placeholder="Dirección"
-						path="address" />
+					<form:input type="text" class="form-control"
+						placeholder="Dirección" path="address" />
 				</div>
 
 				<div class="row">
@@ -75,7 +76,15 @@
 						</div>
 					</div>
 				</div>
-				
+
+				<div class="row">
+					<form:select class="form-control" path="neighbourhoodId" placeholder="Barrio">
+						<c:forEach items="${neighbourhoods}" var="neighbourhood">
+							<form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
+						</c:forEach>
+					</form:select>
+				</div>
+
 				<form:errors path="*" />
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>
 			</form:form>

@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.helper.RestaurantValidationHelper;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.EditRestaurantValidator;
+import ar.edu.itba.it.paw.validator.RestaurantValidator;
 
 @Controller
 public class EditRestaurantController extends BaseController {
@@ -43,7 +44,7 @@ public class EditRestaurantController extends BaseController {
 		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
-		RestaurantValidationHelper validator = new RestaurantValidationHelper(req);
+		EditRestaurantValidator validator = new EditRestaurantValidator(req);
 		if (validator.isValidRestaurant()) {
 			Restaurant updatedRestaurant = validator.getRestaurant();
 			restaurant.updateWithData(updatedRestaurant);

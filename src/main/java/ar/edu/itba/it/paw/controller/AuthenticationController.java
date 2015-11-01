@@ -11,20 +11,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.form.SignUpForm;
-import ar.edu.itba.it.paw.helper.SignUpValidator;
 import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Header;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.SignUpValidator;
 
 @Controller
 public class AuthenticationController extends BaseController {
 	
 	private SignUpValidator mSignUpValidator;
+	private NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public AuthenticationController(SessionManager sessionManager, SignUpValidator signUpValidator) {
+	public AuthenticationController(SessionManager sessionManager, SignUpValidator signUpValidator, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mSignUpValidator = signUpValidator;
+		mNeighbourhoodRepo = neighbourhoodRepo;
 	}	
 	
 	@RequestMapping(value = "login", method = RequestMethod.GET)
@@ -33,6 +36,7 @@ public class AuthenticationController extends BaseController {
 		if (mSessionManager.isLogged()) {
 			return new ModelAndView("redirect:restaurants");
 		}
+		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
 		mav.addObject("signUpForm", new SignUpForm());
 		return mav;
 	}
@@ -59,7 +63,7 @@ public class AuthenticationController extends BaseController {
 			setMessage(req, "Datos de registro inválidos");
 			setMessageType(req, Parameter.ERROR);
 			return mav;
-		} else if (!mSessionManager.signup(form.build())) {
+		} else if (!mSessionManager.signup(form.build(mNeighbourhoodRepo))) {
 			setMessage(req, "El usuario ya existe");
 			setMessageType(req, Parameter.ERROR);
 			return mav;

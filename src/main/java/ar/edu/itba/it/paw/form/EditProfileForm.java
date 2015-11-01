@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.form;
 
 import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 
 public class EditProfileForm {
 	
@@ -14,12 +15,12 @@ public class EditProfileForm {
 	String birthYear;
 	String oldPassword;
 	String newPassword;
-	
+	String neighbourhoodId;
 	
 	public EditProfileForm() {
 	}
 	
-	public Users build() {
+	public Users build(NeighbourhoodRepo neighbourhoodRepo) {
 		if (!passwordsMatch()) return null;
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -29,6 +30,7 @@ public class EditProfileForm {
 		user.setBirthMonth(Integer.parseInt(birthMonth));
 		user.setBirthYear(Integer.parseInt(birthYear));
 		if (!newPassword.equals("")) user.setPassword(newPassword);
+		user.setNeighbourhood(neighbourhoodRepo.getNeighbourhood(Integer.valueOf(neighbourhoodId)));
 		return user;
 	}
 	
@@ -110,5 +112,13 @@ public class EditProfileForm {
 	
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+	
+	public String getNeighbourhoodId() {
+		return neighbourhoodId;
+	}
+	
+	public void setNeighbourhoodId(String neighbourhoodId) {
+		this.neighbourhoodId = neighbourhoodId;
 	}
 }

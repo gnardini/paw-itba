@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.helper.DishValidationHelper;
-import ar.edu.itba.it.paw.helper.RestaurantValidationHelper;
 import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.manager.UserManager;
@@ -19,7 +17,10 @@ import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.DishRepo;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.DishValidationHelper;
+import ar.edu.itba.it.paw.validator.RestaurantValidator;
 
 @Controller
 public class ControlPanelController extends BaseController {
@@ -27,13 +28,15 @@ public class ControlPanelController extends BaseController {
 	private UserManager mUserManager;
 	private RestaurantManager mRestaurantManager;
 	private DishRepo mDishRepo;
+	private NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, UserManager userManager, RestaurantManager restaurantManager, DishRepo dishRepo) {
+	public ControlPanelController(SessionManager sessionManager, UserManager userManager, RestaurantManager restaurantManager, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mUserManager = userManager;
 		mRestaurantManager = restaurantManager;
 		mDishRepo = dishRepo;
+		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
 	
 	protected boolean hasPermission(HttpServletRequest req, Role requiredRole) {
@@ -132,9 +135,11 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/newRestaurant", method = RequestMethod.POST)
 	public ModelAndView showNewRestaurant(HttpServletRequest req) {
-		RestaurantValidationHelper validator = new RestaurantValidationHelper(req);
+		RestaurantValidator validator = new RestaurantValidator(req, mNeighbourhoodRepo);
 		if (validator.isValidRestaurant()) {
-			mRestaurantManager.addRestaurant(validator.getRestaurant());
+			Restaurant restaurant = validator.getRestaurant();
+			mRestaurantManager.addRestaurant(restaurant);
+			restaurant.addNeighbourhood(validator.getNeighbourhood());
 			setMessage(req, "Nuevo restoran agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);			
 		} else {

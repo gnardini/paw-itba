@@ -4,10 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 public class Restaurant extends PersistentEntity {
@@ -20,6 +18,7 @@ public class Restaurant extends PersistentEntity {
 	String menuType;
 	String description;
 	String ranking;
+
 	
 	@OneToMany
 	List<Dish> dishes;
@@ -32,6 +31,9 @@ public class Restaurant extends PersistentEntity {
 	
 	@ManyToMany(mappedBy="restaurants")
 	List<Users> managers;
+	
+	@ManyToMany
+	List<Neighbourhood> neighbourhoods;
 	
 	public Restaurant(String name,
 					String address,
@@ -154,5 +156,21 @@ public class Restaurant extends PersistentEntity {
 
 	public void addOrder(Orders order) {
 		orders.add(order);
+	}
+
+	public void addNeighbourhood(Neighbourhood neighbourhood) {
+		neighbourhoods.add(neighbourhood);
+	}
+
+	public List<Neighbourhood> getNeighbourhoods() {
+		return neighbourhoods;
+	}
+
+	public boolean reachesNeighbourhood(Neighbourhood neighbourhood) {
+		return neighbourhoods.contains(neighbourhood);
+	}
+
+	public void removeNeighbourhood(Neighbourhood neighbourhood) {
+		neighbourhoods.remove(neighbourhood);
 	}
 }
