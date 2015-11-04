@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
 public class RestaurantsController extends BaseController {
 	
-	private final RestaurantManager mRestaurantManager;
+	private final RestaurantRepo mRestaurantRepo;
 	
 	@Autowired
-	public RestaurantsController(SessionManager sessionManager, RestaurantManager restaurantManager) {
+	public RestaurantsController(SessionManager sessionManager, RestaurantRepo restaurantRepo) {
 		super(sessionManager);
-		this.mRestaurantManager = restaurantManager;
+		mRestaurantRepo = restaurantRepo;
 	}
 
 
@@ -35,9 +35,9 @@ public class RestaurantsController extends BaseController {
 	@RequestMapping(value="/restaurants", method = RequestMethod.GET)
 	public ModelAndView showRestaurants(HttpServletRequest req) {
 		ModelAndView mav = createModelAndView(req);
-		List<Restaurant> restaurants = mRestaurantManager.getRestaurants();
+		List<Restaurant> restaurants = mRestaurantRepo.getRestaurants();
 		mav.addObject(Parameter.RESTAURANTS, restaurants);
-		mav.addObject("topRestaurants", mRestaurantManager.getTopRestaurants());
+		mav.addObject("topRestaurants", mRestaurantRepo.getTopRestaurants());
 		return mav;
 	}
 }

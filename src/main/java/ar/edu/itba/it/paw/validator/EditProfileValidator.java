@@ -12,6 +12,11 @@ import ar.edu.itba.it.paw.util.NumberUtils;
 @Component
 public class EditProfileValidator implements Validator {
 	
+	public static final int ERROR_PASSWORDS = 0;
+	public static final int ERROR_INVALID_DATA = 1;
+	
+	private int errorType;
+	
 	@Override
 	public void validate(Object o, Errors e) {
 		EditProfileForm form = (EditProfileForm) o;
@@ -24,7 +29,10 @@ public class EditProfileValidator implements Validator {
 		String year = form.getBirthYear();
 		String neighbourhoodId = form.getNeighbourhoodId();
 
-		if (firstName.equals("")
+		if (!form.passwordsMatch()) {
+			errorType = ERROR_PASSWORDS;
+			e.reject("Contrasena incorrecta");
+		} else if (firstName.equals("")
 				|| lastName.equals("")
 				|| address.equals("")
 				|| email.equals("")
@@ -33,11 +41,16 @@ public class EditProfileValidator implements Validator {
 				|| !NumberUtils.isNumber(month)
 				|| !NumberUtils.isNumber(year)
 				|| !NumberUtils.isNumber(neighbourhoodId)
-				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))
-				|| !form.passwordsMatch())
+				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))) {
+			errorType = ERROR_INVALID_DATA;
 			e.reject("Error al editar el perfil");
+		}
 	}
 
+	public int getErrorType() {
+		return errorType;
+	}
+	
 	@Override
 	public boolean supports(Class<?> clazz) {
 		return EditProfileForm.class.equals(clazz);

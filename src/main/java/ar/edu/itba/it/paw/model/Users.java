@@ -117,8 +117,10 @@ public class Users extends PersistentEntity {
 		restaurants.add(restaurant);
 	}
 
-	public void assignRestaurant(Restaurant restaurant) {
+	public boolean assignRestaurant(Restaurant restaurant) {
+		if (restaurants.contains(restaurant)) return false;
 		restaurants.add(restaurant);
+		return true;
 	}
 
 	public boolean makeManager() {

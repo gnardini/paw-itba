@@ -36,12 +36,16 @@ public class ProfileController extends BaseController {
 		setResult(req, result);
 		ModelAndView mav = createModelAndView(req);
 		mav.addObject("editProfileForm", new EditProfileForm());
+		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
 		mav.addObject(Parameter.USER, user);
 		return mav;
 	}
 	
 	private void setResult(HttpServletRequest req, String result) {
-		if ("failure".equals(result)) {
+		if (("failure" + EditProfileValidator.ERROR_PASSWORDS).equals(result)) {
+			setMessage(req, "Contrasena incorrecta");
+			setMessageType(req, Parameter.ERROR);
+		} else if (("failure" + EditProfileValidator.ERROR_INVALID_DATA).equals(result)) {
 			setMessage(req, "Datos inválidos");
 			setMessageType(req, Parameter.ERROR);
 		} else if ("success".equals(result)){
@@ -56,7 +60,7 @@ public class ProfileController extends BaseController {
 		mEditProfileValidator.validate(form, errors);
 		
 		if (errors.hasErrors()) {
-			return new ModelAndView("redirect:profile?result=failure");
+			return new ModelAndView("redirect:profile?result=failure" + mEditProfileValidator.getErrorType());
 		} else {
 			form.build(mNeighbourhoodRepo);
 			return new ModelAndView("redirect:profile?result=success");

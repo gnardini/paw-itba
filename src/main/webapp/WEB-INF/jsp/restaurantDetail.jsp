@@ -19,7 +19,12 @@
 					<p>Tipo de Menú: ${restaurant.menuType}</p>
 					<p>Descripción: ${restaurant.description}</p>
 					<p>Dirección: ${restaurant.address}</p>
-					<p>Horario: ${restaurant.openingHour} a ${restaurant.closingHour} horas</p>
+					<c:if test="${restaurant.openingHour == restaurant.closingHour}">
+						<p>Horario: Todo el dia</p>
+					</c:if>
+					<c:if test="${restaurant.openingHour != restaurant.closingHour}">
+						<p>Horario: ${restaurant.openingHour} a ${restaurant.closingHour} horas</p>
+					</c:if>
 					<p>Costo de envío: $${restaurant.deliveryCost}</p>
 					<p>Costo mínimo: $${restaurant.minCost}</p>
 					<p>Barrios:</p>

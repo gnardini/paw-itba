@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.UserRepo;
 
 @Service

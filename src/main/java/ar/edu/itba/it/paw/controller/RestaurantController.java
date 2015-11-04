@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.manager.OrderManager;
-import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.OrderDetail;
@@ -23,6 +21,7 @@ import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
+import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.CommentValidationHelper;
 import ar.edu.itba.it.paw.validator.OrderValidationHelper;
@@ -30,17 +29,15 @@ import ar.edu.itba.it.paw.validator.OrderValidationHelper;
 @Controller
 public class RestaurantController extends BaseController {
 	
-	protected RestaurantManager mRestaurantManager;
-	protected OrderManager mOrderManager;
+	protected RestaurantRepo mRestaurantRepo;
 	protected OrderRepo mOrderRepo;
 	protected OrderDetailRepo mOrderDetailRepo;
 	protected NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, RestaurantManager restaurantManager, OrderManager orderManager, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantController(SessionManager sessionManager, RestaurantRepo restaurantRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
-		mRestaurantManager = restaurantManager;
-		mOrderManager = orderManager;
+		mRestaurantRepo = restaurantRepo;
 		mOrderRepo = orderRepo;
 		mOrderDetailRepo = orderDetailRepo;
 		mNeighbourhoodRepo = neighbourhoodRepo;
@@ -157,7 +154,7 @@ public class RestaurantController extends BaseController {
 			setMessageType(req, Parameter.ERROR);
 			return showRestaurant(req, restaurant);
 		}
-		mRestaurantManager.deleteRestaurant(restaurant);
+		mRestaurantRepo.deleteRestaurant(restaurant);
 		return new ModelAndView("redirect:restaurants");
 	}
 	

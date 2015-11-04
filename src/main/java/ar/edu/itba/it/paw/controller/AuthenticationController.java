@@ -75,6 +75,6 @@ public class AuthenticationController extends BaseController {
 	protected ModelAndView showLogOut(HttpServletRequest req) {
 		mSessionManager.setSession(req.getSession());
 		mSessionManager.logout();
-		return new ModelAndView("redirect:" + req.getHeader(Header.REFERER));
+		return new ModelAndView("redirect:restaurants");
 	}
 }

@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +31,13 @@ public class MyOrdersController extends BaseController {
 		ModelAndView mav = createModelAndView(req);
 		Users loggedUser = mSessionManager.getUser();
 		if (loggedUser == null) return new ModelAndView("redirect:restaurants");
-		List<Orders> list = loggedUser.getOrders();
-		mav.addObject(Parameter.ORDERS, loggedUser.getOrders());
+		List<Orders> orders = loggedUser.getOrders();
+		Collections.sort(orders, new Comparator<Orders>() {
+			public int compare(Orders o1, Orders o2) {
+				return -o1.getMade().compareTo(o2.getMade());
+			};
+		});
+		mav.addObject(Parameter.ORDERS, orders);
 		mav.setViewName("myOrders");
 		return mav;
 	}

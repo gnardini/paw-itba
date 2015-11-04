@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.manager.RestaurantManager;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.manager.UserManager;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.DishRepo;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.DishValidationHelper;
 import ar.edu.itba.it.paw.validator.RestaurantValidator;
@@ -25,16 +25,16 @@ import ar.edu.itba.it.paw.validator.RestaurantValidator;
 @Controller
 public class ControlPanelController extends BaseController {
 	
-	private UserManager mUserManager;
-	private RestaurantManager mRestaurantManager;
+	private UserRepo mUserRepo;
+	private RestaurantRepo mRestaurantRepo;
 	private DishRepo mDishRepo;
 	private NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, UserManager userManager, RestaurantManager restaurantManager, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public ControlPanelController(SessionManager sessionManager, UserRepo userRepo, RestaurantRepo restaurantRepo, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
-		mUserManager = userManager;
-		mRestaurantManager = restaurantManager;
+		mUserRepo = userRepo;
+		mRestaurantRepo = restaurantRepo;
 		mDishRepo = dishRepo;
 		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
@@ -52,9 +52,9 @@ public class ControlPanelController extends BaseController {
 	public ModelAndView showAdminPanel(HttpServletRequest req) {
 		if (!hasPermission(req, Role.ADMIN)) return new ModelAndView("redirect:restaurants");
 		ModelAndView mav = createModelAndView(req);
-		mav.addObject(Parameter.USERS, mUserManager.getUsers(Role.NORMAL));
-		mav.addObject(Parameter.MANAGERS, mUserManager.getUsers(Role.MANAGER));
-		mav.addObject(Parameter.RESTAURANTS, mRestaurantManager.getRestaurants());
+		mav.addObject(Parameter.USERS, mUserRepo.getUsers(Role.NORMAL));
+		mav.addObject(Parameter.MANAGERS, mUserRepo.getUsers(Role.MANAGER));
+		mav.addObject(Parameter.RESTAURANTS, mRestaurantRepo.getRestaurants());
 		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
 		mav.setViewName("adminPanel");
 		return mav;
@@ -62,13 +62,18 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/assignManager", method = RequestMethod.POST)
 	public ModelAndView showAssignManager(HttpServletRequest req, @RequestParam(Parameter.MANAGER_ID) Users manager, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
+		if (!hasPermission(req, Role.ADMIN)) return new ModelAndView("redirect:restaurants");
 		if (manager == null || restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
 		if (manager.getRole() == Role.MANAGER) {
-			manager.assignRestaurant(restaurant);
-			setMessage(req, "Se completó la operación");
-			setMessageType(req, Parameter.SUCCESS);
+			if (manager.assignRestaurant(restaurant)) {
+				setMessage(req, "Se completó la operación");
+				setMessageType(req, Parameter.SUCCESS);
+			} else {
+				setMessage(req, manager.getEmail() + " ya es gerente de " + restaurant.getName());
+				setMessageType(req, Parameter.ERROR);
+			}			
 		} else {
 			setMessage(req, "No se pudo completar la operación");
 			setMessageType(req, Parameter.ERROR);
@@ -78,6 +83,7 @@ public class ControlPanelController extends BaseController {
 	
 	@RequestMapping(value = "/newManager", method = RequestMethod.POST)
 	public ModelAndView showNewManager(HttpServletRequest req, @RequestParam(Parameter.USER_ID) Users user) {
+		if (!hasPermission(req, Role.ADMIN)) return new ModelAndView("redirect:restaurants");
 		if (user == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
@@ -103,6 +109,7 @@ public class ControlPanelController extends BaseController {
 
 	@RequestMapping(value = "/managerPanel", method = RequestMethod.POST)
 	public ModelAndView showNewDish(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant) {
+		if (!hasPermission(req, Role.MANAGER)) return new ModelAndView("redirect:restaurants");
 		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
@@ -126,20 +133,13 @@ public class ControlPanelController extends BaseController {
 		return showManagerPanel(req);
 	}
 	
-	@RequestMapping(value = "/userPanel", method = RequestMethod.GET)
-	public ModelAndView showUserPanel(HttpServletRequest req) {
-		if (!hasPermission(req, Role.NORMAL)) return new ModelAndView("redirect:restaurants");
-		ModelAndView mav = createModelAndView(req);
-		mav.setViewName("userPanel");
-		return mav;
-	}
-	
 	@RequestMapping(value = "/newRestaurant", method = RequestMethod.POST)
 	public ModelAndView showNewRestaurant(HttpServletRequest req) {
+		if (!hasPermission(req, Role.ADMIN)) return new ModelAndView("redirect:restaurants");
 		RestaurantValidator validator = new RestaurantValidator(req, mNeighbourhoodRepo);
 		if (validator.isValidRestaurant()) {
 			Restaurant restaurant = validator.getRestaurant();
-			mRestaurantManager.addRestaurant(restaurant);
+			mRestaurantRepo.storeRestaurant(restaurant);
 			setMessage(req, "Nuevo restoran agregado con éxito");
 			setMessageType(req, Parameter.SUCCESS);			
 		} else {
