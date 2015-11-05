@@ -59,6 +59,8 @@ public class AuthenticationController extends BaseController {
 
 		ModelAndView mav = createModelAndView(req);
 		mav.setViewName("login");
+		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
+		mav.addObject("signUpForm", new SignUpForm());
 		if (errors.hasErrors()) {
 			setMessage(req, "Datos de registro inválidos");
 			setMessageType(req, Parameter.ERROR);
