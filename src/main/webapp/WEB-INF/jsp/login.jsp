@@ -94,7 +94,6 @@
 
 
 
-				<form:errors path="*" />
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>
 			</form:form>
 		</div>
