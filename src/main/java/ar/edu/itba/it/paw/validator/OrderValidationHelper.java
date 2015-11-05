@@ -47,7 +47,10 @@ public class OrderValidationHelper {
 			}
 		}
 		if(totalAmount<restaurant.getMinCost()) return null;
-		else mOrder.setPrice(totalAmount);
+		else {
+			totalAmount += restaurant.getDeliveryCost();
+			mOrder.setPrice(totalAmount);
+		}
 		return mOrder.getDetails().size() != 0;
 	}
 	

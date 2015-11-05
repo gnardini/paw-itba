@@ -13,7 +13,7 @@
 				<div class="col-md-9">
 					<p>Restoran: ${order.restaurant.name}</p>
 					<p>
-						Precio (sin contar el precio del envío):
+						Precio:
 						<fmt:formatNumber type="currency" currencySymbol="$"
 							maxFractionDigits="2" minFractionDigits="2"
 							value="${order.price}" />
