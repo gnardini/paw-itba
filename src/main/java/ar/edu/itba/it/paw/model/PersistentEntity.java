@@ -23,7 +23,6 @@ public class PersistentEntity {
 	public boolean equals(Object obj) {
 		if (obj == null) return false;
 		if (!(obj instanceof PersistentEntity)) return false;
-		System.out.println(getClass() + " " + obj.getClass());
 		if (!getClass().equals(obj.getClass())) return false;
 		return id == ((PersistentEntity) obj).getId();
 	}
