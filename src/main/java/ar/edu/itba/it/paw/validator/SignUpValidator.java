@@ -36,7 +36,7 @@ public class SignUpValidator implements Validator {
 				|| !NumberUtils.isNumber(neighbourhoodId)
 				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))
 				|| password == "")
-			e.reject("Error al registrarse");
+			e.reject("registrationError");
 	}
 
 	@Override

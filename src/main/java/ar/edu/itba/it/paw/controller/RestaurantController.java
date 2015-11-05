@@ -178,12 +178,16 @@ public class RestaurantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/addNeighbourhood", method = RequestMethod.POST)
-	protected ModelAndView showAddNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam("neighbourboodId") Neighbourhood neighbourhood) {
-		if (restaurant == null || neighbourhood == null) {
+	protected ModelAndView showAddNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam(value="neighbourboodId", required=false) Neighbourhood neighbourhood) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
 		}
+		if(neighbourhood == null){
+			setMessage(req, "No se seleccionó barrio para agregar");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant, "");
+		}
 		init(req);
-		
 		if (mSessionManager.getUser().getRole() != Role.ADMIN) {
 			setMessage(req, "Solo el Admin puede agregar barrios a los restoranes");
 			setMessageType(req, Parameter.ERROR);
@@ -199,9 +203,14 @@ public class RestaurantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/removeNeighbourhood", method = RequestMethod.POST)
-	protected ModelAndView showRemoveNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam("neighbourboodId") Neighbourhood neighbourhood) {
-		if (restaurant == null || neighbourhood == null) {
+	protected ModelAndView showRemoveNeighbourhood(HttpServletRequest req, @RequestParam(Parameter.RESTAURANT_ID) Restaurant restaurant, @RequestParam(value="neighbourboodId", required=false) Neighbourhood neighbourhood) {
+		if (restaurant == null) {
 			return new ModelAndView("redirect:restaurants");
+		}
+		if(neighbourhood == null){
+			setMessage(req, "No se seleccionó barrio para remover");
+			setMessageType(req, Parameter.ERROR);
+			return showRestaurant(req, restaurant, "");
 		}
 		init(req);
 		
