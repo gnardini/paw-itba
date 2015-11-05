@@ -9,6 +9,8 @@ insert into users values(5, 'user one address', 2, 10, 1999, 'user@one.com', 'Us
 insert into users values(10, '1 Hacker Way', 10, 11, 1990, 'mdesanti@itba.edu.ar', 'Matias', 'De Santi', '123123123', 0, null);
 insert into users values(11, '123123123', 10, 11, 1990, 'mdesanti+1@itba.edu.ar', 'Matias', 'B', '123123123', 0, null);
 insert into users values(12, '123', 10, 11, 1990, 'mdesanti+3@itba.edu.ar', 'Matias', 'De Santi', '123123123', 0, null);
-insert into restaurant values(2, 'Corrientes y Florida', 23, 0, 'Dueños de la hamburguesa mas rica del planeta', 'Comida Rapida', 100, 'Burger King', 5);
-insert into restaurant values(1, 'Corrientes y Alem ', 0, 10, 'El mejor lugar de comidas rapidas', 'Comida Rapida', 120, 'McDonalds', 6);
+ALTER SEQUENCE users_id_seq restart with 13;
+insert into restaurant values(2, 'Corrientes y Florida', 23, 0, 'Dueños de la hamburguesa más rica del planeta', 'Comida Rápida', 100, 'Burger King', 5);
+insert into restaurant values(1, 'Corrientes y Alem ', 0, 10, 'El mejor lugar de comidas rápidas', 'Comida Rápida', 120, 'McDonalds', 6);
 insert into restaurant values(9, 'Av Siempreviva 742', 15, 0, 'Prueba', 'Comida Rápida', 100, 'Prueba', 12);
+ALTER SEQUENCE restaurant_id_seq restart with 10;

@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.model;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 public class Comment extends PersistentEntity  {
@@ -13,7 +14,6 @@ public class Comment extends PersistentEntity  {
 	@ManyToOne
 	Restaurant restaurant;
 	
-	String userName;
 	int rating;
 	String text;
 	
@@ -23,7 +23,6 @@ public class Comment extends PersistentEntity  {
 	
 	public Comment(Users user, Restaurant restaurant, int rating, String text) {
 		this.user = user;
-		this.userName = user.getFirstName();
 		this.restaurant = restaurant;
 		this.rating = rating;
 		this.text = text;
@@ -38,7 +37,7 @@ public class Comment extends PersistentEntity  {
 	}
 	
 	public String getUserName() {
-		return userName;
+		return user.firstName;
 	}
 	
 	public int getRating() {

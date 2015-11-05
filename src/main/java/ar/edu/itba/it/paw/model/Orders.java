@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Orders extends PersistentEntity {
@@ -24,7 +25,6 @@ public class Orders extends PersistentEntity {
 	private String restaurantName;
 	private Date made;
 	private float price;
-	private String orderDate;
 	private boolean delivered;
 	
 	public Orders() {
@@ -34,7 +34,6 @@ public class Orders extends PersistentEntity {
 		this.user = user;
 		this.restaurant = restaurant;
 		this.made = made;
-		orderDate = new SimpleDateFormat("dd/MM").format(made);
 		details = new LinkedList<>();
 	}
 	
@@ -67,7 +66,7 @@ public class Orders extends PersistentEntity {
 	}
 	
 	public String getOrderDate() {
-		return orderDate;
+		return new SimpleDateFormat("dd/MM").format(made);
 	}
 	
 	public void setDelivered(boolean delivered) {

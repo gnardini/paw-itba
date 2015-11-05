@@ -72,6 +72,14 @@
 				<input type="text" class="form-control" placeholder="Dirección"
 					name="address">
 			</div>
+			<label>Barrio: </label>
+			<div class="form-group">
+				<select class="form-control" name="neighbourhoodId">
+					<c:forEach items="${neighbourhoods}" var="neighbourhood">
+						<option value="${neighbourhood.id}">${neighbourhood.name}</option>
+					</c:forEach>
+				</select>
+			</div>
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-3">
@@ -94,13 +102,7 @@
 				<input type="text" class="form-control" placeholder="Costo mínimo"
 					name="minCost">
 			</div>
-			<div class="form-group">
-				<select class="form-control" name="neighbourhoodId">
-					<c:forEach items="${neighbourhoods}" var="neighbourhood">
-						<option value="${neighbourhood.id}">${neighbourhood.name}</option>
-					</c:forEach>
-				</select>
-			</div>
+			
 			<button type="submit" value="Agregar" class="btn btn-default">Agregar
 				Restoran</button>
 		</form>
