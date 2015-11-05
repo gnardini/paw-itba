@@ -22,15 +22,14 @@ public class Dish extends PersistentEntity {
 	
 	String name;
 	String description;
-	// TODO hacer float
-	int price;
+	float price;
 	Type type;
 	
 	public Dish() {
 		
 	}
 	
-	public Dish(Restaurant restaurant, String name, String description, int price, Type type) {
+	public Dish(Restaurant restaurant, String name, String description, float price, Type type) {
 		this.restaurant = restaurant;
 		this.name = name;
 		this.description = description;
@@ -50,7 +49,7 @@ public class Dish extends PersistentEntity {
 		return description;
 	}
 
-	public int getPrice() {
+	public float getPrice() {
 		return price;
 	}
 

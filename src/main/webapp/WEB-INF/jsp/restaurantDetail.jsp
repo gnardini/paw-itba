@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="header.jsp"%>
 
@@ -15,7 +16,9 @@
 			<div class="row">
 				<div class="col-md-9">
 					<h1>${restaurant.name}</h1>
-					<p>Puntuación: ${restaurant.ranking}</p>
+					<p>Puntuación: <fmt:formatNumber type="number" currencySymbol="$"
+							maxFractionDigits="2" minFractionDigits="2"
+							value="${restaurant.ranking}" /></p>
 					<p>Tipo de Menú: ${restaurant.menuType}</p>
 					<p>Descripción: ${restaurant.description}</p>
 					<p>Dirección: ${restaurant.address}</p>

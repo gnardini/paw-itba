@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Restaurant extends PersistentEntity {
@@ -19,7 +20,9 @@ public class Restaurant extends PersistentEntity {
 	int minCost;
 	String menuType;
 	String description;
-	String ranking;
+	
+	@Transient
+	float ranking;
 
 	@OneToMany
 	List<Dish> dishes;
@@ -129,12 +132,12 @@ public class Restaurant extends PersistentEntity {
 		return description;
 	}
 
-	public String getRanking() {
+	public float getRanking() {
 		return ranking;
 	}
 
 	public void setRanking(float ranking) {
-		this.ranking = String.format("%.2f", ranking);
+		this.ranking = ranking;
 	}
 
 	public List<Comment> getComments() {
@@ -151,6 +154,9 @@ public class Restaurant extends PersistentEntity {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+		float total = 0;
+		for (Comment comment: comments) total += comment.rating;
+		ranking = total / comments.size();
 	}
 
 	public List<Orders> getOrders() {
