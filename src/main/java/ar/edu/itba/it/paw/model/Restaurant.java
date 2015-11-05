@@ -24,7 +24,7 @@ public class Restaurant extends PersistentEntity {
 	@OneToMany
 	List<Dish> dishes;
 
-	@OneToMany(mappedBy = "restaurant")
+	@OneToMany
 	List<Comment> comments;
 
 	@OneToMany(mappedBy = "restaurant")

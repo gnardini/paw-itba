@@ -15,7 +15,6 @@ import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.EditRestaurantValidator;
-import ar.edu.itba.it.paw.validator.RestaurantValidator;
 
 @Controller
 public class EditRestaurantController extends BaseController {

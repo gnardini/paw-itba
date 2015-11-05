@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
+import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.repository.CommentRepo;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
@@ -30,14 +32,16 @@ import ar.edu.itba.it.paw.validator.OrderValidationHelper;
 public class RestaurantController extends BaseController {
 	
 	protected RestaurantRepo mRestaurantRepo;
+	protected CommentRepo mCommentRepo;
 	protected OrderRepo mOrderRepo;
 	protected OrderDetailRepo mOrderDetailRepo;
 	protected NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, RestaurantRepo restaurantRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantController(SessionManager sessionManager, RestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mRestaurantRepo = restaurantRepo;
+		mCommentRepo = commentRepo;
 		mOrderRepo = orderRepo;
 		mOrderDetailRepo = orderDetailRepo;
 		mNeighbourhoodRepo = neighbourhoodRepo;
@@ -73,7 +77,9 @@ public class RestaurantController extends BaseController {
 		init(req);
 		CommentValidationHelper validator = new CommentValidationHelper(req, mSessionManager.getUser(), restaurant);
 		if (validator.isValidComment()) {
-			restaurant.addComment(validator.getComment());
+			Comment comment = validator.getComment();
+			mCommentRepo.addComment(comment);
+			restaurant.addComment(comment);
 			setMessage(req, "Comentario creado con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		} else {

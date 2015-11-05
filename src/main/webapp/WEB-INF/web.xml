@@ -27,6 +27,10 @@
 		<error-code>405</error-code>
 		<location>/error</location>
 	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/error</location>
+	</error-page>
 
 	<filter>
 		<filter-name>transactionFilter</filter-name>

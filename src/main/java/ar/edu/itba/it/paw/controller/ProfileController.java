@@ -32,6 +32,7 @@ public class ProfileController extends BaseController {
 	
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	protected ModelAndView showProfile(HttpServletRequest req, @RequestParam(value="result", required=false) String result) {
+		if (!mSessionManager.isLogged()) return new ModelAndView("redirect:restaurants");
 		Users user = mSessionManager.getUser();
 		setResult(req, result);
 		ModelAndView mav = createModelAndView(req);
@@ -56,6 +57,7 @@ public class ProfileController extends BaseController {
 	
 	@RequestMapping(value = "editProfile", method = RequestMethod.POST)
 	protected ModelAndView showEditProfile(HttpServletRequest req, EditProfileForm form, Errors errors) {
+		if (!mSessionManager.isLogged()) return new ModelAndView("redirect:restaurants");
 		form.setUser(mSessionManager.getUser());
 		mEditProfileValidator.validate(form, errors);
 		
