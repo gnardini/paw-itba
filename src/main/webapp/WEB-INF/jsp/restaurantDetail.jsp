@@ -44,6 +44,7 @@
 										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
 									</c:forEach>
 								</select>
+								<br/>
 								<button type="submit" class="btn btn-default">Agregar
 									Barrio</button>
 							</form>
@@ -56,6 +57,7 @@
 										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
 									</c:forEach>
 								</select>
+								<br/>
 								<button type="submit" class="btn btn-default">Quitar
 									Barrio</button>
 							</form>

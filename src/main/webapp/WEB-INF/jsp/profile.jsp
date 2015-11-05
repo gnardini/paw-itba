@@ -14,31 +14,53 @@
 	<H3>Perfil</H3>
 	<form:form role="form" action="editProfile" method="POST"
 		commandName="editProfileForm">
+
+		<label>Email:</label>
 		<div class="form-group">
 			<form:input type="email" class="form-control" placeholder="Mail"
 				path="email" value="${user.email}" />
 		</div>
+		<label>Contraseña actual:</label>
 		<div class="form-group">
 			<form:input type="password" class="form-control"
-				placeholder="Contraseña vieja" path="oldPassword" />
+				placeholder="Contraseña actual" path="oldPassword" />
 		</div>
+		<label>Contraseña nueva (dejela vacía si no quiere
+			modificarla):</label>
 		<div class="form-group">
 			<form:input type="password" class="form-control"
 				placeholder="Contraseña nueva" path="newPassword" />
 		</div>
+		<label>Nombre:</label>
 		<div class="form-group">
 			<form:input type="text" class="form-control" placeholder="Nombre"
 				path="firstName" value="${user.firstName}" />
 		</div>
+		<label>Apellido:</label>
 		<div class="form-group">
 			<form:input type="text" class="form-control" placeholder="Apellido"
 				path="lastName" value="${user.lastName}" />
 		</div>
+		<label>Dirección:</label>
 		<div class="form-group">
 			<form:input type="text" class="form-control" placeholder="Dirección"
 				path="address" value="${user.address}" />
 		</div>
-
+		<label>Barrio:</label>
+		<form:select class="form-control" path="neighbourhoodId"
+			placeholder="Barrio">
+			<c:forEach items="${neighbourhoods}" var="neighbourhood">
+				<c:if
+					test="${(not empty user.neighbourhood) && (neighbourhood.id == user.neighbourhood.id)}">
+					<form:option value="${neighbourhood.id}" selected="selected">${neighbourhood.name}</form:option>
+				</c:if>
+				<c:if
+					test="${(empty user.neighbourhood) || (neighbourhood.id != user.neighbourhood.id)}">
+					<form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
+				</c:if>
+			</c:forEach>
+		</form:select>
+		<br />
 		<div class="row">
 			<div class="col-md-4">
 				<label>Fecha de Nacimiento:</label>
@@ -62,23 +84,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<form:select class="form-control" path="neighbourhoodId"
-				placeholder="Barrio">
-				<c:forEach items="${neighbourhoods}" var="neighbourhood">
-					<c:if test="${(not empty user.neighbourhood) && (neighbourhood.id == user.neighbourhood.id)}">
-						<form:option value="${neighbourhood.id}" selected="selected">${neighbourhood.name}</form:option>
-					</c:if>
-					<c:if test="${(empty user.neighbourhood) || (neighbourhood.id != user.neighbourhood.id)}">
-						<form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
-					</c:if>
-				</c:forEach>
-			</form:select>
-		</div>
+
 
 		<form:errors path="*" />
 		<button type="submit" value="Editar" class="btn btn-default">Guardar
 			Cambios</button>
 	</form:form>
+	<br />
 </div>
 <%@ include file="footer.jsp"%>

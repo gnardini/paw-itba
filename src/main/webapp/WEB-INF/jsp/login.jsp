@@ -52,7 +52,22 @@
 					<form:input type="text" class="form-control"
 						placeholder="Dirección" path="address" />
 				</div>
-
+				<div class="row">
+					<div class="col-md-4">
+						<label>Barrio:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class=" col-md-12">
+						<form:select class="form-control" path="neighbourhoodId"
+							placeholder="Barrio">
+							<c:forEach items="${neighbourhoods}" var="neighbourhood">
+								<form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
+							</c:forEach>
+						</form:select>
+						<br />
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-4">
 						<label>Fecha de Nacimiento:</label>
@@ -77,13 +92,7 @@
 					</div>
 				</div>
 
-				<div class="row">
-					<form:select class="form-control" path="neighbourhoodId" placeholder="Barrio">
-						<c:forEach items="${neighbourhoods}" var="neighbourhood">
-							<form:option value="${neighbourhood.id}">${neighbourhood.name}</form:option>
-						</c:forEach>
-					</form:select>
-				</div>
+
 
 				<form:errors path="*" />
 				<button type="submit" value="Registrar" class="btn btn-default">Registrar</button>

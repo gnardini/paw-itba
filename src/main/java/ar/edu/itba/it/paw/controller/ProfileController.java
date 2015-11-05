@@ -43,13 +43,13 @@ public class ProfileController extends BaseController {
 	
 	private void setResult(HttpServletRequest req, String result) {
 		if (("failure" + EditProfileValidator.ERROR_PASSWORDS).equals(result)) {
-			setMessage(req, "Contrasena incorrecta");
+			setMessage(req, "Contraseña actual incorrecta");
 			setMessageType(req, Parameter.ERROR);
 		} else if (("failure" + EditProfileValidator.ERROR_INVALID_DATA).equals(result)) {
 			setMessage(req, "Datos inválidos");
 			setMessageType(req, Parameter.ERROR);
 		} else if ("success".equals(result)){
-			setMessage(req, "Informacion actualizada con exito");
+			setMessage(req, "Información actualizada con éxito");
 			setMessageType(req, Parameter.SUCCESS);
 		}
 	}
