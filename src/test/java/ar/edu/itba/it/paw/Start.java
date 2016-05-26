@@ -10,7 +10,7 @@ public class Start {
 		SocketConnector connector = new SocketConnector();
 		connector.setMaxIdleTime(1000 * 60 * 60);
 		connector.setSoLingerTime(-1);
-		connector.setPort(8082);
+		connector.setPort(8080);
 		server.setConnectors(new Connector[] { connector });
 		WebAppContext bb = new WebAppContext();
 		bb.setServer(server);

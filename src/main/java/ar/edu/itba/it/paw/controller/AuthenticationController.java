@@ -44,7 +44,7 @@ public class AuthenticationController extends BaseController {
 	@RequestMapping(value = "login", method = RequestMethod.POST)
 	protected ModelAndView showLogin(HttpServletRequest req,
 			@RequestParam(Parameter.EMAIL) String email, @RequestParam(Parameter.PASSWORD) String password) {
-		mSessionManager.setSession(req.getSession());
+		//mSessionManager.setSession(req.getSession());
 		if (!mSessionManager.login(email, password)) {
 			setMessage(req, "Usuario o contraseña erróneos");
 			setMessageType(req, Parameter.ERROR);
@@ -54,7 +54,7 @@ public class AuthenticationController extends BaseController {
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	protected ModelAndView showSignUp(HttpServletRequest req, SignUpForm form, Errors errors) {
-		mSessionManager.setSession(req.getSession());
+		//mSessionManager.setSession(req.getSession());
 		mSignUpValidator.validate(form, errors);
 
 		ModelAndView mav = createModelAndView(req);
@@ -75,7 +75,7 @@ public class AuthenticationController extends BaseController {
 	
 	@RequestMapping(value = "logout", method = RequestMethod.POST)
 	protected ModelAndView showLogOut(HttpServletRequest req) {
-		mSessionManager.setSession(req.getSession());
+		//mSessionManager.setSession(req.getSession());
 		mSessionManager.logout();
 		return new ModelAndView("redirect:restaurants");
 	}

@@ -21,7 +21,7 @@ public abstract class BaseController {
 	
 	protected ModelAndView createModelAndView(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		mSessionManager.setSession(req.getSession());
+		//mSessionManager.setSession(req.getSession());
 		mav.addObject(Parameter.LOGGED, mSessionManager.isLogged());
 		if (mSessionManager.isLogged()) {
 			Users user = mSessionManager.getUser();
@@ -33,7 +33,7 @@ public abstract class BaseController {
 	}
 	
 	protected void init(HttpServletRequest req) {
-		mSessionManager.setSession(req.getSession());
+		//mSessionManager.setSession(req.getSession());
 	}
 	
 	protected void setMessage(HttpServletRequest req, String message) {

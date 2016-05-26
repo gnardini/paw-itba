@@ -6,8 +6,6 @@ import ar.edu.itba.it.paw.model.Users;
 
 public interface SessionManager {
 
-	public void setSession(HttpSession session);
-	
 	public boolean isLogged();
 	
 	public Users getUser();
