@@ -5,16 +5,16 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component
 public class RestaurantConverter implements Converter<String, Restaurant> {
 	
-	private RestaurantRepo restaurantRepo;
+	private HibernateRestaurantRepo restaurantRepo;
 	
 	@Autowired
-	public RestaurantConverter(RestaurantRepo restaurantRepo) {
+	public RestaurantConverter(HibernateRestaurantRepo restaurantRepo) {
 		this.restaurantRepo = restaurantRepo;
 	}
 	

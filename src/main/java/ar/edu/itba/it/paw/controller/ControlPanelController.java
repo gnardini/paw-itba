@@ -14,10 +14,10 @@ import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
-import ar.edu.itba.it.paw.repository.DishRepo;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
-import ar.edu.itba.it.paw.repository.RestaurantRepo;
-import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.repository.hibernate.DishRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.DishValidationHelper;
 import ar.edu.itba.it.paw.validator.RestaurantValidator;
@@ -25,13 +25,13 @@ import ar.edu.itba.it.paw.validator.RestaurantValidator;
 @Controller
 public class ControlPanelController extends BaseController {
 	
-	private UserRepo mUserRepo;
-	private RestaurantRepo mRestaurantRepo;
+	private HibernateUserRepo mUserRepo;
+	private HibernateRestaurantRepo mRestaurantRepo;
 	private DishRepo mDishRepo;
 	private NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, UserRepo userRepo, RestaurantRepo restaurantRepo, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public ControlPanelController(SessionManager sessionManager, HibernateUserRepo userRepo, HibernateRestaurantRepo restaurantRepo, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mUserRepo = userRepo;
 		mRestaurantRepo = restaurantRepo;

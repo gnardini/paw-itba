@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repository;
+package ar.edu.itba.it.paw.repository.hibernate;
 
 import java.util.List;
 

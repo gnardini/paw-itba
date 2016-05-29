@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.form.EditProfileForm;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.EditProfileValidator;
 

@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 @Entity
-public class Restaurant extends PersistentEntity {
+public class Restaurant extends PersistentEntity implements Serializable {
 
 	String name;
 	String address;

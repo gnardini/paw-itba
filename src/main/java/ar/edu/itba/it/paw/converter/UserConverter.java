@@ -5,16 +5,16 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component
 public class UserConverter implements Converter<String, Users> {
 	
-	private UserRepo userRepo;
+	private HibernateUserRepo userRepo;
 	
 	@Autowired
-	public UserConverter(UserRepo userRepo) {
+	public UserConverter(HibernateUserRepo userRepo) {
 		this.userRepo = userRepo;
 	}
 	

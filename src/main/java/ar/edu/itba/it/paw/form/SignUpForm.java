@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.form;
 
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
 
 public class SignUpForm {
 

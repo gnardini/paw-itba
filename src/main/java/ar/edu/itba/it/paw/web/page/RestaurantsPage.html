@@ -1,5 +1,51 @@
 <html>
 <body>
-    <span wicket:id="message">Message goes here</span>
+	
+	
+		<div class="container">
+			<div class="well well-sm">
+				<strong>Mas pedidos</strong>
+			</div>
+			<div wicket:id="hot_restaurants" class="row list-group">
+				<div class="thumbnail">
+					<img class="group list-group-image"
+						src="http://www.comohotels.com/metropolitanbangkok/sites/default/files/styles/background_image/public/images/background/metbkk_bkg_nahm_restaurant.jpg?itok=GSmnYYaU" alt="" />
+					<div class="caption">
+						<h4 wicket:id="name" class="group inner list-group-item-heading"/>
+						<p wicket:id="menuType" class="group inner list-group-item-text"/>
+						<p wicket:id="description" class="group inner list-group-item-text"/>
+						<div class="row">
+							<div class="restaurant-button">
+								<a wicket:id="open" class="btn btn-success">Ir al Restoran</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="container">
+			<div class="well well-sm">
+				<strong>Restoranes</strong>
+			</div>
+			<div wicket:id="all_restaurants" class="row list-group">
+				<div class="thumbnail">
+					<img class="group list-group-image"
+						src="http://www.comohotels.com/metropolitanbangkok/sites/default/files/styles/background_image/public/images/background/metbkk_bkg_nahm_restaurant.jpg?itok=GSmnYYaU" alt="" />
+					<div class="caption">
+						<h4 wicket:id="name" class="group inner list-group-item-heading"/>
+						<p wicket:id="menuType" class="group inner list-group-item-text"/>
+						<p wicket:id="description" class="group inner list-group-item-text"/>
+						<div class="row">
+							<div class="restaurant-button">
+								<a wicket:id="open" class="btn btn-success">Ir al Restoran</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	
 </body>
 </html>

@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.base;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;

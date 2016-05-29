@@ -10,8 +10,6 @@ import org.apache.wicket.request.Request;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.http.WebRequest;
 import org.apache.wicket.request.http.WebResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;

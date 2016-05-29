@@ -12,16 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 
 @Controller
 public class RestaurantsController extends BaseController {
 	
-	private final RestaurantRepo mRestaurantRepo;
+	private final HibernateRestaurantRepo mRestaurantRepo;
 	
 	@Autowired
-	public RestaurantsController(SessionManager sessionManager, RestaurantRepo restaurantRepo) {
+	public RestaurantsController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo) {
 		super(sessionManager);
 		mRestaurantRepo = restaurantRepo;
 	}

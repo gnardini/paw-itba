@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 public class RestaurantValidator {

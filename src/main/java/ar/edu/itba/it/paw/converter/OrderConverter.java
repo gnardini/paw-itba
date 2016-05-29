@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Orders;
-import ar.edu.itba.it.paw.repository.OrderRepo;
+import ar.edu.itba.it.paw.repository.hibernate.OrderRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component

@@ -18,7 +18,6 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 		this.sessionFactory = sessionFactory;
 	}
 	
-	
 	@Override
 	public void onBeginRequest(RequestCycle cycle) {
 		Assert.state(!ManagedSessionContext.hasBind(sessionFactory), "Session already bound to this thread");
@@ -75,4 +74,5 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 		ManagedSessionContext.unbind(sessionFactory);
 		session.close();
 	}
+	
 }

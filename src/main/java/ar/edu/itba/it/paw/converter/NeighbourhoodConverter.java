@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component

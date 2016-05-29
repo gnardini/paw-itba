@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.form.SignUpForm;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Header;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.SignUpValidator;

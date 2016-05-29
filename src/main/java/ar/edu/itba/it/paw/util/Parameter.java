@@ -11,6 +11,8 @@ public class Parameter {
 	
 	// Restaurant
 	public static final String RESTAURANT_ID = "restaurant_id";
+	public static final String TOP_RESTAURANTS = "hot_restaurants";
+	public static final String ALL_RESTAURANTS = "all_restaurants";
 	public static final String RESTAURANT = "restaurant";
 	public static final String RESTAURANTS = "restaurants";
 	public static final String CODE = "code";

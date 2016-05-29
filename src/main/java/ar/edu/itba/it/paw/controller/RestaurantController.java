@@ -19,11 +19,11 @@ import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
-import ar.edu.itba.it.paw.repository.CommentRepo;
-import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
-import ar.edu.itba.it.paw.repository.OrderDetailRepo;
-import ar.edu.itba.it.paw.repository.OrderRepo;
-import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.repository.hibernate.CommentRepo;
+import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.OrderDetailRepo;
+import ar.edu.itba.it.paw.repository.hibernate.OrderRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.CommentValidationHelper;
 import ar.edu.itba.it.paw.validator.OrderValidationHelper;
@@ -34,14 +34,14 @@ public class RestaurantController extends BaseController {
 	public static final int COMMENT_SUCCESS = 0;
 	public static final int COMMENT_FAILURE = 1;
 	
-	protected RestaurantRepo mRestaurantRepo;
+	protected HibernateRestaurantRepo mRestaurantRepo;
 	protected CommentRepo mCommentRepo;
 	protected OrderRepo mOrderRepo;
 	protected OrderDetailRepo mOrderDetailRepo;
 	protected NeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, RestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mRestaurantRepo = restaurantRepo;
 		mCommentRepo = commentRepo;

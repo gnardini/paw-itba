@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
 
 @Service
 public class SessionManagerImpl implements SessionManager {
@@ -15,10 +15,10 @@ public class SessionManagerImpl implements SessionManager {
 	private static String EMAIL = "email";
 	
 	private HttpSession mSession;
-	private UserRepo mUserRepo;
+	private HibernateUserRepo mUserRepo;
 	
 	@Autowired
-	public SessionManagerImpl(UserRepo userRepo) {
+	public SessionManagerImpl(HibernateUserRepo userRepo) {
 		mUserRepo = userRepo;
 	}
 	
