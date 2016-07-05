@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -10,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Orders extends PersistentEntity {
+public class Orders extends PersistentEntity implements Serializable {
 
 	@ManyToOne
 	private Users user;

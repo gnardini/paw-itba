@@ -1,10 +1,12 @@
 package ar.edu.itba.it.paw.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class OrderDetail extends PersistentEntity {
+public class OrderDetail extends PersistentEntity  implements Serializable {
 
 	@ManyToOne
 	private Orders order;

@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Users extends PersistentEntity {
+public class Users extends PersistentEntity implements Serializable {
 
 	public enum Role {
 		NORMAL,

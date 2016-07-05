@@ -1,10 +1,12 @@
 package ar.edu.itba.it.paw.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Comment extends PersistentEntity  {
+public class Comment extends PersistentEntity implements Serializable  {
 
 	@ManyToOne
 	Users user;
