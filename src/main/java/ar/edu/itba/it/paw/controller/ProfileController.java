@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.form.EditProfileForm;
 import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.EditProfileValidator;
 
@@ -21,10 +21,10 @@ import ar.edu.itba.it.paw.validator.EditProfileValidator;
 public class ProfileController extends BaseController {
 
 	EditProfileValidator mEditProfileValidator;
-	NeighbourhoodRepo mNeighbourhoodRepo;
+	HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ProfileController(SessionManager sessionManager, EditProfileValidator editProfileValidator, NeighbourhoodRepo neighbourhoodRepo) {
+	public ProfileController(SessionManager sessionManager, EditProfileValidator editProfileValidator, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mEditProfileValidator = editProfileValidator;
 		mNeighbourhoodRepo = neighbourhoodRepo;

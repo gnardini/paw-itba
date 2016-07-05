@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.form;
 
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 
 public class SignUpForm {
 
@@ -19,7 +19,7 @@ public class SignUpForm {
 	public SignUpForm() {
 	}
 	
-	public Users build(NeighbourhoodRepo neighbourhoodRepo) {
+	public Users build(HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		return new Users(firstName, lastName, address, email, Integer.valueOf(birthDay), Integer.valueOf(birthMonth), Integer.valueOf(birthYear), Role.NORMAL, password, neighbourhoodRepo.getNeighbourhood(Integer.valueOf(neighbourhoodId)));
 	}
 

@@ -5,16 +5,16 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component
 public class NeighbourhoodConverter implements Converter<String, Neighbourhood> {
 	
-	private NeighbourhoodRepo neighbourhoodsRepo;
+	private HibernateNeighbourhoodRepo neighbourhoodsRepo;
 	
 	@Autowired
-	public NeighbourhoodConverter(NeighbourhoodRepo neighbourhoodsRepo) {
+	public NeighbourhoodConverter(HibernateNeighbourhoodRepo neighbourhoodsRepo) {
 		this.neighbourhoodsRepo = neighbourhoodsRepo;
 	}
 	

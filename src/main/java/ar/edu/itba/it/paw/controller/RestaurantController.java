@@ -20,7 +20,7 @@ import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.hibernate.CommentRepo;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.hibernate.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.hibernate.OrderRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
@@ -38,10 +38,10 @@ public class RestaurantController extends BaseController {
 	protected CommentRepo mCommentRepo;
 	protected OrderRepo mOrderRepo;
 	protected OrderDetailRepo mOrderDetailRepo;
-	protected NeighbourhoodRepo mNeighbourhoodRepo;
+	protected HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mRestaurantRepo = restaurantRepo;
 		mCommentRepo = commentRepo;

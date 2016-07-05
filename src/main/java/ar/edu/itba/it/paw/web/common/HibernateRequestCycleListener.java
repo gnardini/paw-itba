@@ -23,6 +23,7 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 		Assert.state(!ManagedSessionContext.hasBind(sessionFactory), "Session already bound to this thread");
 		Session session = sessionFactory.openSession();
 		ManagedSessionContext.bind(session);
+		System.out.println("Begin transaction");
 		session.beginTransaction();
 		error.set(false);
 	}
@@ -30,8 +31,10 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	@Override
 	public void onEndRequest(RequestCycle cycle) {
 		if (!error.get()) {
+			System.out.println("Close transaction");
 			commit();
 		} else {
+			System.out.println("Rollback");
 			rollback();
 		}
 	}
@@ -39,6 +42,7 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	@Override
 	public IRequestHandler onException(RequestCycle cycle, Exception ex) {
 		rollback();
+		System.out.println("Exception");
 		error.set(true);
 		return null;
 	}
@@ -46,10 +50,12 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	private void commit() {
 		Session session = sessionFactory.getCurrentSession();
 		Assert.state(session.isOpen(), "Can't commit a closed session!");
+		System.out.println("Commit transaction");
 		try {
 			Transaction tx = session.getTransaction();
 			if (tx.isActive()) {
 				session.flush();
+				System.out.println("Actual commit transaction");
 				tx.commit();
 			}
 		} finally {
@@ -74,5 +80,5 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 		ManagedSessionContext.unbind(sessionFactory);
 		session.close();
 	}
-	
 }
+

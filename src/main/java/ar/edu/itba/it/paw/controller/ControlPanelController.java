@@ -15,7 +15,7 @@ import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.hibernate.DishRepo;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
@@ -28,10 +28,10 @@ public class ControlPanelController extends BaseController {
 	private HibernateUserRepo mUserRepo;
 	private HibernateRestaurantRepo mRestaurantRepo;
 	private DishRepo mDishRepo;
-	private NeighbourhoodRepo mNeighbourhoodRepo;
+	private HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, HibernateUserRepo userRepo, HibernateRestaurantRepo restaurantRepo, DishRepo dishRepo, NeighbourhoodRepo neighbourhoodRepo) {
+	public ControlPanelController(SessionManager sessionManager, HibernateUserRepo userRepo, HibernateRestaurantRepo restaurantRepo, DishRepo dishRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mUserRepo = userRepo;
 		mRestaurantRepo = restaurantRepo;

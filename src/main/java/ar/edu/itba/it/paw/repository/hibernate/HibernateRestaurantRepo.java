@@ -28,7 +28,7 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 		Collections.sort(restaurants, new Comparator<Restaurant>() {
 			@Override
 			public int compare(Restaurant r1, Restaurant r2) {
-				return -1;//-Integer.compare(r1.getOrders().size(), r2.getOrders().size());
+				return -Integer.compare(r1.getOrders().size(), r2.getOrders().size());
 			}
 		});
 		int top = Math.min(3, restaurants.size());

@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 
 @Repository
-public class NeighbourhoodRepo extends AbstractHibernateRepo {
+public class HibernateNeighbourhoodRepo extends AbstractHibernateRepo
+		implements NeighbourhoodRepo {
 	
 	@Autowired
-	public NeighbourhoodRepo(SessionFactory sessionFactory) {
+	public HibernateNeighbourhoodRepo(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 	

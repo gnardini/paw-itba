@@ -32,24 +32,31 @@ public class WicketSessionManager extends WebSession implements SessionManager {
 	}
 
 	public boolean isLogged() {
-		return email != null;
+		return email != null || getEmail() != null;
 	}
 
 	public Users getUser() {
 		if (email == null) {
-			List<Cookie> cookies = ((WebRequest) RequestCycle.get().getRequest()).getCookies();
-	
-			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals(EMAIL)) {
-					email = cookie.getValue().split("/")[0];
-				}
-			}
+			email = getEmail();
 		}
 		return userRepo.getUser(email);
 	}
+	
+	private String getEmail() {
+		List<Cookie> cookies = ((WebRequest) RequestCycle.get().getRequest()).getCookies();
+		
+		for (Cookie cookie : cookies) {
+			if (cookie.getName().equals(EMAIL)) {
+				return cookie.getValue();
+			}
+		}
+		
+		return null;
+	}
 
 	public boolean signup(Users user) {
-		this.email = user.getEmail();
+		userRepo.storeUser(user);
+		saveEmail(user.getEmail());
 		return true;
 	}
 
@@ -58,6 +65,7 @@ public class WicketSessionManager extends WebSession implements SessionManager {
 		if (user == null || !user.getPassword().equals(password)) {
 			return false;
 		}
+		saveEmail(email);
 		return true;
 	}
 
@@ -66,8 +74,18 @@ public class WicketSessionManager extends WebSession implements SessionManager {
 		Cookie keepMeLogged = new Cookie(EMAIL, " ");
 		keepMeLogged.setMaxAge(0);
 		wr.addCookie(keepMeLogged);
+		email = null;
 		invalidate();
 		clear();
+	}
+	
+	private void saveEmail(String email) {
+		this.email = email;
+		
+		WebResponse wr = (WebResponse) (RequestCycle.get().getResponse());
+		Cookie logged = new Cookie(EMAIL, email);
+		logged.setMaxAge(60 * 60 * 24);
+		wr.addCookie(logged);
 	}
 
 }

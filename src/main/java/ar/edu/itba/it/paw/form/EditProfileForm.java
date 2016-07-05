@@ -1,7 +1,7 @@
 package ar.edu.itba.it.paw.form;
 
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 
 public class EditProfileForm {
 	
@@ -20,7 +20,7 @@ public class EditProfileForm {
 	public EditProfileForm() {
 	}
 	
-	public Users build(NeighbourhoodRepo neighbourhoodRepo) {
+	public Users build(HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		if (!passwordsMatch()) return null;
 		user.setFirstName(firstName);
 		user.setLastName(lastName);

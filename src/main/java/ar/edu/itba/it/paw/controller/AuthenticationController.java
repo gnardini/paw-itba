@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.form.SignUpForm;
 import ar.edu.itba.it.paw.manager.SessionManager;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.Header;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.SignUpValidator;
@@ -20,13 +20,11 @@ import ar.edu.itba.it.paw.validator.SignUpValidator;
 @Controller
 public class AuthenticationController extends BaseController {
 	
-	private SignUpValidator mSignUpValidator;
-	private NeighbourhoodRepo mNeighbourhoodRepo;
+	private HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public AuthenticationController(SessionManager sessionManager, SignUpValidator signUpValidator, NeighbourhoodRepo neighbourhoodRepo) {
+	public AuthenticationController(SessionManager sessionManager, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
-		mSignUpValidator = signUpValidator;
 		mNeighbourhoodRepo = neighbourhoodRepo;
 	}	
 	
@@ -54,8 +52,8 @@ public class AuthenticationController extends BaseController {
 	
 	@RequestMapping(value = "signup", method = RequestMethod.POST)
 	protected ModelAndView showSignUp(HttpServletRequest req, SignUpForm form, Errors errors) {
-		//mSessionManager.setSession(req.getSession());
-		mSignUpValidator.validate(form, errors);
+		// mSessionManager.setSession(req.getSession());
+		// mSignUpValidator.validate(form, errors);
 
 		ModelAndView mav = createModelAndView(req);
 		mav.setViewName("login");

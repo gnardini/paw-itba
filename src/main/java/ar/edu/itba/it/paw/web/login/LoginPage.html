@@ -1,0 +1,106 @@
+<html>
+<head>
+</head>
+<body>
+	
+	<wicket:extend>
+
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li class="active">Iniciar Sesión</li>
+</ol>
+
+<!--
+<%@ include file="message.jsp"%>
+-->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<H3>Iniciar Sesión</H3>
+
+			<form wicket:id="logInForm" role="form">
+				<div class="form-group">
+					<input wicket:id="loginEmail" type="email" class="form-control" placeholder="Mail"
+						name="email">
+				</div>
+				<div class="form-group">
+					<input wicket:id="loginPassword" type="password" class="form-control"
+						placeholder="Contraseña" name="password">
+				</div>
+				<button wicket:id="loginButton" type="submit" value="Entrar" class="btn btn-default">Entrar</button>
+
+			</form>
+		</div>
+		<div class="col-md-6">
+			<H3>Registro</H3>
+			<form wicket:id="signUpForm" role="form">
+				<div class="form-group">
+					<input wicket:id="email" type="email" class="form-control" placeholder="Mail"
+						path="email" />
+				</div>
+				<div class="form-group">
+					<input wicket:id="password" type="password" class="form-control"
+						placeholder="Contraseña" path="password" />
+				</div>
+				<div class="form-group">
+					<input wicket:id="firstName" type="text" class="form-control" placeholder="Nombre"
+						path="firstName" />
+				</div>
+				<div class="form-group">
+					<input wicket:id="lastName" type="text" class="form-control" placeholder="Apellido"
+						path="lastName" />
+				</div>
+				<div class="form-group">
+					<input wicket:id="address" type="text" class="form-control"
+						placeholder="Dirección" path="address" />
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<label>Barrio:</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class=" col-md-12">
+						<select wicket:id="neighbourhood" class="form-control" path="neighbourhoodId"
+							placeholder="Barrio"/>
+						<br />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<label>Fecha de Nacimiento:</label>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input wicket:id="birthDay" type="number" class="form-control" min="1" max="31"
+								placeholder="Dia" path="birthDay" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input wicket:id="birthMonth" type="number" class="form-control" min="1" max="12"
+								placeholder="Mes" path="birthMonth" />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input wicket:id="birthYear" type="number" class="form-control" min="1900"
+								placeholder="Año" path="birthYear" />
+						</div>
+					</div>
+				</div>
+
+
+
+				<button type="submit" wicket:id="signUpButton" value="Registrar" class="btn btn-default">Registrar</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+	</wicket:extend>
+</body>
+</html>
+

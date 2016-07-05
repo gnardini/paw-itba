@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>PAW</title>
+<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="/css/grid-view.css" type="text/css">
+<link rel="stylesheet" href="/css/my-css.css" type="text/css">
+</head>
+<body>
+
+	<nav class="navbar navbar-default">
+
+	<form id="form1" role="form" action="/logout" method="POST"></form>
+	<div class="container-fluid">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<a wicket:id="home" href="/restaurants" class="navbar-brand">Brand</a>
+		</div>
+		
+		<div class="navbar">
+			<div class="nav navbar-nav navbar-right" id="navBar">
+				<div class="container">
+					<div wicket:id="navBarPanel" />
+				</div>
+			</div>
+		</div>
+		<!--
+		<ul class="nav navbar-nav navbar-right">
+			<c:if test="${logged}">
+				<li><a href="/myOrders">Mis Pedidos</a></li>
+			</c:if>
+			<c:if test="${admin}">
+				<li><a href="/adminPanel">Panel de Control</a></li>
+			</c:if>
+			<c:if test="${manager}">
+				<li><a href="/managerPanel">Panel de Control</a></li>
+			</c:if>
+			<c:if test="${logged}">
+
+				<li><a href="/profile">Perfil</a></li>
+
+				<li><a href="javascript:;"
+					onclick="document.getElementById('form1').submit();">Cerrar
+						Sesión</a></li>
+			</c:if>
+			<c:if test="${!logged}">
+				<li><a href="/login">Iniciar Sesión</a></li>
+			</c:if>
+		</ul>
+		-->
+	</div>
+	<!-- /.navbar-collapse --> <!-- /.container-fluid --> </nav>
+	
+	<div class="row" id="content">
+		<wicket:child />
+	</div>
+	
+<div class="footer">
+	<div class="container">
+		<h3 class="align-center">Proyecto de Aplicaciones Web</h3>
+	</div>
+</div>
+
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+</body>
+</html>

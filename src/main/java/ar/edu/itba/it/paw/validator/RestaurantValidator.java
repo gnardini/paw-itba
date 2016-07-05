@@ -4,16 +4,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.repository.hibernate.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 public class RestaurantValidator {
 
 	private HttpServletRequest mRequest;
 	private Restaurant mRestaurant;
-	private NeighbourhoodRepo mNeighbourhoodRepo;
+	private HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
-	public RestaurantValidator(HttpServletRequest request, NeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantValidator(HttpServletRequest request, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		mRequest = request;
 		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
