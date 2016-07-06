@@ -15,4 +15,6 @@ public interface UserRepo {
 	
 	public void storeUser(Users user);
 	
+	public void updateUser(Users user);
+	
 }

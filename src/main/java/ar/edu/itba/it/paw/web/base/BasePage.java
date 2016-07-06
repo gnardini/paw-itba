@@ -25,7 +25,7 @@ public class BasePage extends WebPage {
 	private Model<String> dangerModel;
 	
 	@SpringBean
-	UserRepo userRepo;
+	protected UserRepo userRepo;
 	
 	public BasePage() {
 		WicketSessionManager session = WicketSessionManager.get();

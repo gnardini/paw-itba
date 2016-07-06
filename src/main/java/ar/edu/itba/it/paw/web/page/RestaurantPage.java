@@ -21,7 +21,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
@@ -36,9 +35,7 @@ import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
-import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
-import ar.edu.itba.it.paw.validator.CommentValidationHelper;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.login.LoginPage;
 
@@ -215,19 +212,33 @@ public class RestaurantPage extends BasePage {
 				}
 				// TODO: Validar  cosas
 				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
-				Orders order = new Orders(getUser(), updatedRestaurant, new Date());
+				Users user = getUser();
+				
+				Orders order = new Orders(user, updatedRestaurant, new Date());
+				int totalPrice = 0;
 				for (DishPanel dishPanel: dishPanels) {
 					if (dishPanel.getDishCount() > 0) {
 						Dish dish = dishPanel.getDish();
 						// TODO validate
 						order.addDetail(dish.getName(), dish.getPrice(), dishPanel.getDishCount());
+						totalPrice += dish.getPrice() * dishPanel.getDishCount();
 					}
 				}
-				orderRepo.addOrder(order);
+				if (totalPrice < updatedRestaurant.getMinCost()) {
+					showMessage("El costo minimo del restoran es " + updatedRestaurant.getMinCost(), Parameter.ERROR);
+					setResponsePage(getPage());
+					return;
+				}
+				totalPrice += updatedRestaurant.getDeliveryCost();
 				for (OrderDetail detail: order.getDetails()) {
 					orderDetailRepo.storeOrderDetail(detail);
 				}
+				order.setPrice(totalPrice);
 				order.setOnDependants();
+				
+				orderRepo.addOrder(order);
+				restaurantRepo.updateRestaurant(updatedRestaurant);
+				userRepo.updateUser(user);
 				showMessage("Pedido realizado con éxito", Parameter.SUCCESS);
 				setResponsePage(getPage());
 			}
