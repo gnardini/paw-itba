@@ -43,7 +43,7 @@ public class DishPanel extends Panel {
 		if (NumberUtils.isNumber(dishCount)) {
 			return Integer.valueOf(dishCount);
 		}
-		return 0;
+		return -1;
 	}
 	
 }

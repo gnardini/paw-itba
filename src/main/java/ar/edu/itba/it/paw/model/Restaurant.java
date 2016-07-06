@@ -22,9 +22,6 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	String menuType;
 	String description;
 	
-	@Transient
-	float ranking;
-
 	@OneToMany
 	List<Dish> dishes;
 
@@ -134,11 +131,9 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	}
 
 	public float getRanking() {
-		return ranking;
-	}
-
-	public void setRanking(float ranking) {
-		this.ranking = ranking;
+		float total = 0;
+		for (Comment comment: comments) total += comment.rating;
+		return total / comments.size();
 	}
 
 	public List<Comment> getComments() {
@@ -155,9 +150,6 @@ public class Restaurant extends PersistentEntity implements Serializable {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-		float total = 0;
-		for (Comment comment: comments) total += comment.rating;
-		ranking = total / comments.size();
 	}
 
 	public List<Orders> getOrders() {
@@ -173,7 +165,6 @@ public class Restaurant extends PersistentEntity implements Serializable {
 		minCost = updatedRestaurant.getMinCost();
 		menuType = updatedRestaurant.getMenuType();
 		description = updatedRestaurant.getDescription();
-		ranking = updatedRestaurant.getRanking();
 	}
 
 	public void deleteUserComment(Users user) {

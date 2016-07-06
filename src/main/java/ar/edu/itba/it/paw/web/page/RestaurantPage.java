@@ -21,7 +21,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
@@ -31,14 +30,13 @@ import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.CommentRepo;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
-import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
-import ar.edu.itba.it.paw.validator.CommentValidationHelper;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.login.LoginPage;
 
@@ -69,7 +67,7 @@ public class RestaurantPage extends BasePage {
 	
 	public RestaurantPage(Restaurant restaurant) {
 		addLabel(restaurant, "name");
-		addLabel(restaurant, "ranking"); // TODO: Check this
+		add(new Label("ranking", String.format("%.02f", restaurant.getRanking())));
 		addLabel(restaurant, "menuType");
 		addLabel(restaurant, "description");
 		addLabel(restaurant, "address");
@@ -111,7 +109,7 @@ public class RestaurantPage extends BasePage {
 		addNewNeighbourhoodForm(formContainer, restaurant);
 		addRemoveNeighbourhoodForm(formContainer, restaurant);
 		addEditRestaurantForm(formContainer, restaurant);
-		addDeleteRestaurantForm(formContainer, restaurant);
+		addDeleteRestaurantForm(formContainer, restaurant.getId());
 	}
 	
 	private void addNewNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
@@ -188,13 +186,21 @@ public class RestaurantPage extends BasePage {
 		formContainer.add(form);
 	}
 	
-	private void addDeleteRestaurantForm(MarkupContainer formContainer, final Restaurant restaurant) {
+	private void addDeleteRestaurantForm(MarkupContainer formContainer, final int restaurantId) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("deleteRestaurantForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				//setResponsePage(new DeleteRestaurantPage());
+				Restaurant restaurant = restaurantRepo.getRestaurant(restaurantId);
+				Users user = getUser();
+				
+				if (user.getRole() != Role.ADMIN) {
+					showMessage("Solo el Admin puede borrar restoranes", Parameter.ERROR);
+					setResponsePage(getPage());
+				}
+				restaurantRepo.deleteRestaurant(restaurant);
+				setResponsePage(new RestaurantsPage());
 			}
 		};
 		form.add(new Button("deleteRestaurantButton", new ResourceModel("deleteRestaurantButton")));
@@ -215,19 +221,37 @@ public class RestaurantPage extends BasePage {
 				}
 				// TODO: Validar  cosas
 				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
-				Orders order = new Orders(getUser(), updatedRestaurant, new Date());
+				Users user = getUser();
+				
+				Orders order = new Orders(user, updatedRestaurant, new Date());
+				int totalPrice = 0;
 				for (DishPanel dishPanel: dishPanels) {
 					if (dishPanel.getDishCount() > 0) {
 						Dish dish = dishPanel.getDish();
 						// TODO validate
 						order.addDetail(dish.getName(), dish.getPrice(), dishPanel.getDishCount());
+						totalPrice += dish.getPrice() * dishPanel.getDishCount();
+					} else if (dishPanel.getDishCount() == -1) {
+						showMessage("Cantidad de platos pedidos inválida", Parameter.ERROR);
+						setResponsePage(getPage());
+						return;
 					}
 				}
-				orderRepo.addOrder(order);
+				if (totalPrice < updatedRestaurant.getMinCost()) {
+					showMessage("El costo minimo del restoran es " + updatedRestaurant.getMinCost(), Parameter.ERROR);
+					setResponsePage(getPage());
+					return;
+				}
+				totalPrice += updatedRestaurant.getDeliveryCost();
 				for (OrderDetail detail: order.getDetails()) {
 					orderDetailRepo.storeOrderDetail(detail);
 				}
+				order.setPrice(totalPrice);
 				order.setOnDependants();
+				
+				orderRepo.addOrder(order);
+				restaurantRepo.updateRestaurant(updatedRestaurant);
+				userRepo.updateUser(user);
 				showMessage("Pedido realizado con éxito", Parameter.SUCCESS);
 				setResponsePage(getPage());
 			}

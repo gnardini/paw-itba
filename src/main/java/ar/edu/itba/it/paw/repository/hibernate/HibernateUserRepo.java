@@ -36,4 +36,9 @@ public class HibernateUserRepo extends AbstractHibernateRepo implements UserRepo
 	public void storeUser(Users user) {
 		save(user);
 	}
+	
+	public void updateUser(Users user) {
+		update(user);
+	}
+	
 }
