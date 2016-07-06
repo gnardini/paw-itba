@@ -29,6 +29,7 @@ import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
@@ -89,13 +90,13 @@ public class RestaurantPage extends BasePage {
 		formContainer.setVisible(isUserAdmin());
 		add(formContainer);
 		
-		addOrderForm(restaurant);
-		addCommentsList(restaurant);
-		addNewCommentForm(restaurant);
-		
 		MarkupContainer newCommentContainer = new WebMarkupContainer("newCommentContainer");
 		newCommentContainer.setVisible(isUserLogged() && restaurant.canUserComment(loggedUser));
 		add(newCommentContainer);
+
+		addOrderForm(restaurant);
+		addCommentsList(restaurant);
+		addNewCommentForm(restaurant, newCommentContainer);
 		
 		if (!isUserAdmin()) {
 			return;
@@ -257,7 +258,7 @@ public class RestaurantPage extends BasePage {
 		};
 	}
 	
-	private void addCommentsList(Restaurant restaurant) {
+	private void addCommentsList(final Restaurant restaurant) {
 		ListView<Comment> commentsListView = new ListView<Comment>("commentsList", restaurant.getComments()) {
 			@Override
 			protected void populateItem(final ListItem<Comment> item) {
@@ -266,22 +267,36 @@ public class RestaurantPage extends BasePage {
 				item.add(new Label("commentUsername", comment.getUserName()));
 				item.add(new Label("commentText", comment.getText()));
 				
-				item.add(new Link<Void>("deleteCommentButton") {
-					@Override
-					public void onClick() {
-						
-					}
-				});
-				
 				MarkupContainer deleteCommentContainer = new WebMarkupContainer("deleteCommentContainer");
 				deleteCommentContainer.setVisible(isUserLogged() && isUserAdmin());
 				item.add(deleteCommentContainer);
+				
+				final Users userComment = item.getModelObject().getUser();
+				
+				deleteCommentContainer.add(new Link<Void>("deleteCommentButton") {
+					@Override
+					public void onClick() {
+						if (!isUserAdmin()) {
+							setResponsePage(getPage());
+							return;
+						}
+						Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
+						if (userComment != null) {
+							updatedRestaurant.deleteUserComment(userComment);
+							restaurantRepo.updateRestaurant(updatedRestaurant);
+							showMessage("Comentario borrado con éxito", Parameter.SUCCESS);
+						} else {
+							showMessage("No se pudo borrar el comentario", Parameter.ERROR);
+						}
+						setResponsePage(getPage());
+					}
+				});
 			}
 		};
 		add(commentsListView);
 	}
 	
-	private void addNewCommentForm(Restaurant restaurant) {
+	private void addNewCommentForm(Restaurant restaurant, MarkupContainer newCommentContainer) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("newCommentForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
@@ -294,7 +309,8 @@ public class RestaurantPage extends BasePage {
 		form.add(new NumberTextField<Integer>("newCommentScore").setRequired(true));
 		form.add(new TextField<String>("newCommentComment").setRequired(true));
 		form.add(new Button("newCommentButton", new ResourceModel("newCommentButton")));
-		add(form);
+		
+		newCommentContainer.add(form);
 	}
 	
 	public void addLabel(Restaurant restaurant, String string) {

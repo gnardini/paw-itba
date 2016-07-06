@@ -27,9 +27,7 @@ public class BasePage extends WebPage {
 	@SpringBean
 	UserRepo userRepo;
 	
-	@Override
-	protected void onInitialize() {
-		super.onInitialize();
+	public BasePage() {
 		WicketSessionManager session = WicketSessionManager.get();
 		loggedUser = session.getUser();
 
