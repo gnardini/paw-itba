@@ -5,6 +5,8 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
+import org.hibernate.Hibernate;
+import org.hibernate.sql.Update;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
@@ -28,14 +30,17 @@ public class RestaurantPage extends BasePage {
 		}else{
 			add(new Label("hour", restaurant.getOpeningHour()+" a "+restaurant.getClosingHour()+" horas"));
 		}
-		/*ListView<Neighbourhood> neighbourhoods = new ListView<Neighbourhood>("neighbourhoods", restaurant.getNeighbourhoods()) {
+		
+		ListView<Neighbourhood> neighbourhoods = new ListView<Neighbourhood>("neighbourhoods", restaurant.getNeighbourhoods()) {
 			
 			@Override
 			protected void populateItem(ListItem<Neighbourhood> item) {
-				item.add(new Label("neighbourhood", new PropertyModel<String>(item, "name")));
+				item.add(new Label("neighbourhood", item.getModelObject().getName()));
+				//item.add(new Label("neighbourhood", new PropertyModel<String>(item, "name")));
 			}
 		};
-		add(neighbourhoods);*/
+		add(neighbourhoods);
+		
 	}
 	
 	public void addLabel(IModel<Restaurant> restaurant, String string){

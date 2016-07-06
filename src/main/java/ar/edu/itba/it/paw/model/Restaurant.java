@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
@@ -37,7 +38,7 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	@ManyToMany(mappedBy = "restaurants")
 	List<Users> managers;
 
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	List<Neighbourhood> neighbourhoods;
 
 	public Restaurant(String name, String address, int openingHour, int closingHour, int deliveryCost, int minCost,
