@@ -30,7 +30,7 @@ public class RestaurantsPage extends BasePage {
 				item.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));
 				item.add(new Label("menuType", new PropertyModel<String>(item.getModel(), "menuType")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));
-				
+
 				item.add(new Link<Void>("open") {
 					public void onClick() {
 						setResponsePage(new RestaurantPage(item.getModel()));
@@ -39,14 +39,14 @@ public class RestaurantsPage extends BasePage {
 			}
 		};
 		add(topRestaurants);
-		
+
 		ListView<Restaurant> allRestaurants = new ListView<Restaurant>(Parameter.ALL_RESTAURANTS, restaurantsList) {
 			@Override
 			protected void populateItem(ListItem<Restaurant> item) {
 				item.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));
 				item.add(new Label("menuType", new PropertyModel<String>(item.getModel(), "menuType")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));
-				
+
 				item.add(new Link<Void>("open") {
 					public void onClick() {
 						setResponsePage(new RestaurantPage(item.getModel()));
