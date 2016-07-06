@@ -2,28 +2,56 @@ package ar.edu.itba.it.paw.web.orders;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
-import org.springframework.core.annotation.Order;
+import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
+import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class MyOrdersPage extends BasePage {
+
+	@SpringBean
+	OrderRepo orderRepo;
 
 	public MyOrdersPage() {
 		add(new Label("pageName", "Mis Pedidos"));
 		ListView<Orders> orderListView = new ListView<Orders>("orderList", loggedUser.getOrders()) {
 			@Override
 			protected void populateItem(ListItem<Orders> item) {
-				Orders order = item.getModelObject();
+				final Orders order = item.getModelObject();
 				item.add(new Label("restaurantName", order.getRestaurant().getName()));
 				item.add(new Label("price", String.format("%.02f", order.getPrice())));
 				item.add(new Label("orderDate", order.getOrderDate()));
 				item.add(new Label("delivered", (order.isDelivered() ? "Entregado" : "No entregado")));
-			/*	WebMarkupContainer deliveredButtonContainer = new WebMarkupContainer("deliveredButtonContainer");
-				
-				item.add(deliveredButtonContainer);*/
+				WebMarkupContainer deliveredButtonContainer = new WebMarkupContainer("deliveredButtonContainer");
+				deliveredButtonContainer.setVisible(!order.isDelivered());
+				deliveredButtonContainer.add(new Link<Void>("deliveredButton") {
+					@Override
+					public void onClick() {
+						order.setDelivered(true);
+						orderRepo.updateOrder(order);
+					}
+				});
+				ListView<OrderDetail> orderDetailList = new ListView<OrderDetail>("orderDetailList",
+						order.getDetails()) {
+					@Override
+					protected void populateItem(ListItem<OrderDetail> detailItem) {
+						OrderDetail detail = detailItem.getModelObject();
+						detailItem.add(new Label(
+								"detailName", new PropertyModel<String>(detail, "name")));
+						detailItem.add(new Label(
+								"detailPrice", new PropertyModel<String>(detail, "price")));
+						detailItem.add(new Label(
+								"detailAmount", new PropertyModel<String>(detail, "amount")));
+					}
+				};
+				item.add(orderDetailList);
+				item.add(deliveredButtonContainer);
 			}
 		};
 		add(orderListView);

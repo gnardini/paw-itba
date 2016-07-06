@@ -19,6 +19,10 @@ public class HibernateOrderRepo extends AbstractHibernateRepo implements OrderRe
 		save(order);
 	}
 	
+	public void updateOrder(Orders order){
+		update(order);
+	}
+	
 	public Orders getOrder(int id) {
 		return get(Orders.class, id);
 	}

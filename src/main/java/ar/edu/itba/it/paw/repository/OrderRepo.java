@@ -8,4 +8,6 @@ public interface OrderRepo {
 	
 	public Orders getOrder(int id);
 	
+	public void updateOrder(Orders order);
+	
 }
