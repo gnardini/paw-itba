@@ -1,48 +1,48 @@
 <wicket:extend>
-<ol class="breadcrumb">
-	<li><a href="/">Brand</a></li>
-	<li class="active"><span wicket:id="pageName"/></li>
-</ol>
+	<ol class="breadcrumb">
+		<li><a href="/">Brand</a></li>
+		<li class="active"><span wicket:id="pageName" /></li>
+	</ol>
 
-<div class="container">
-	<H3>Panel de Control</H3>
+	<div class="container">
+		<H3>Panel de Control</H3>
 
-		
-	<div class="well well-sm">
-	<strong>Pedidos:</strong>
-</div>
-	<div wicket:id="orderList" class="panel panel-default back-panel">
-	<!-- 
-		<div class="panel-heading ">
-			<div class="row">
-				<div class="col-md-9">
-					<p>Restoran: ${order.restaurant.name}</p>
-					<p>
-						Precio:
-						<fmt:formatNumber type="currency" currencySymbol="$"
-							maxFractionDigits="2" minFractionDigits="2"
-							value="${order.price}" />
-					</p>
-					<p>Fecha del pedido: ${order.orderDate}</p>
-					<p>
-						Estado:
-						<c:if test="${!order.delivered}">No</c:if>
-						Entregado
-					</p>
-				</div>
-				<div class="col-md-3">
-					<c:if test="${!order.delivered}">
+
+		<div class="well well-sm">
+			<strong>Pedidos:</strong>
+		</div>
+		<div wicket:id="orderList" class="panel panel-default back-panel">
+
+			<div class="panel-heading ">
+				<div class="row">
+					<div class="col-md-9">
+						<p>
+							Restoran: <span wicket:id="restaurantName" />
+						</p>
+						<p>
+							Precio: $
+							<spane wicket:id="price" />
+
+						</p>
+						<p>
+							Fecha del pedido: <span wicket:id="orderDate" />
+						</p>
+						<p>
+							Estado: <span wicket:id="delivered" />
+						</p>
+					</div>
+				<!-- 
+					<div wicket:id="deliveredButtonContainer>
 						<div class="row">
-							<form role="form" action="orderDelivered" method="POST">
-								<input type="hidden" name="order_id" value="${order.id}">
-								<button type="submit" class="btn btn-default">Pedido
-									recibido</button>
-							</form>
-						</div>
+						<button wicket:id="deliveredButton" type="submit"
+							class="btn btn-default">Pedido recibido</button>
+					</div>
 					</c:if>
 				</div>
+				-->
 			</div>
 		</div>
+		<!-- 
 		<div class="panel-body">
 			<div class="row list-group">
 				<c:forEach items="${order.details}" var="detail">
@@ -63,5 +63,5 @@
 			</div>
 		</div>  -->
 	</div>
-</div>
+	</div>
 </wicket:extend>
