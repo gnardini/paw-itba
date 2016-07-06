@@ -5,16 +5,16 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.model.Orders;
-import ar.edu.itba.it.paw.repository.hibernate.OrderRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateOrderRepo;
 import ar.edu.itba.it.paw.util.NumberUtils;
 
 @Component
 public class OrderConverter implements Converter<String, Orders> {
 	
-	private OrderRepo ordersRepo;
+	private HibernateOrderRepo ordersRepo;
 	
 	@Autowired
-	public OrderConverter(OrderRepo ordersRepo) {
+	public OrderConverter(HibernateOrderRepo ordersRepo) {
 		this.ordersRepo = ordersRepo;
 	}
 	

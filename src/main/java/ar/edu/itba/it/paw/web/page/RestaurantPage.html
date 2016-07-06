@@ -102,58 +102,47 @@
 </div>
 <br />
 
-<!--
-<div class="container">
-	<c:forEach items="${restaurant.comments}" var="comment">
+<div wicket:id="commentsList" class="container">
 
-		<form role="form" action="deleteComment" method="POST">
-			<input type="hidden" name="user_id" value="${comment.user.id}">
-			<input type="hidden" name="restaurant_id" value="${restaurant.id}">
-			<div class="row">
-				<div class=" col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<div class="row">
-								<div class="col-md-10 vertical-align">Calificacion:
-									${comment.rating}</div>
-								<c:if test="${admin}">
-									<div class="col-md-2 align-right">
-										<input type="submit" value="X">
-									</div>
-								</c:if>
-							</div>
+	<div class="row">
+		<div class=" col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div wicket:id="commentRating" class="col-md-10 vertical-align"/>
+						<div wicket:id="deleteCommentContainer" class="col-md-2 align-right">
+							<input wicket:id="deleteCommentButton" type="submit" value="X">
 						</div>
-						<div class="panel-body">${comment.userName}:</div>
-						<div class="panel-body">${comment.text}</div>
 					</div>
 				</div>
+				<div wicket:id="commentUsername" class="panel-body"/>
+				<div wicket:id="commentText" class="panel-body"/>
 			</div>
-		</form>
-	</c:forEach>
+		</div>
+	</div>
 </div>
 
-<c:if test="${can_comment}">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-default back-panel">
-					<div class="panel-heading">Nuevo Comentario</div>
-					<div class="panel-body">
-						<form role="form" action="newComment" method="POST">
-							<input class="form-control" placeholder="Puntaje" type="number"
-								min="1" max="5" name="rating"><br /> <input
-								class="form-control" placeholder="Comentario" type="text"
-								name="text"> <input type="hidden" name="restaurant_id"
-								value="${restaurant.id}"><br />
-							<button type="submit" value="Enviar" class="btn btn-default">Enviar
-								Comentario</button>
-						</form>
-					</div>
+
+<div wicket:id="newCommentContainer" class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default back-panel">
+				<div class="panel-heading">Nuevo Comentario</div>
+				<div class="panel-body">
+					<form wicket:id="newCommentForm" role="form">
+						<input wicket:id="newCommentScore" class="form-control" placeholder="Puntaje" type="number"
+							min="1" max="5" name="rating"><br /> 
+						<input wicket:id="newCommentComment"
+							class="form-control" placeholder="Comentario" type="text"
+							name="text"><br />
+						<button wicket:id="newCommentButton" type="submit" value="Enviar" class="btn btn-default">Enviar
+							Comentario</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-</c:if>
+</div>
+
  
- -->
 </wicket:extend>

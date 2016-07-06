@@ -12,28 +12,38 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.NumberTextField;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Dish.Type;
 import ar.edu.itba.it.paw.model.Neighbourhood;
+import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
+import ar.edu.itba.it.paw.repository.OrderDetailRepo;
+import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.web.base.BasePage;
+import ar.edu.itba.it.paw.web.login.LoginPage;
 
 public class RestaurantPage extends BasePage {
 
 	private transient Neighbourhood newNeighbourhood;
 	private transient Neighbourhood oldNeighbourhood;
+	
+	private transient Integer newCommentScore;
+	private transient String newCommentComment;
 	
 	private List<DishPanel> dishPanels;
 	
@@ -43,15 +53,20 @@ public class RestaurantPage extends BasePage {
 	@SpringBean
 	RestaurantRepo restaurantRepo;
 	
-	public RestaurantPage(IModel<Restaurant> item) {
-		addLabel(item, "name");
-		addLabel(item, "ranking"); // TODO: Check this
-		addLabel(item, "menuType");
-		addLabel(item, "description");
-		addLabel(item, "address");
-		addLabel(item, "deliveryCost");
-		addLabel(item, "minCost");
-		Restaurant restaurant = item.getObject();
+	@SpringBean
+	OrderRepo orderRepo;
+	
+	@SpringBean
+	OrderDetailRepo orderDetailRepo;
+	
+	public RestaurantPage(Restaurant restaurant) {
+		addLabel(restaurant, "name");
+		addLabel(restaurant, "ranking"); // TODO: Check this
+		addLabel(restaurant, "menuType");
+		addLabel(restaurant, "description");
+		addLabel(restaurant, "address");
+		addLabel(restaurant, "deliveryCost");
+		addLabel(restaurant, "minCost");
 		if (restaurant.getOpeningHour() == restaurant.getClosingHour()) {
 			add(new Label("hour", "Todo el dia"));
 		} else {
@@ -74,19 +89,24 @@ public class RestaurantPage extends BasePage {
 		formContainer.setVisible(isUserAdmin());
 		add(formContainer);
 		
-		addOrderForm(item.getObject());
+		addOrderForm(restaurant);
+		addCommentsList(restaurant);
+		addNewCommentForm(restaurant);
+		
+		MarkupContainer newCommentContainer = new WebMarkupContainer("newCommentContainer");
+		newCommentContainer.setVisible(isUserLogged() && restaurant.canUserComment(loggedUser));
+		add(newCommentContainer);
 		
 		if (!isUserAdmin()) {
 			return;
 		}
-		addNewNeighbourhoodForm(formContainer, item);
-		addRemoveNeighbourhoodForm(formContainer, item);
-		addEditRestaurantForm(formContainer, item.getObject());
-		addDeleteRestaurantForm(formContainer, item.getObject());
+		addNewNeighbourhoodForm(formContainer, restaurant);
+		addRemoveNeighbourhoodForm(formContainer, restaurant);
+		addEditRestaurantForm(formContainer, restaurant);
+		addDeleteRestaurantForm(formContainer, restaurant);
 	}
 	
-	private void addNewNeighbourhoodForm(MarkupContainer formContainer, final IModel<Restaurant> item) {
-		final Restaurant restaurant = item.getObject();
+	private void addNewNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
 		List<Neighbourhood> neighbourhoods = neighbourhoodRepo.getAllNeighbourhoods();
 		neighbourhoods.removeAll(restaurant.getNeighbourhoods());
 		
@@ -115,8 +135,7 @@ public class RestaurantPage extends BasePage {
 		formContainer.add(form);
 	}
 	
-	private void addRemoveNeighbourhoodForm(MarkupContainer formContainer, final IModel<Restaurant> item) {
-		final Restaurant restaurant = item.getObject();
+	private void addRemoveNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
 		List<Neighbourhood> neighbourhoods = restaurant.getNeighbourhoods();
 		
 		final DropDownChoice<Neighbourhood> neighbourhoodDropDown = 
@@ -182,7 +201,13 @@ public class RestaurantPage extends BasePage {
 
 			@Override
 			protected void onSubmit() {
-				Orders order = new Orders(getUser(), restaurant, new Date());
+				if (!isUserLogged()) {
+					setResponsePage(new LoginPage());
+					return;
+				}
+				// TODO: Validar  cosas
+				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
+				Orders order = new Orders(getUser(), updatedRestaurant, new Date());
 				for (DishPanel dishPanel: dishPanels) {
 					if (dishPanel.getDishCount() > 0) {
 						Dish dish = dishPanel.getDish();
@@ -190,6 +215,13 @@ public class RestaurantPage extends BasePage {
 						order.addDetail(dish.getName(), dish.getPrice(), dishPanel.getDishCount());
 					}
 				}
+				orderRepo.addOrder(order);
+				for (OrderDetail detail: order.getDetails()) {
+					orderDetailRepo.storeOrderDetail(detail);
+				}
+				order.setOnDependants();
+				showMessage("Pedido realizado con éxito", Parameter.SUCCESS);
+				setResponsePage(getPage());
 			}
 		};
 		
@@ -225,7 +257,47 @@ public class RestaurantPage extends BasePage {
 		};
 	}
 	
-	public void addLabel(IModel<Restaurant> restaurant, String string) {
+	private void addCommentsList(Restaurant restaurant) {
+		ListView<Comment> commentsListView = new ListView<Comment>("commentsList", restaurant.getComments()) {
+			@Override
+			protected void populateItem(final ListItem<Comment> item) {
+				Comment comment = item.getModelObject();
+				item.add(new Label("commentRating", "Calificacion: " + comment.getRating()));
+				item.add(new Label("commentUsername", comment.getUserName()));
+				item.add(new Label("commentText", comment.getText()));
+				
+				item.add(new Link<Void>("deleteCommentButton") {
+					@Override
+					public void onClick() {
+						
+					}
+				});
+				
+				MarkupContainer deleteCommentContainer = new WebMarkupContainer("deleteCommentContainer");
+				deleteCommentContainer.setVisible(isUserLogged() && isUserAdmin());
+				item.add(deleteCommentContainer);
+			}
+		};
+		add(commentsListView);
+	}
+	
+	private void addNewCommentForm(Restaurant restaurant) {
+		Form<RestaurantPage> form = new Form<RestaurantPage>("newCommentForm",
+				new CompoundPropertyModel<RestaurantPage>(this)) {
+
+			@Override
+			protected void onSubmit() {
+				// TODO add comment
+			}
+		};
+		
+		form.add(new NumberTextField<Integer>("newCommentScore").setRequired(true));
+		form.add(new TextField<String>("newCommentComment").setRequired(true));
+		form.add(new Button("newCommentButton", new ResourceModel("newCommentButton")));
+		add(form);
+	}
+	
+	public void addLabel(Restaurant restaurant, String string) {
 		add(new Label(string, new PropertyModel<String>(restaurant, string)));
 	}
 

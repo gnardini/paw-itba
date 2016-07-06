@@ -21,8 +21,8 @@ import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.hibernate.CommentRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
-import ar.edu.itba.it.paw.repository.hibernate.OrderDetailRepo;
-import ar.edu.itba.it.paw.repository.hibernate.OrderRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateOrderDetailRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateOrderRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.CommentValidationHelper;
@@ -36,12 +36,12 @@ public class RestaurantController extends BaseController {
 	
 	protected HibernateRestaurantRepo mRestaurantRepo;
 	protected CommentRepo mCommentRepo;
-	protected OrderRepo mOrderRepo;
-	protected OrderDetailRepo mOrderDetailRepo;
+	protected HibernateOrderRepo mOrderRepo;
+	protected HibernateOrderDetailRepo mOrderDetailRepo;
 	protected HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public RestaurantController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo, CommentRepo commentRepo, OrderRepo orderRepo, OrderDetailRepo orderDetailRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
+	public RestaurantController(SessionManager sessionManager, HibernateRestaurantRepo restaurantRepo, CommentRepo commentRepo, HibernateOrderRepo orderRepo, HibernateOrderDetailRepo orderDetailRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mRestaurantRepo = restaurantRepo;
 		mCommentRepo = commentRepo;

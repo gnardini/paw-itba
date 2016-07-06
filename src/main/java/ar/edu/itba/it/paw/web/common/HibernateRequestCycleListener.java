@@ -20,13 +20,13 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	
 	@Override
 	public void onBeginRequest(RequestCycle cycle) {
+		error.set(false);
 		Assert.state(!ManagedSessionContext.hasBind(sessionFactory), "Session already bound to this thread");
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		ManagedSessionContext.bind(session);
 		session.beginTransaction();
-		error.set(false);
 	}
-	
+
 	@Override
 	public void onEndRequest(RequestCycle cycle) {
 		if (!error.get()) {
@@ -45,7 +45,7 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	
 	private void commit() {
 		Session session = sessionFactory.getCurrentSession();
-		//Assert.state(session.isOpen(), "Can't commit a closed session!");
+		Assert.state(session.isOpen(), "Can't commit a closed session!");
 		try {
 			Transaction tx = session.getTransaction();
 			if (tx.isActive()) {
@@ -58,21 +58,24 @@ public class HibernateRequestCycleListener extends AbstractRequestCycleListener 
 	}
 
 	private void rollback() {
-		Session session = sessionFactory.getCurrentSession();
-		//Assert.state(session.isOpen(), "Can't rollback a closed session!");
-		try {
-			Transaction tx = session.getTransaction();
-			if (tx.isActive()) {
-				tx.rollback();
+		if (!sessionFactory.isClosed()) {
+			Session session = sessionFactory.getCurrentSession();
+			Assert.state(session.isOpen(), "Can't rollback a closed session!");
+			try {
+				Transaction tx = session.getTransaction();
+				if (tx.isActive()) {
+					tx.rollback();
+				}
+			} finally {
+				close(session);
 			}
-		} finally {
-			close(session);
 		}
+		//TODO log
 	}
 
 	private void close(Session session) {
 		ManagedSessionContext.unbind(sessionFactory);
-		//session.close();
+		session.close();
 	}
+	
 }
-

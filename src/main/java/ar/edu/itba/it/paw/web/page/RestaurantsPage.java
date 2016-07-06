@@ -33,7 +33,7 @@ public class RestaurantsPage extends BasePage {
 
 				item.add(new Link<Void>("open") {
 					public void onClick() {
-						setResponsePage(new RestaurantPage(item.getModel()));
+						setResponsePage(new RestaurantPage(restaurantRepo.getRestaurant(item.getModelObject().getId())));
 					}
 				});
 			}
@@ -49,7 +49,7 @@ public class RestaurantsPage extends BasePage {
 
 				item.add(new Link<Void>("open") {
 					public void onClick() {
-						setResponsePage(new RestaurantPage(item.getModel()));
+						setResponsePage(new RestaurantPage(restaurantRepo.getRestaurant(item.getModelObject().getId())));
 					}
 				});
 			}

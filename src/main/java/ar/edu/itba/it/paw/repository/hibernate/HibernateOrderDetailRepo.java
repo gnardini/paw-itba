@@ -5,12 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.model.OrderDetail;
+import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 
 @Repository
-public class OrderDetailRepo extends AbstractHibernateRepo {
+public class HibernateOrderDetailRepo extends AbstractHibernateRepo implements OrderDetailRepo {
 	
 	@Autowired
-	public OrderDetailRepo(SessionFactory sessionFactory) {
+	public HibernateOrderDetailRepo(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
 	

@@ -6,13 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Restaurant extends PersistentEntity implements Serializable {
@@ -29,24 +25,19 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	@Transient
 	float ranking;
 
-	@OneToMany(fetch=FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany
 	List<Dish> dishes;
 
-	@OneToMany(fetch=FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany
 	List<Comment> comments;
 
-	@OneToMany(mappedBy = "restaurant", fetch=FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "restaurant")
 	List<Orders> orders;
 
-	@ManyToMany(mappedBy = "restaurants", fetch=FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@ManyToMany(mappedBy = "restaurants")
 	List<Users> managers;
 
-	@ManyToMany(fetch=FetchType.EAGER)
-	@Fetch(value = FetchMode.SUBSELECT)
+	@ManyToMany
 	List<Neighbourhood> neighbourhoods;
 
 	public Restaurant(String name, String address, int openingHour, int closingHour, int deliveryCost, int minCost,
