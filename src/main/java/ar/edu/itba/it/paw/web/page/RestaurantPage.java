@@ -30,6 +30,7 @@ import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.CommentRepo;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
@@ -66,7 +67,6 @@ public class RestaurantPage extends BasePage {
 	
 	public RestaurantPage(Restaurant restaurant) {
 		addLabel(restaurant, "name");
-		System.out.println("resrank " + restaurant.getRanking());
 		add(new Label("ranking", String.format("%.02f", restaurant.getRanking())));
 		addLabel(restaurant, "menuType");
 		addLabel(restaurant, "description");
@@ -109,7 +109,7 @@ public class RestaurantPage extends BasePage {
 		addNewNeighbourhoodForm(formContainer, restaurant);
 		addRemoveNeighbourhoodForm(formContainer, restaurant);
 		addEditRestaurantForm(formContainer, restaurant);
-		addDeleteRestaurantForm(formContainer, restaurant);
+		addDeleteRestaurantForm(formContainer, restaurant.getId());
 	}
 	
 	private void addNewNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
@@ -186,13 +186,21 @@ public class RestaurantPage extends BasePage {
 		formContainer.add(form);
 	}
 	
-	private void addDeleteRestaurantForm(MarkupContainer formContainer, final Restaurant restaurant) {
+	private void addDeleteRestaurantForm(MarkupContainer formContainer, final int restaurantId) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("deleteRestaurantForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				//setResponsePage(new DeleteRestaurantPage());
+				Restaurant restaurant = restaurantRepo.getRestaurant(restaurantId);
+				Users user = getUser();
+				
+				if (user.getRole() != Role.ADMIN) {
+					showMessage("Solo el Admin puede borrar restoranes", Parameter.ERROR);
+					setResponsePage(getPage());
+				}
+				restaurantRepo.deleteRestaurant(restaurant);
+				setResponsePage(new RestaurantsPage());
 			}
 		};
 		form.add(new Button("deleteRestaurantButton", new ResourceModel("deleteRestaurantButton")));
@@ -223,6 +231,10 @@ public class RestaurantPage extends BasePage {
 						// TODO validate
 						order.addDetail(dish.getName(), dish.getPrice(), dishPanel.getDishCount());
 						totalPrice += dish.getPrice() * dishPanel.getDishCount();
+					} else if (dishPanel.getDishCount() == -1) {
+						showMessage("Cantidad de platos pedidos inválida", Parameter.ERROR);
+						setResponsePage(getPage());
+						return;
 					}
 				}
 				if (totalPrice < updatedRestaurant.getMinCost()) {
