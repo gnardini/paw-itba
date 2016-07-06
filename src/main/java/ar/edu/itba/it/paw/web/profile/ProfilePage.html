@@ -1,0 +1,77 @@
+<wicket:extend>
+	<ol class="breadcrumb">
+		<li><a href="/">Brand</a></li>
+		<li class="active"><span wicket:id="pageName" /></li>
+	</ol>
+
+	<div class="container">
+		<H3>Perfil</H3>
+		<form wicket:id="editForm">
+
+			<label>Email:</label>
+			<div class="form-group">
+				<input type="email" class="form-control" placeholder="Mail"
+					wicket:id="email" />
+			</div>
+			<label>Contraseña actual (necesaria para comfirmar cambios):</label>
+			<div class="form-group">
+				<input type="password" class="form-control"
+					placeholder="Contraseña actual" wicket:id="oldPassword" />
+			</div>
+			<label>Contraseña nueva (dejela vacía si no quiere
+				modificarla):</label>
+			<div class="form-group">
+				<input type="password" class="form-control"
+					placeholder="Contraseña nueva" wicket:id="newPassword" />
+			</div>
+			<label>Nombre:</label>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Nombre"
+					wicket:id="firstName" />
+			</div>
+			<label>Apellido:</label>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Apellido"
+					wicket:id="lastName" />
+			</div>
+			<label>Dirección:</label>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Dirección"
+					wicket:id="address" />
+			</div>
+			<label>Barrio:</label> 
+			<select wicket:id="neighbourhood"
+				class="form-control" placeholder="Barrio" />
+			<br />
+			<div class="row">
+				<div class="col-md-4">
+					<label>Fecha de Nacimiento:</label>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input type="number" class="form-control" min="1" max="31"
+							placeholder="Dia" wicket:id="birthDay" />
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input type="number" class="form-control" min="1" max="12"
+							placeholder="Mes" wicket:id="birthMonth" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<input type="number" class="form-control" min="1900"
+							placeholder="Año" wicket:id="birthYear" />
+					</div>
+				</div>
+			</div>
+
+			<button wicket:id="saveChangesButton" type="submit"
+				class="btn btn-default">Guardar Cambios</button>
+		</form>
+		<br />
+
+	</div>
+
+</wicket:extend>
