@@ -66,7 +66,8 @@ public class RestaurantPage extends BasePage {
 	
 	public RestaurantPage(Restaurant restaurant) {
 		addLabel(restaurant, "name");
-		addLabel(restaurant, "ranking"); // TODO: Check this
+		System.out.println("resrank " + restaurant.getRanking());
+		add(new Label("ranking", String.format("%.02f", restaurant.getRanking())));
 		addLabel(restaurant, "menuType");
 		addLabel(restaurant, "description");
 		addLabel(restaurant, "address");
