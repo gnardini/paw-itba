@@ -21,6 +21,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
@@ -30,11 +31,14 @@ import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.repository.CommentRepo;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.OrderDetailRepo;
 import ar.edu.itba.it.paw.repository.OrderRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
+import ar.edu.itba.it.paw.util.NumberUtils;
 import ar.edu.itba.it.paw.util.Parameter;
+import ar.edu.itba.it.paw.validator.CommentValidationHelper;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.login.LoginPage;
 
@@ -59,6 +63,9 @@ public class RestaurantPage extends BasePage {
 	
 	@SpringBean
 	OrderDetailRepo orderDetailRepo;
+	
+	@SpringBean
+	CommentRepo commentRepo;
 	
 	public RestaurantPage(Restaurant restaurant) {
 		addLabel(restaurant, "name");
@@ -96,7 +103,7 @@ public class RestaurantPage extends BasePage {
 
 		addOrderForm(restaurant);
 		addCommentsList(restaurant);
-		addNewCommentForm(restaurant, newCommentContainer);
+		addNewCommentForm(restaurant.getId(), newCommentContainer);
 		
 		if (!isUserAdmin()) {
 			return;
@@ -296,13 +303,35 @@ public class RestaurantPage extends BasePage {
 		add(commentsListView);
 	}
 	
-	private void addNewCommentForm(Restaurant restaurant, MarkupContainer newCommentContainer) {
+	private void addNewCommentForm(final int restaurantId, MarkupContainer newCommentContainer) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("newCommentForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				// TODO add comment
+				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurantId);
+				Users user = getUser();
+				
+				if (!updatedRestaurant.canUserComment(user)) {
+					showMessage("No estás autorizado para comentar", Parameter.ERROR);
+					return;
+				}
+				if (newCommentScore == null || newCommentScore < 1 || newCommentScore > 5) {
+					showMessage("Puntaje invalido para el restoran", Parameter.ERROR);
+					return;
+				}
+				if (newCommentComment == null || newCommentComment.equals("")) {
+					showMessage("El comentario no puede estar vacío", Parameter.ERROR);
+					return;
+				}
+				Comment comment = new Comment(user, updatedRestaurant, newCommentScore, newCommentComment);
+				
+				commentRepo.addComment(comment);
+				updatedRestaurant.addComment(comment);
+				restaurantRepo.updateRestaurant(updatedRestaurant);
+				RestaurantPage restaurantPage = new RestaurantPage(updatedRestaurant);
+				restaurantPage.showMessage("Gracias por su comentario", Parameter.SUCCESS);
+				setResponsePage(restaurantPage);
 			}
 		};
 		
