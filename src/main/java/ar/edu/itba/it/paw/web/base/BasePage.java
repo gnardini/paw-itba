@@ -1,19 +1,32 @@
 package ar.edu.itba.it.paw.web.base;
 
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
 
 import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
+import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.web.nav_bar.LoggedPanel;
 import ar.edu.itba.it.paw.web.nav_bar.LoginPanel;
 
 public class BasePage extends WebPage {
 
+	protected Users loggedUser;
+	
+	private Label successLabel;
+	private Label dangerLabel;
+	private Model<String> successModel;
+	private Model<String> dangerModel;
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		WicketSessionManager session = WicketSessionManager.get();
+		loggedUser = session.getUser();
 
 		Panel login = null;
 		if (session.isLogged()) {
@@ -31,6 +44,44 @@ public class BasePage extends WebPage {
 			}
 		});
 		
+		successModel = Model.of("");
+		successLabel = new Label("successMessage", successModel);
+		successLabel.setOutputMarkupId(true);
+		successLabel.setVisible(false);
+		add(successLabel);
+
+		dangerModel = Model.of("");
+		dangerLabel = new Label("dangerMessage", dangerModel);
+		dangerLabel.setOutputMarkupId(true);
+		dangerLabel.setVisible(false);
+		add(dangerLabel);
+	}
+	
+	protected boolean isUserLogged() {
+		return loggedUser != null;
+	}
+	
+	protected Users getUser() {
+		return loggedUser;
+	}
+	
+	protected boolean isUserAdmin() {
+		return true;//loggedUser != null && loggedUser.getRole() == Role.ADMIN;
+	}
+	
+	protected void showMessage(String message, String parameter) {
+		boolean isSuccess = parameter.equalsIgnoreCase(Parameter.SUCCESS);
+		boolean isError = parameter.equalsIgnoreCase(Parameter.ERROR);
+		successLabel.setVisible(isSuccess);
+		dangerLabel.setVisible(isError);
+		
+		if (isSuccess) {
+			successModel.setObject(message);
+			add(successLabel);
+		} else if (isError) {
+			dangerModel.setObject(message);
+			add(dangerLabel);
+		}
 	}
 	
 }

@@ -26,7 +26,7 @@ public class RestaurantsPage extends BasePage {
 
 		ListView<Restaurant> topRestaurants = new ListView<Restaurant>(Parameter.TOP_RESTAURANTS, topRestaurantsList) {
 			@Override
-			protected void populateItem(ListItem<Restaurant> item) {
+			protected void populateItem(final ListItem<Restaurant> item) {
 				item.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));
 				item.add(new Label("menuType", new PropertyModel<String>(item.getModel(), "menuType")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));
@@ -42,7 +42,7 @@ public class RestaurantsPage extends BasePage {
 
 		ListView<Restaurant> allRestaurants = new ListView<Restaurant>(Parameter.ALL_RESTAURANTS, restaurantsList) {
 			@Override
-			protected void populateItem(ListItem<Restaurant> item) {
+			protected void populateItem(final ListItem<Restaurant> item) {
 				item.add(new Label("name", new PropertyModel<String>(item.getModel(), "name")));
 				item.add(new Label("menuType", new PropertyModel<String>(item.getModel(), "menuType")));
 				item.add(new Label("description", new PropertyModel<String>(item.getModel(), "description")));

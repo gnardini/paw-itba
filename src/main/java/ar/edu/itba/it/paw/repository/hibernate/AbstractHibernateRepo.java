@@ -43,4 +43,9 @@ public abstract class AbstractHibernateRepo {
 	public void delete(Object o) {
 		getSession().delete(o);
 	}
+	
+	public void update(Object o) {
+		getSession().update(o);
+	}
+	
 }

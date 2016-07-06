@@ -18,6 +18,7 @@ import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.DateValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
@@ -60,7 +61,7 @@ public class LoginPage extends BasePage {
 				if (session.login(loginEmail, loginPassword)) {
 					setResponsePage(getApplication().getHomePage());
 				} else {
-					error(getString("invalidCredentials"));
+					showMessage("Credenciales incorrectas", Parameter.ERROR);
 				}
 			}
 		};

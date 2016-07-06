@@ -46,4 +46,9 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	public void deleteRestaurant(Restaurant restaurant) {
 		delete(restaurant);
 	}
+	
+	public void updateRestaurant(Restaurant restaurant) {
+		update(restaurant);
+	}
+	
 }

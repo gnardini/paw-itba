@@ -15,5 +15,7 @@ public interface RestaurantRepo {
 	public void storeRestaurant(Restaurant restaurant);
 
 	public void deleteRestaurant(Restaurant restaurant); 
+	
+	public void updateRestaurant(Restaurant restaurant);
 
 }

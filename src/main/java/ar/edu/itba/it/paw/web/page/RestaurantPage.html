@@ -27,117 +27,82 @@
 						-  <span wicket:id="neighbourhood"/> 
 					</p> 
 				</div>
-				<!-- 
-				<div class="col-md-3">
-					<c:if test="${admin}">
+				<div wicket:id="adminContainer" class="col-md-3">
 						<div class="row">
 							<br />
-							<form role="form" action="addNeighbourhood" method="POST">
-								<input type="hidden" name="restaurant_id"
-									value="${restaurant.id}"> <select class="form-control"
-									id="neighbourboodId" name="neighbourboodId">
-									<c:forEach items="${neighbourhoods}" var="neighbourhood">
-										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
-									</c:forEach>
-								</select>
+							<form wicket:id="addNeighbourhoodForm" role="form">
+								<select wicket:id="newNeighbourhood" class="form-control" path="neighbourhoodId"
+									placeholder="Barrio"/>
 								<br/>
-								<button type="submit" class="btn btn-default">Agregar
+								<button wicket:id="newNeightbourhoodButton" type="submit" class="btn btn-default">Agregar
 									Barrio</button>
 							</form>
 							<br />
-							<form role="form" action="removeNeighbourhood" method="POST">
-								<input type="hidden" name="restaurant_id"
-									value="${restaurant.id}"> <select class="form-control"
-									id="neighbourboodId" name="neighbourboodId">
-									<c:forEach items="${restaurant.neighbourhoods}" var="neighbourhood">
-										<option value="${neighbourhood.id}">${neighbourhood.name}</option>
-									</c:forEach>
-								</select>
+							<form wicket:id="removeNeighbourhoodForm" role="form">
+								<select wicket:id="oldNeighbourhood" class="form-control" path="neighbourhoodId"
+										placeholder="Barrio"/>
 								<br/>
-								<button type="submit" class="btn btn-default">Quitar
+								<button wicket:id="removeNeighbourhoodButton" type="submit" class="btn btn-default">Quitar
 									Barrio</button>
 							</form>
 							<br />
-							<form role="form" action="editRestaurant" method="GET">
-								<input type="hidden" name="restaurant_id"
-									value="${restaurant.id}">
-								<button type="submit" class="btn btn-default">Editar
+							<form wicket:id="editRestaurantForm" role="form">
+								<button wicket:id="editRestaurantButton" type="submit" class="btn btn-default">Editar
 									Restoran</button>
 							</form>
 							<br />
-							<form role="form" action="deleteRestaurant" method="POST">
-								<input type="hidden" name="restaurant_id"
-									value="${restaurant.id}">
-								<button type="submit" class="btn btn-default">Eliminar
+							<form wicket:id="deleteRestaurantForm" role="form">
+								<button wicket:id="deleteRestaurantButton" type="submit" class="btn btn-default">Eliminar
 									Restoran</button>
 							</form>
 						</div>
-					</c:if>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 
-<!-- 
-
 <div class="container">
-	<form role="form" action="order" method="POST">
+	<form wicket:id="orderForm" role="form">
 		<div class="container">
 			<div class="well well-sm">
 				<strong>Entradas</strong>
 			</div>
-			<div id="products" class="row list-group">
-				<c:forEach items="${restaurant.dishes}" var="dish">
-					<c:if test="${dish.type == 'ENTRY' }">
-						<%@ include file="dishesInfo.jsp"%>
-					</c:if>
-				</c:forEach>
+			<div wicket:id="orderEntries" id="products" class="row list-group">
+				<div wicket:id="dishPanel" />
 			</div>
 		</div>
 		<div class="container">
 			<div class="well well-sm">
 				<strong>Plato Principal</strong>
 			</div>
-			<div id="products" class="row list-group">
-				<c:forEach items="${restaurant.dishes}" var="dish">
-					<c:if test="${dish.type == 'MAIN' }">
-						<%@ include file="dishesInfo.jsp"%>
-					</c:if>
-				</c:forEach>
+			<div wicket:id="orderMain" id="products" class="row list-group">
+				<div wicket:id="dishPanel" />
 			</div>
 		</div>
 		<div class="container">
 			<div class="well well-sm">
 				<strong>Postre</strong>
 			</div>
-			<div id="products" class="row list-group">
-				<c:forEach items="${restaurant.dishes}" var="dish">
-					<c:if test="${dish.type == 'DESSERT' }">
-						<%@ include file="dishesInfo.jsp"%>
-					</c:if>
-				</c:forEach>
+			<div wicket:id="orderDesserts" id="products" class="row list-group">
+				<div wicket:id="dishPanel" />
 			</div>
 		</div>
 		<div class="container">
 			<div class="well well-sm">
 				<strong>Bebidas</strong>
 			</div>
-			<div id="products" class="row list-group">
-				<c:forEach items="${restaurant.dishes}" var="dish">
-					<c:if test="${dish.type == 'DRINK' }">
-						<%@ include file="dishesInfo.jsp"%>
-					</c:if>
-				</c:forEach>
+			<div wicket:id="orderDrinks" id="products" class="row list-group">
+				<div wicket:id="dishPanel" />
 			</div>
 		</div>
-		<input type="hidden" name="restaurant_id" value="${restaurant.id}" />
-		<button type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
+		<button wicket:id="orderButton" type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
 			Pedido</button>
 	</form>
 </div>
 <br />
 
+<!--
 <div class="container">
 	<c:forEach items="${restaurant.comments}" var="comment">
 

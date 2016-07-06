@@ -1,0 +1,20 @@
+<wicket:panel>
+	<div class="item  col-xs-4 col-lg-4">
+	<div class="thumbnail">
+		<img class="group list-group-image"
+			src="http://www.salud180.com/sites/www.salud180.com/files/134218877.jpg" alt="" />
+		<div class="caption">
+			<h4 wicket:id="name" class="group inner list-group-item-heading align-center"></h4>
+			<p wicket:id="description" class="group inner list-group-item-text align-center"></p>
+			<div class="row">
+				
+				<div class="col-md-4 price"><span wicket:id="price"/></div>
+				<div class="col-md-8">
+					<input wicket:id="dishCount" type="text" class="form-control"
+						placeholder="Cantidad solicitada" min="0" max="100">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</wicket:panel>
