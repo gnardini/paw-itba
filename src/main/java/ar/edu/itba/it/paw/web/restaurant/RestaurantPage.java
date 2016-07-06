@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web.page;
+package ar.edu.itba.it.paw.web.restaurant;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -108,7 +108,7 @@ public class RestaurantPage extends BasePage {
 		}
 		addNewNeighbourhoodForm(formContainer, restaurant);
 		addRemoveNeighbourhoodForm(formContainer, restaurant);
-		addEditRestaurantForm(formContainer, restaurant);
+		addEditRestaurantForm(formContainer, restaurant.getId());
 		addDeleteRestaurantForm(formContainer, restaurant.getId());
 	}
 	
@@ -173,13 +173,13 @@ public class RestaurantPage extends BasePage {
 		formContainer.add(form);
 	}
 	
-	private void addEditRestaurantForm(MarkupContainer formContainer, final Restaurant restaurant) {
+	private void addEditRestaurantForm(MarkupContainer formContainer, final int restaurantId) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("editRestaurantForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				//setResponsePage(new EditRestaurantPage());
+				setResponsePage(new EditRestaurantPage(restaurantRepo.getRestaurant(restaurantId)));
 			}
 		};
 		form.add(new Button("editRestaurantButton", new ResourceModel("editRestaurantButton")));

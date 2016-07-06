@@ -131,8 +131,13 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	}
 
 	public float getRanking() {
+		if (comments.isEmpty()) {
+			return 0;
+		}
 		float total = 0;
-		for (Comment comment: comments) total += comment.rating;
+		for (Comment comment: comments) {
+			total += comment.rating;
+		}
 		return total / comments.size();
 	}
 

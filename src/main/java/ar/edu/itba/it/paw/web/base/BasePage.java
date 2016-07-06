@@ -75,6 +75,14 @@ public class BasePage extends WebPage {
 		Users user = getUser();
 		return user != null && user.getRole() == Role.ADMIN;
 	}
+
+	protected void showSuccess(String message) {
+		showMessage(message, Parameter.SUCCESS);
+	}
+	
+	protected void showError(String message) {
+		showMessage(message, Parameter.ERROR);
+	}
 	
 	protected void showMessage(String message, String parameter) {
 		boolean isSuccess = parameter.equalsIgnoreCase(Parameter.SUCCESS);

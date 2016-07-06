@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web.page;
+package ar.edu.itba.it.paw.web.restaurant;
 
 import java.util.List;
 

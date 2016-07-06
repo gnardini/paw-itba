@@ -1,0 +1,69 @@
+<wicket:extend>
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li><a wicket:id="restaurantBreadcrumb" href="/"/></li>
+	<li class="active">Editar Restoran</li>
+</ol>
+
+<div class="container">
+
+	<H3>Editar Restoran</H3>
+
+	<form wicket:id="editRestaurantForm" role="form">
+		<label>Nombre:</label>
+		<div class="form-group">
+			<input wicket:id="name" type="text" class="form-control" placeholder="Nombre"
+				 name="name">
+		</div>
+		<label>Tipo de Menú:</label>
+		<div class="form-group">
+			<input wicket:id="menuType" type="text" class="form-control" placeholder="Tipo de Menú"
+				 name="menuType">
+		</div>
+
+		<label>Descripción:</label>
+		<div class="form-group">
+			<input wicket:id="description" type="text" class="form-control" placeholder="Descripción"
+				name="description">
+		</div>
+		<label>Dirección:</label>
+		<div class="form-group">
+			<input wicket:id="address" type="text" class="form-control" placeholder="Dirección"
+				name="address">
+		</div>
+		<label>Horario:</label>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-1">
+					<label>Desde:</label>
+				</div>
+				<div class="col-md-3">
+					<input wicket:id="openingHour" type="number" class="form-control"
+						placeholder="Horario de Apertura" min="0" max="23"
+						name="openingHour">
+				</div>
+				<div class="col-md-1">
+					<label>Hasta:</label>
+				</div>
+				<div class="col-md-3">
+					<input wicket:id="closingHour" type="number" class="form-control"
+						placeholder="Horario de Clausura" min="0" max="23"
+						name="closingHour">
+				</div>
+			</div>
+		</div>
+		<label>Costo de Delivery:</label>
+		<div class="form-group">
+			<input wicket:id="deliveryCost" type="number" class="form-control"
+				placeholder="Costo de Delivery" min="0"
+				name="deliveryCost">
+		</div>
+		<label>Costo mínimo:</label>
+		<div class="form-group">
+			<input wicket:id="minCost" type="number" class="form-control" placeholder="Costo mínimo"
+				min="0" name="minCost">
+		</div>
+		<button wicket:id="saveChanges" type="submit" class="btn btn-default">Guardar Cambios</button>
+	</form>
+</div>
+</wicket:extend>
