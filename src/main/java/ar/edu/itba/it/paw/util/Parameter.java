@@ -9,7 +9,7 @@ public class Parameter {
 	public static final String USER_NORMAL = "normal";
 	public static final String MESSAGE = "message";
 	
-	// Restaurant
+	// Restaurants
 	public static final String RESTAURANT_ID = "restaurant_id";
 	public static final String TOP_RESTAURANTS = "hot_restaurants";
 	public static final String ALL_RESTAURANTS = "all_restaurants";

@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.web.nav_bar;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.hibernate.mapping.List;
 
 import ar.edu.itba.it.paw.web.login.LoginPage;
 
