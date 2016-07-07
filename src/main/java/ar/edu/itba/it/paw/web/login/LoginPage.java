@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web.login;
 
+import java.util.Date;
+
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -15,11 +17,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Users;
-import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
-import ar.edu.itba.it.paw.util.Parameter;
-import ar.edu.itba.it.paw.validator.DateValidator;
 import ar.edu.itba.it.paw.validator.SignUpValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
@@ -62,6 +61,9 @@ public class LoginPage extends BasePage {
 				if (loginEmail != null 
 						&& loginPassword != null 
 						&& session.login(loginEmail, loginPassword)) {
+					Users user = session.getUser();
+					user.setLastLogin(new Date());
+					userRepo.updateUser(user);
 					setResponsePage(getApplication().getHomePage());
 				} else {
 					showError("Usuario o contraseña incorrectos");

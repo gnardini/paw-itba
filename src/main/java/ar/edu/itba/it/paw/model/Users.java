@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Users extends PersistentEntity implements Serializable {
 	int birthYear;
 	Role role;
 	String password;
+	Date lastLogin;
+	Date lastPasswordChange;
+	boolean enabled;
 	
 	@ManyToOne
 	Neighbourhood neighbourhood;
@@ -186,6 +190,30 @@ public class Users extends PersistentEntity implements Serializable {
 	
 	public String getFullName() {
 		return firstName + " " + lastName;
+	}
+	
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+	
+	public Date getLastPasswordChange() {
+		return lastPasswordChange;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+	
+	public void setLastPasswordChange(Date lastPasswordChange) {
+		this.lastPasswordChange = lastPasswordChange;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 	@Override

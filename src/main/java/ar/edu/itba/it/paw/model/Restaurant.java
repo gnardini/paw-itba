@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 @Entity
 public class Restaurant extends PersistentEntity implements Serializable {
@@ -21,6 +21,8 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	int minCost;
 	String menuType;
 	String description;
+	Date closedDate;
+	String closedReason;
 	
 	@OneToMany
 	List<Dish> dishes;
@@ -214,6 +216,22 @@ public class Restaurant extends PersistentEntity implements Serializable {
 		}
 	}
 	
+	public Date getClosedDate() {
+		return closedDate;
+	}
+
+	public void setClosedDate(Date closedDate) {
+		this.closedDate = closedDate;
+	}
+
+	public String getClosedReason() {
+		return closedReason;
+	}
+
+	public void setClosedReason(String closedReason) {
+		this.closedReason = closedReason;
+	}
+
 	@Override
 	public String toString() {
 		return name;

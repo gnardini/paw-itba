@@ -245,7 +245,7 @@ public class AdminPanelPage extends BasePage {
 				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
 				
 				// TODO Set actual last access
-				item.add(new Label("userLastAccess", prettyTime.format(new Date())));
+				item.add(new Label("userLastAccess", prettyTime.format(user.getLastLogin())));
 
 				Link<Void> toggleUserLink = new Link<Void>("toggleUserEnabled") {
 					public void onClick() {
