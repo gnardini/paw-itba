@@ -9,13 +9,19 @@ import javax.persistence.ManyToOne;
 public class Dish extends PersistentEntity implements Serializable {
 
 	public enum Type {
-		ENTRY,
-		MAIN,
-		DESSERT,
-		DRINK;
+		ENTRY("Entrada"),
+		MAIN("Plato Principal"),
+		DESSERT("Postre"),
+		DRINK("Bebida");
+		
+		private String name; 
+		
+		Type(String name){
+			this.name=name;
+		}
 		
 		public String toString() {
-			return name();
+			return name;
 		}
 	}
 	

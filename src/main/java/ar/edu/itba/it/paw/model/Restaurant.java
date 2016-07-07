@@ -213,4 +213,9 @@ public class Restaurant extends PersistentEntity implements Serializable {
 			return orderHour >= openingHour && orderHour < closingHour;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

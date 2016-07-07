@@ -1,9 +1,45 @@
 <wicket:extend>
-<br/>
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li class="active"><span wicket:id="pageName"/></li>
+</ol>
+
 <div class="container">
-	<div class="jumbotron">
-		<h1>Manager Panel</h1>
-		
+	<H3>Panel de Control</H3>
+
+	<div class="well well-sm">
+		<strong>Agregar nuevo plato</strong>
 	</div>
+	
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+		
+			<form role="form" wicket:id="addDishForm">
+		 	
+				<div class="form-group">
+					<select class="form-control" wicket:id="restaurant"/>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Nombre"
+						wicket:id="dishName"/>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Descripcion"
+						wicket:id="dishDescription"/>
+				</div>
+				<div class="form-group">
+					<input type="number" class="form-control" placeholder="Precio" min="1" max="10000"
+						wicket:id="dishPrice" step="0.01"/>
+				</div>
+				<div class="form-group">
+			 		<select class="form-control" wicket:id="menuType"/>
+				</div>
+				<button type="submit" wicket:id="addDishButton" class="btn btn-default">Agregar Plato</button>	
+			</form>
+		</div>
+	</div>
+	<br/>
+	
 </div>
+
 </wicket:extend>

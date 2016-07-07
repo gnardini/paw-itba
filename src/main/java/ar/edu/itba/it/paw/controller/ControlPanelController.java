@@ -14,7 +14,7 @@ import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
-import ar.edu.itba.it.paw.repository.hibernate.DishRepo;
+import ar.edu.itba.it.paw.repository.hibernate.HibernateDishRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
@@ -27,11 +27,11 @@ public class ControlPanelController extends BaseController {
 	
 	private HibernateUserRepo mUserRepo;
 	private HibernateRestaurantRepo mRestaurantRepo;
-	private DishRepo mDishRepo;
+	private HibernateDishRepo mDishRepo;
 	private HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ControlPanelController(SessionManager sessionManager, HibernateUserRepo userRepo, HibernateRestaurantRepo restaurantRepo, DishRepo dishRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
+	public ControlPanelController(SessionManager sessionManager, HibernateUserRepo userRepo, HibernateRestaurantRepo restaurantRepo, HibernateDishRepo dishRepo, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
 		mUserRepo = userRepo;
 		mRestaurantRepo = restaurantRepo;
@@ -116,7 +116,7 @@ public class ControlPanelController extends BaseController {
 		init(req);
 		
 		Users loggedUser = mSessionManager.getUser();
-		DishValidationHelper validator = new DishValidationHelper(req, restaurant);
+		DishValidationHelper validator = null;
 		if (!validator.isValidDish()) {
 			setMessage(req, "No se pudo agregar el nuevo plato");
 			setMessageType(req, Parameter.ERROR);
