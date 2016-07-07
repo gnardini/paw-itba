@@ -1,47 +1,57 @@
 package ar.edu.itba.it.paw.validator;
 
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
-import ar.edu.itba.it.paw.form.SignUpForm;
+import ar.edu.itba.it.paw.model.Neighbourhood;
+import ar.edu.itba.it.paw.model.Users;
+import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.util.EmailUtils;
-import ar.edu.itba.it.paw.util.NumberUtils;
 
-@Component
-public class SignUpValidator implements Validator {
+public class SignUpValidator {
 	
-	@Override
-	public void validate(Object o, Errors e) {
-		SignUpForm form = (SignUpForm) o;
-		String firstName = form.getFirstName();
-		String lastName = form.getLastName();
-		String address = form.getAddress();
-		String email = form.getEmail();
-		String day = form.getBirthDay();
-		String month = form.getBirthMonth();
-		String year = form.getBirthYear();
-		String password = form.getPassword();
-		String neighbourhoodId = form.getNeighbourhoodId();
-				
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String email;
+	private Integer day;
+	private Integer month;
+	private Integer year;
+	private String password;
+	private Neighbourhood neighbourhood;
+	
+	public SignUpValidator(String firstName, String lastName, String address, String email, Integer day, Integer month,
+			Integer year, String password, Neighbourhood neighbourhood) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+		this.day = day;
+		this.month = month;
+		this.year = year;
+		this.password = password;
+		this.neighbourhood = neighbourhood;
+	}
+
+	public boolean isValidUser() {	
 		if (firstName == "" 
 				|| lastName == ""
 				|| address == ""
 				|| email == ""
 				|| !EmailUtils.isEmail(email)
-				|| !NumberUtils.isNumber(day)
-				|| !NumberUtils.isNumber(month)
-				|| !NumberUtils.isNumber(year)
-				|| !NumberUtils.isNumber(neighbourhoodId)
-				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))
-				|| password == ""){
-			e.reject("registrationError");
+				|| day == null
+				|| month == null
+				|| year== null
+				|| neighbourhood == null
+				|| !DateUtils.isDate(day, month, year)
+				|| password == "") {
+			return false;
 		}
+		return true;
+	}
+	
+	public Users getUser() {
+		return new Users(firstName, lastName, address, email, 
+				day, month, year, Role.NORMAL, 
+				password, neighbourhood);
 	}
 
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return SignUpForm.class.equals(clazz);
-	}
 }

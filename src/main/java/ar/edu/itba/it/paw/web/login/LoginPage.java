@@ -20,6 +20,7 @@ import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.DateValidator;
+import ar.edu.itba.it.paw.validator.SignUpValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class LoginPage extends BasePage {
@@ -58,16 +59,18 @@ public class LoginPage extends BasePage {
 			protected void onSubmit() {
 				WicketSessionManager session = WicketSessionManager.get();
 
-				if (session.login(loginEmail, loginPassword)) {
+				if (loginEmail != null 
+						&& loginPassword != null 
+						&& session.login(loginEmail, loginPassword)) {
 					setResponsePage(getApplication().getHomePage());
 				} else {
-					showMessage("Credenciales incorrectas", Parameter.ERROR);
+					showError("Usuario o contraseña incorrectos");
 				}
 			}
 		};
 		
-		form.add(new EmailTextField("loginEmail").setRequired(true));
-		form.add(new PasswordTextField("loginPassword"));
+		form.add(new EmailTextField("loginEmail").setRequired(false));
+		form.add(new PasswordTextField("loginPassword").setRequired(false));
 		form.add(new Button("loginButton", new ResourceModel("loginButton")));
 		add(form);
 	}
@@ -79,14 +82,14 @@ public class LoginPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				WicketSessionManager session = WicketSessionManager.get();
-				
-				Users user = new Users(firstName, lastName, address, email, 
-						birthDay, birthMonth, birthYear, Role.NORMAL, 
-						password, neighbourhood);
-				if (session.signup(user)) {
+				SignUpValidator signUpValidator = new SignUpValidator(firstName, lastName, address, email, 
+						birthDay, birthMonth, birthYear, loginPassword, neighbourhood);
+				if (!signUpValidator.isValidUser()) {
+					showError("Datos de registro inválidos");
+				} else if (session.signup(signUpValidator.getUser())) {
 					setResponsePage(getApplication().getHomePage());
 				} else {
-					error("Error al registrarse");
+					showError("El usuario ya existe");
 				}
 			}
 		};
@@ -95,21 +98,15 @@ public class LoginPage extends BasePage {
 	            new DropDownChoice<Neighbourhood>("neighbourhood", 
 	                    new PropertyModel<Neighbourhood>(this, "neighbourhood"),
 	                    neighbourhoodRepo.getAllNeighbourhoods());
-		neighbourhoodDropDown.setRequired(true);
-		form.add(new EmailTextField("email").setRequired(true));
-		form.add(new PasswordTextField("password").setRequired(true));
-		form.add(new TextField<String>("firstName").setRequired(true));
-		form.add(new TextField<String>("lastName").setRequired(true));
-		form.add(new TextField<String>("address").setRequired(true));
-		form.add(neighbourhoodDropDown);
-		
-		NumberTextField<Integer> birthDayField = new NumberTextField<Integer>("birthDay");
-		NumberTextField<Integer> birthMonthField = new NumberTextField<Integer>("birthMonth");
-		NumberTextField<Integer> birthYearField = new NumberTextField<Integer>("birthYear");
-		form.add(birthDayField.setRequired(true));
-		form.add(birthMonthField.setRequired(true));
-		form.add(birthYearField.setRequired(true));
-		//form.add(new DateValidator(birthDayField, birthMonthField, birthYearField));
+		form.add(new EmailTextField("email").setRequired(false));
+		form.add(new PasswordTextField("password").setRequired(false));
+		form.add(new TextField<String>("firstName").setRequired(false));
+		form.add(new TextField<String>("lastName").setRequired(false));
+		form.add(new TextField<String>("address").setRequired(false));
+		form.add(neighbourhoodDropDown.setRequired(false));
+		form.add(new NumberTextField<Integer>("birthDay").setRequired(false));
+		form.add(new NumberTextField<Integer>("birthMonth").setRequired(false));
+		form.add(new NumberTextField<Integer>("birthYear").setRequired(false));
 		form.add(new Button("signUpButton", new ResourceModel("signUpButton")));
 		add(form);
 	}

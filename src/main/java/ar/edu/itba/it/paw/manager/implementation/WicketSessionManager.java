@@ -36,9 +36,16 @@ public class WicketSessionManager extends WebSession implements SessionManager {
 	}
 	
 	public boolean signup(Users user) {
+		if (userExists(user.getEmail())) {
+			return false;
+		}
 		userRepo.storeUser(user);
 		email = user.getEmail();
 		return true;
+	}
+	
+	private boolean userExists(String email) {
+		return userRepo.getUser(email) != null;
 	}
 
 	public boolean login(String email, String password) {
