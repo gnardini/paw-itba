@@ -45,7 +45,7 @@ public class LoggedPanel extends Panel {
 			public void onClick() {
 				WicketSessionManager wicketSessionManager = WicketSessionManager.get();
 				wicketSessionManager.logout();
-				setResponsePage(getPage());
+				setResponsePage(getApplication().getHomePage());
 			}
 		});
 	}
