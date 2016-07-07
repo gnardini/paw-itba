@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.wicket.MarkupContainer;
@@ -21,6 +22,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import ar.edu.itba.it.paw.model.Comment;
 import ar.edu.itba.it.paw.model.Dish;
@@ -44,32 +46,41 @@ public class RestaurantPage extends BasePage {
 
 	private transient Neighbourhood newNeighbourhood;
 	private transient Neighbourhood oldNeighbourhood;
-	
+
 	private transient Integer newCommentScore;
 	private transient String newCommentComment;
-	
+
 	private List<DishPanel> dishPanels;
-	
+	private boolean closed;
+
 	@SpringBean
 	NeighbourhoodRepo neighbourhoodRepo;
-	
+
 	@SpringBean
 	RestaurantRepo restaurantRepo;
-	
+
 	@SpringBean
 	OrderRepo orderRepo;
-	
+
 	@SpringBean
 	OrderDetailRepo orderDetailRepo;
-	
+
 	@SpringBean
 	CommentRepo commentRepo;
-	
+
 	public RestaurantPage(Restaurant restaurant) {
-		if(restaurant==null){
+		if (restaurant == null) {
 			showError("Restoran invalido");
 			return;
 		}
+		if (restaurant.getClosedDate().compareTo(new Date()) > 0) {
+			closed = true;
+		}
+		PrettyTime prettyTime = new PrettyTime(new Locale("es"));
+		Label closeReasonLabel = new Label("closedReason", "Cerrado hasta "
+				+ prettyTime.format(restaurant.getClosedDate()) + " por " + restaurant.getClosedReason());
+		closeReasonLabel.setVisible(closed);
+		add(closeReasonLabel);
 		addLabel(restaurant, "name");
 		add(new Label("ranking", String.format("%.02f", restaurant.getRanking())));
 		addLabel(restaurant, "menuType");
@@ -94,11 +105,11 @@ public class RestaurantPage extends BasePage {
 			}
 		};
 		add(neighbourhoods);
-		
+
 		MarkupContainer formContainer = new WebMarkupContainer("adminContainer");
 		formContainer.setVisible(isUserAdmin());
 		add(formContainer);
-		
+
 		MarkupContainer newCommentContainer = new WebMarkupContainer("newCommentContainer");
 		newCommentContainer.setVisible(isUserLogged() && restaurant.canUserComment(loggedUser));
 		add(newCommentContainer);
@@ -106,7 +117,7 @@ public class RestaurantPage extends BasePage {
 		addOrderForm(restaurant);
 		addCommentsList(restaurant);
 		addNewCommentForm(restaurant.getId(), newCommentContainer);
-		
+
 		if (!isUserAdmin()) {
 			return;
 		}
@@ -115,22 +126,20 @@ public class RestaurantPage extends BasePage {
 		addEditRestaurantForm(formContainer, restaurant.getId());
 		addDeleteRestaurantForm(formContainer, restaurant.getId());
 	}
-	
+
 	private void addNewNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
 		List<Neighbourhood> neighbourhoods = neighbourhoodRepo.getAllNeighbourhoods();
 		neighbourhoods.removeAll(restaurant.getNeighbourhoods());
-		
-		final DropDownChoice<Neighbourhood> neighbourhoodDropDown = 
-	            new DropDownChoice<Neighbourhood>("newNeighbourhood",
-	            		new PropertyModel<Neighbourhood>(this, "newNeighbourhood"),
-	            		neighbourhoods);
-		
+
+		final DropDownChoice<Neighbourhood> neighbourhoodDropDown = new DropDownChoice<Neighbourhood>(
+				"newNeighbourhood", new PropertyModel<Neighbourhood>(this, "newNeighbourhood"), neighbourhoods);
+
 		Form<RestaurantPage> form = new Form<RestaurantPage>("addNeighbourhoodForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				if(newNeighbourhood==null){
+				if (newNeighbourhood == null) {
 					showError("Seleccion un barrio para agregar");
 					return;
 				}
@@ -148,21 +157,19 @@ public class RestaurantPage extends BasePage {
 		form.add(new Button("newNeightbourhoodButton", new ResourceModel("newNeightbourhoodButton")));
 		formContainer.add(form);
 	}
-	
+
 	private void addRemoveNeighbourhoodForm(MarkupContainer formContainer, final Restaurant restaurant) {
 		List<Neighbourhood> neighbourhoods = restaurant.getNeighbourhoods();
-		
-		final DropDownChoice<Neighbourhood> neighbourhoodDropDown = 
-	            new DropDownChoice<Neighbourhood>("oldNeighbourhood",
-	            		new PropertyModel<Neighbourhood>(this, "oldNeighbourhood"),
-	            		neighbourhoods);
-		
+
+		final DropDownChoice<Neighbourhood> neighbourhoodDropDown = new DropDownChoice<Neighbourhood>(
+				"oldNeighbourhood", new PropertyModel<Neighbourhood>(this, "oldNeighbourhood"), neighbourhoods);
+
 		Form<RestaurantPage> form = new Form<RestaurantPage>("removeNeighbourhoodForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
 
 			@Override
 			protected void onSubmit() {
-				if(oldNeighbourhood==null){
+				if (oldNeighbourhood == null) {
 					showError("Seleccione un barrio para eliminar");
 					return;
 				}
@@ -184,7 +191,7 @@ public class RestaurantPage extends BasePage {
 		form.add(new Button("removeNeighbourhoodButton", new ResourceModel("removeNeighbourhoodButton")));
 		formContainer.add(form);
 	}
-	
+
 	private void addEditRestaurantForm(MarkupContainer formContainer, final int restaurantId) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("editRestaurantForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
@@ -197,7 +204,7 @@ public class RestaurantPage extends BasePage {
 		form.add(new Button("editRestaurantButton", new ResourceModel("editRestaurantButton")));
 		formContainer.add(form);
 	}
-	
+
 	private void addDeleteRestaurantForm(MarkupContainer formContainer, final int restaurantId) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("deleteRestaurantForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
@@ -226,6 +233,11 @@ public class RestaurantPage extends BasePage {
 
 			@Override
 			protected void onSubmit() {
+
+				if (closed) {
+					showError("Restoran cerrado");
+					return;
+				}
 				if (!isUserLogged()) {
 					setResponsePage(new LoginPage());
 					return;
@@ -237,10 +249,10 @@ public class RestaurantPage extends BasePage {
 					showError("El administrador ha deshabilitado su cuenta");
 					return;
 				}
-				
+
 				Orders order = new Orders(user, updatedRestaurant, new Date());
 				int totalPrice = 0;
-				for (DishPanel dishPanel: dishPanels) {
+				for (DishPanel dishPanel : dishPanels) {
 					int dishCount = dishPanel.getDishCount();
 					if (dishCount > 0) {
 						Dish dish = dishPanel.getDish();
@@ -259,12 +271,12 @@ public class RestaurantPage extends BasePage {
 					return;
 				}
 				totalPrice += updatedRestaurant.getDeliveryCost();
-				for (OrderDetail detail: order.getDetails()) {
+				for (OrderDetail detail : order.getDetails()) {
 					orderDetailRepo.storeOrderDetail(detail);
 				}
 				order.setPrice(totalPrice);
 				order.setOnDependants();
-				
+
 				orderRepo.addOrder(order);
 				restaurantRepo.updateRestaurant(updatedRestaurant);
 				userRepo.updateUser(user);
@@ -272,28 +284,28 @@ public class RestaurantPage extends BasePage {
 				setResponsePage(getPage());
 			}
 		};
-		
+
 		Map<Type, List<Dish>> dishMap = new HashMap<>();
-		for (Type type: Type.values()) {
+		for (Type type : Type.values()) {
 			dishMap.put(type, new LinkedList<Dish>());
 		}
 		List<Dish> dishes = restaurant.getDishes();
-		for (Dish dish: dishes) {
-			dishMap.get(dish.getType()).add(dish); 
+		for (Dish dish : dishes) {
+			dishMap.get(dish.getType()).add(dish);
 		}
 		dishLists.add(createDishList("orderEntries", dishMap.get(Type.ENTRY)));
 		dishLists.add(createDishList("orderMain", dishMap.get(Type.MAIN)));
 		dishLists.add(createDishList("orderDesserts", dishMap.get(Type.DESSERT)));
 		dishLists.add(createDishList("orderDrinks", dishMap.get(Type.DRINK)));
-		
-		for (ListView<Dish> dishListView: dishLists) {
+
+		for (ListView<Dish> dishListView : dishLists) {
 			form.add(dishListView);
 		}
-		
+
 		form.add(new Button("orderButton", new ResourceModel("orderButton")));
 		add(form);
 	}
-	
+
 	private ListView<Dish> createDishList(String id, List<Dish> dishes) {
 		return new ListView<Dish>(id, dishes) {
 			@Override
@@ -304,7 +316,7 @@ public class RestaurantPage extends BasePage {
 			}
 		};
 	}
-	
+
 	private void addCommentsList(final Restaurant restaurant) {
 		ListView<Comment> commentsListView = new ListView<Comment>("commentsList", restaurant.getComments()) {
 			@Override
@@ -313,13 +325,13 @@ public class RestaurantPage extends BasePage {
 				item.add(new Label("commentRating", "Calificacion: " + comment.getRating()));
 				item.add(new Label("commentUsername", comment.getUserName()));
 				item.add(new Label("commentText", comment.getText()));
-				
+
 				MarkupContainer deleteCommentContainer = new WebMarkupContainer("deleteCommentContainer");
 				deleteCommentContainer.setVisible(isUserLogged() && isUserAdmin());
 				item.add(deleteCommentContainer);
-				
+
 				final Users userComment = item.getModelObject().getUser();
-				
+
 				deleteCommentContainer.add(new Link<Void>("deleteCommentButton") {
 					@Override
 					public void onClick() {
@@ -342,7 +354,7 @@ public class RestaurantPage extends BasePage {
 		};
 		add(commentsListView);
 	}
-	
+
 	private void addNewCommentForm(final int restaurantId, MarkupContainer newCommentContainer) {
 		Form<RestaurantPage> form = new Form<RestaurantPage>("newCommentForm",
 				new CompoundPropertyModel<RestaurantPage>(this)) {
@@ -351,7 +363,7 @@ public class RestaurantPage extends BasePage {
 			protected void onSubmit() {
 				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurantId);
 				Users user = getUser();
-				
+
 				if (!updatedRestaurant.canUserComment(user)) {
 					showMessage("No estás autorizado para comentar", Parameter.ERROR);
 					return;
@@ -365,7 +377,7 @@ public class RestaurantPage extends BasePage {
 					return;
 				}
 				Comment comment = new Comment(user, updatedRestaurant, newCommentScore, newCommentComment);
-				
+
 				commentRepo.addComment(comment);
 				updatedRestaurant.addComment(comment);
 				restaurantRepo.updateRestaurant(updatedRestaurant);
@@ -374,14 +386,14 @@ public class RestaurantPage extends BasePage {
 				setResponsePage(restaurantPage);
 			}
 		};
-		
+
 		form.add(new NumberTextField<Integer>("newCommentScore").setRequired(false));
 		form.add(new TextField<String>("newCommentComment").setRequired(false));
 		form.add(new Button("newCommentButton", new ResourceModel("newCommentButton")));
-		
+
 		newCommentContainer.add(form);
 	}
-	
+
 	public void addLabel(Restaurant restaurant, String string) {
 		add(new Label(string, new PropertyModel<String>(restaurant, string)));
 	}

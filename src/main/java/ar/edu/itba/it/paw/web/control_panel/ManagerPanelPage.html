@@ -17,7 +17,7 @@
 			<form role="form" wicket:id="addDishForm">
 		 	
 				<div class="form-group">
-					<select class="form-control" wicket:id="restaurant"/>
+					<select class="form-control" wicket:id="addDishRestaurant"/>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Nombre"
@@ -35,6 +35,51 @@
 			 		<select class="form-control" wicket:id="menuType"/>
 				</div>
 				<button type="submit" wicket:id="addDishButton" class="btn btn-default">Agregar Plato</button>	
+			</form>
+		</div>
+	</div>
+	<br/>
+	<div class="well well-sm">
+		<strong>Cerrar un restoran</strong>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+		
+			<form role="form" wicket:id="closeRestaurantForm">
+		 	
+				<div class="form-group">
+					<select class="form-control" wicket:id="closeRestaurantRestaurant"/>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<label>Fecha de reapertura:</label>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1" max="31"
+								placeholder="Dia" wicket:id="closeDay" />
+						</div>
+					</div>
+					<div class="col-md-2">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1" max="12"
+								placeholder="Mes" wicket:id="closeMonth" />
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="form-group">
+							<input type="number" class="form-control" min="1900"
+								placeholder="Año" wicket:id="closeYear" />
+						</div>
+					</div>
+				</div>
+				<label>Razón de cierre:</label>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="Razón de cierre"
+						wicket:id="closeReason"/>
+				</div>
+				<button type="submit" wicket:id="closeRestaurantButton" class="btn btn-default">Cerrar Restoran</button>	
 			</form>
 		</div>
 	</div>

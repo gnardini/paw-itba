@@ -43,4 +43,7 @@ public class Parameter {
 	// Message Type
 	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
+	
+	// Database constants
+	public static final int closeReasonStringLenght = 150;
 }
