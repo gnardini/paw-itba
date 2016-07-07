@@ -19,6 +19,11 @@ public class MyOrdersPage extends BasePage {
 	OrderRepo orderRepo;
 
 	public MyOrdersPage() {
+		if (loggedUser == null) {
+			// Shouldn't happen
+			setResponsePage(getApplication().getHomePage());
+			return;
+		}
 		add(new Label("pageName", "Mis Pedidos"));
 		ListView<Orders> orderListView = new ListView<Orders>("orderList", loggedUser.getOrders()) {
 			@Override

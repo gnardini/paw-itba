@@ -20,13 +20,11 @@ import ar.edu.itba.it.paw.validator.EditProfileValidator;
 @Controller
 public class ProfileController extends BaseController {
 
-	EditProfileValidator mEditProfileValidator;
 	HibernateNeighbourhoodRepo mNeighbourhoodRepo;
 	
 	@Autowired
-	public ProfileController(SessionManager sessionManager, EditProfileValidator editProfileValidator, HibernateNeighbourhoodRepo neighbourhoodRepo) {
+	public ProfileController(SessionManager sessionManager, HibernateNeighbourhoodRepo neighbourhoodRepo) {
 		super(sessionManager);
-		mEditProfileValidator = editProfileValidator;
 		mNeighbourhoodRepo = neighbourhoodRepo;
 	}
 	
@@ -34,7 +32,7 @@ public class ProfileController extends BaseController {
 	protected ModelAndView showProfile(HttpServletRequest req, @RequestParam(value="result", required=false) String result) {
 		if (!mSessionManager.isLogged()) return new ModelAndView("redirect:restaurants");
 		Users user = mSessionManager.getUser();
-		setResult(req, result);
+		//setResult(req, result);
 		ModelAndView mav = createModelAndView(req);
 		mav.addObject("editProfileForm", new EditProfileForm());
 		mav.addObject("neighbourhoods", mNeighbourhoodRepo.getAllNeighbourhoods());
@@ -42,30 +40,30 @@ public class ProfileController extends BaseController {
 		return mav;
 	}
 	
-	private void setResult(HttpServletRequest req, String result) {
-		if (("failure" + EditProfileValidator.ERROR_PASSWORDS).equals(result)) {
-			setMessage(req, "Contraseña actual incorrecta");
-			setMessageType(req, Parameter.ERROR);
-		} else if (("failure" + EditProfileValidator.ERROR_INVALID_DATA).equals(result)) {
-			setMessage(req, "Datos inválidos");
-			setMessageType(req, Parameter.ERROR);
-		} else if ("success".equals(result)){
-			setMessage(req, "Información actualizada con éxito");
-			setMessageType(req, Parameter.SUCCESS);
-		}
-	}
+//	private void setResult(HttpServletRequest req, String result) {
+//		if (("failure" + EditProfileValidator.ERROR_PASSWORDS).equals(result)) {
+//			setMessage(req, "Contraseña actual incorrecta");
+//			setMessageType(req, Parameter.ERROR);
+//		} else if (("failure" + EditProfileValidator.ERROR_INVALID_DATA).equals(result)) {
+//			setMessage(req, "Datos inválidos");
+//			setMessageType(req, Parameter.ERROR);
+//		} else if ("success".equals(result)){
+//			setMessage(req, "Información actualizada con éxito");
+//			setMessageType(req, Parameter.SUCCESS);
+//		}
+//	}
 	
-	@RequestMapping(value = "editProfile", method = RequestMethod.POST)
-	protected ModelAndView showEditProfile(HttpServletRequest req, EditProfileForm form, Errors errors) {
-		if (!mSessionManager.isLogged()) return new ModelAndView("redirect:restaurants");
-		form.setUser(mSessionManager.getUser());
-		mEditProfileValidator.validate(form, errors);
-		
-		if (errors.hasErrors()) {
-			return new ModelAndView("redirect:profile?result=failure" + mEditProfileValidator.getErrorType());
-		} else {
-			form.build(mNeighbourhoodRepo);
-			return new ModelAndView("redirect:profile?result=success");
-		}
-	}
+//	@RequestMapping(value = "editProfile", method = RequestMethod.POST)
+//	protected ModelAndView showEditProfile(HttpServletRequest req, EditProfileForm form, Errors errors) {
+//		if (!mSessionManager.isLogged()) return new ModelAndView("redirect:restaurants");
+//		form.setUser(mSessionManager.getUser());
+//		mEditProfileValidator.validate(form, errors);
+//		
+//		if (errors.hasErrors()) {
+//			return new ModelAndView("redirect:profile?result=failure" + mEditProfileValidator.getErrorType());
+//		} else {
+//			form.build(mNeighbourhoodRepo);
+//			return new ModelAndView("redirect:profile?result=success");
+//		}
+//	}
 }

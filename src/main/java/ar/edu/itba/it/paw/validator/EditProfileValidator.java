@@ -1,58 +1,77 @@
 package ar.edu.itba.it.paw.validator;
 
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
-import ar.edu.itba.it.paw.form.EditProfileForm;
+import ar.edu.itba.it.paw.model.Neighbourhood;
+import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.util.EmailUtils;
-import ar.edu.itba.it.paw.util.NumberUtils;
 
-@Component
-public class EditProfileValidator implements Validator {
+public class EditProfileValidator {
 	
-	public static final int ERROR_PASSWORDS = 0;
-	public static final int ERROR_INVALID_DATA = 1;
+	private String firstName;
+	private String lastName;
+	private String address;
+	private String email;
+	private Integer day;
+	private Integer month;
+	private Integer year;
+	private String password;
+	private String passwordConfirmation;
+	private Neighbourhood neighbourhood;
 	
-	private int errorType;
+	private String errorMessage;
 	
-	@Override
-	public void validate(Object o, Errors e) {
-		EditProfileForm form = (EditProfileForm) o;
-		String firstName = form.getFirstName();
-		String lastName = form.getLastName();
-		String address = form.getAddress();
-		String email = form.getEmail();
-		String day = form.getBirthDay();
-		String month = form.getBirthMonth();
-		String year = form.getBirthYear();
-		String neighbourhoodId = form.getNeighbourhoodId();
+	public EditProfileValidator(String firstName, String lastName, String address, String email, Integer day,
+			Integer month, Integer year, String password, String passwordConfirmation, 
+			Neighbourhood neighbourhood) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.email = email;
+		this.day = day;
+		this.month = month;
+		this.year = year;
+		this.password = password;
+		this.passwordConfirmation = passwordConfirmation;
+		this.neighbourhood = neighbourhood;
+	}
 
-		if (!form.passwordsMatch()) {
-			errorType = ERROR_PASSWORDS;
-			e.reject("Contrasena incorrecta");
-		} else if (firstName.equals("")
-				|| lastName.equals("")
-				|| address.equals("")
-				|| email.equals("")
+	public boolean isValidUser() {
+		if (firstName == null 
+				|| firstName.equals("")
+				|| lastName == null
+				|| lastName.equals("") 
+				|| address == null
+				|| address.equals("") 
+				|| email == null 
+				|| email.equals("") 
 				|| !EmailUtils.isEmail(email)
-				|| !NumberUtils.isNumber(day)
-				|| !NumberUtils.isNumber(month)
-				|| !NumberUtils.isNumber(year)
-				|| !NumberUtils.isNumber(neighbourhoodId)
-				|| !DateUtils.isDate(Integer.valueOf(day), Integer.valueOf(month), Integer.valueOf(year))) {
-			errorType = ERROR_INVALID_DATA;
-			e.reject("Error al editar el perfil");
+				|| day == null
+				|| month == null 
+				|| year == null 
+				|| neighbourhood == null 
+				|| !DateUtils.isDate(day, month, year)) {
+			errorMessage = "Error al editar el perfil";
+			return false;
+		}
+		return true;
+	}
+
+	public String getErrorMessage() {
+		return errorMessage;
+	}
+	
+	public void updateUser(Users user) {
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setAddress(address);
+		user.setEmail(email);
+		user.setBirthDay(day);
+		user.setBirthMonth(month);
+		user.setBirthYear(year);
+		user.setNeighbourhood(neighbourhood);
+		if (passwordConfirmation != null && passwordConfirmation.length() > 0) {
+			user.setPassword(passwordConfirmation);
 		}
 	}
-
-	public int getErrorType() {
-		return errorType;
-	}
 	
-	@Override
-	public boolean supports(Class<?> clazz) {
-		return EditProfileForm.class.equals(clazz);
-	}
 }
