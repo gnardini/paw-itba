@@ -13,9 +13,19 @@ import javax.persistence.OneToMany;
 public class Users extends PersistentEntity implements Serializable {
 
 	public enum Role {
-		NORMAL,
-		MANAGER,
-		ADMIN;
+		NORMAL(""),
+		MANAGER("Gerente"),
+		ADMIN("Administrador");
+		
+		private String roleName;
+		
+		private Role(String roleName) {
+			this.roleName = roleName;
+		}
+		
+		public String getRoleName() {
+			return roleName;
+		}
 	}
 	
 	String firstName;
@@ -174,9 +184,13 @@ public class Users extends PersistentEntity implements Serializable {
 		this.orders = orders;
 	}
 	
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
+	
 	@Override
 	public String toString() {
-		return firstName + " " + lastName;
+		return getFullName();
 	}
 	
 }

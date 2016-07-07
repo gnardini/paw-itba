@@ -81,5 +81,75 @@
 		</form>
 	</div>
 	<br />
+	
+	<div class="container">
+		<h3>Consultar pedidos por restorán</h3>
+		<form wicket:id="restaurantOrdersForm" role="form">
+			<div class="row">
+				<div class="col-md-4">
+					<label>Desde:</label>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input wicket:id="fromDay" type="number" class="form-control" min="1" max="31"
+							placeholder="Dia"/>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input wicket:id="fromMonth" type="number" class="form-control" min="1" max="12"
+							placeholder="Mes" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<input wicket:id="fromYear" type="number" class="form-control" min="1900"
+							placeholder="Año" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<label>Hasta:</label>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input wicket:id="toDay" type="number" class="form-control" min="1" max="31"
+							placeholder="Dia"/>
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="form-group">
+						<input wicket:id="toMonth" type="number" class="form-control" min="1" max="12"
+							placeholder="Mes" />
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="form-group">
+						<input wicket:id="toYear" type="number" class="form-control" min="1900"
+							placeholder="Año" />
+					</div>
+				</div>
+			</div>
+			<button wicket:id="searchOrdersButton" type="submit"class="btn btn-default">Buscar</button>
+		</form>
+		<div wicket:id="restaurantOrders" class="caption">
+			<h4 wicket:id="restaurantName" class="group inner list-group-item-heading" />
+			Cantidad de ordenes: <p wicket:id="ordersCount" class="group inner list-group-item-text" />
+		</div>
+	</div>
+	
+	
+	<div class="container">
+		<h3>Usuarios Registrados</h3>
+		<div wicket:id="registeredUsers" class="caption">
+			<h4 wicket:id="userName" class="group inner list-group-item-heading" />
+			<p wicket:id="userRole" class="group inner list-group-item-text" />
+			Último acceso: <p wicket:id="userLastAccess" class="group inner list-group-item-text" />
+			<button wicket:id="toggleUserEnabled" type="submit" class="btn btn-default">
+				<p wicket:id="userEnabledText" class="group inner list-group-item-text" />
+			</button>
+		</div>
+	</div>
 </div>
 </wicket:extend>

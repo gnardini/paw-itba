@@ -1,8 +1,11 @@
 package ar.edu.itba.it.paw.repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantOrderCount;
 
 public interface RestaurantRepo {
 	
@@ -11,6 +14,8 @@ public interface RestaurantRepo {
 	public List<Restaurant> getTopRestaurants();
 	
 	public List<Restaurant> getRestaurants();
+	
+	public List<RestaurantOrderCount> getRestaurantOrdersInInterval(Date fromDate, Date toDate);
 	
 	public void storeRestaurant(Restaurant restaurant);
 

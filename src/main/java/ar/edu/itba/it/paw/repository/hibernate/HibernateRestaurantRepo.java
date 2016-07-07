@@ -2,13 +2,17 @@ package ar.edu.itba.it.paw.repository.hibernate;
 
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantOrderCount;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 
 @Repository
@@ -37,6 +41,21 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	
 	public List<Restaurant> getRestaurants() {
 		return find("from Restaurant");
+	}
+	
+	public List<RestaurantOrderCount> getRestaurantOrdersInInterval(Date fromDate, Date toDate) {
+		List<RestaurantOrderCount> restaurantOrdersInInverval = new LinkedList<>();
+		for (Restaurant restaurant: getRestaurants()) {
+			int ordersInRange = 0;
+			for (Orders order: restaurant.getOrders()) {
+				Date orderDate = order.getMade();
+				if (orderDate.before(toDate) && orderDate.after(fromDate)) {
+					ordersInRange++;
+				}
+			}
+			restaurantOrdersInInverval.add(new RestaurantOrderCount(restaurant, ordersInRange));
+		}
+		return restaurantOrdersInInverval;
 	}
 	
 	public void storeRestaurant(Restaurant restaurant) {

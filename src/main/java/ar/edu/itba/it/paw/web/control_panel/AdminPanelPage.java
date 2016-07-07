@@ -1,22 +1,36 @@
 package ar.edu.itba.it.paw.web.control_panel;
 
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantOrderCount;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.validator.RestaurantValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
@@ -41,6 +55,15 @@ public class AdminPanelPage extends BasePage {
 	private transient Integer newRestaurantMinCost;
 	private transient Neighbourhood newRestaurantNeighbourhood;
 	
+	// Search restaurant orders
+	private ListView<RestaurantOrderCount> restaurantOrdersListView;
+	private transient Integer fromDay;
+	private transient Integer fromMonth;
+	private transient Integer fromYear;
+	private transient Integer toDay;
+	private transient Integer toMonth;
+	private transient Integer toYear;
+	
 	@SpringBean
 	UserRepo userRepo;
 	
@@ -54,6 +77,9 @@ public class AdminPanelPage extends BasePage {
 		setupAssignManagerForm();
 		setupNewManagerForm();
 		setupNewRestaurantForm();
+		setupRegisteredUsersList();
+		setupSearchRestaurantOrders();
+		setupRestaurantOrders();
 	}
 	
 	private void setupAssignManagerForm() {
@@ -205,6 +231,91 @@ public class AdminPanelPage extends BasePage {
 		form.add(neighbourhoodDropDown);
 		form.add(new Button("newRestaurantSubmit", new ResourceModel("newRestaurantSubmit")));
 		add(form);
+	}
+	
+	private void setupRegisteredUsersList() {
+		List<Users> usersList = userRepo.getUsers(Role.NORMAL);
+		usersList.addAll(userRepo.getUsers(Role.MANAGER));
+		ListView<Users> registeredUsers = new ListView<Users>("registeredUsers", usersList) {
+			@Override
+			protected void populateItem(final ListItem<Users> item) {
+				Users user = item.getModelObject();
+				item.add(new Label("userName", user.getFullName()));
+				item.add(new Label("userRole", user.getRole().getRoleName()));
+				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
+				
+				// TODO Set actual last access
+				item.add(new Label("userLastAccess", prettyTime.format(new Date())));
+
+				Link<Void> toggleUserLink = new Link<Void>("toggleUserEnabled") {
+					public void onClick() {
+						
+					}
+				};
+				// TODO Set real value
+				boolean isUserEnabled = true;
+				toggleUserLink.add(new Label("userEnabledText", isUserEnabled ? "Habilitado" : "Deshabilitado"));
+				item.add(toggleUserLink);
+			}
+		};
+		add(registeredUsers);
+	}
+	
+	private void setupSearchRestaurantOrders() {
+		Form<AdminPanelPage> form = new Form<AdminPanelPage>("restaurantOrdersForm",
+				new CompoundPropertyModel<AdminPanelPage>(this)) {
+
+			@Override
+			protected void onSubmit() {
+				if (fromDay == null
+						|| fromMonth == null
+						|| fromYear == null
+						|| !DateUtils.isDate(fromDay, fromMonth, fromYear)) {
+					showError("La fecha de inicio de búsqueda de restorans es inválida");
+					return;
+				}
+				if (toDay == null
+						|| toMonth == null
+						|| toYear == null
+						|| !DateUtils.isDate(toDay, toMonth, toYear)) {
+					showError("La fecha de finalización de búsqueda de restorans es inválida");
+					return;
+				}
+				Date fromDate = new Date(fromYear - 1900, fromMonth - 1, fromDay);
+				Date toDate = new Date(toYear - 1900, toMonth - 1, toDay);
+				populateRestaurantOrders(restaurantRepo.getRestaurantOrdersInInterval(fromDate, toDate));
+			}
+		};
+		
+		form.add(new NumberTextField<Integer>("fromDay").setRequired(false));
+		form.add(new NumberTextField<Integer>("fromMonth").setRequired(false));
+		form.add(new NumberTextField<Integer>("fromYear").setRequired(false));
+		form.add(new NumberTextField<Integer>("toDay").setRequired(false));
+		form.add(new NumberTextField<Integer>("toMonth").setRequired(false));
+		form.add(new NumberTextField<Integer>("toYear").setRequired(false));
+		form.add(new Button("searchOrdersButton", new ResourceModel("searchOrdersButton")));
+		add(form);
+	}
+	
+	private void setupRestaurantOrders() {
+		List<RestaurantOrderCount> restaurantEntries = new LinkedList<>();
+		restaurantOrdersListView = 
+				new ListView<RestaurantOrderCount>("restaurantOrders", restaurantEntries) {
+			@Override
+			protected void populateItem(final ListItem<RestaurantOrderCount> item) {
+				RestaurantOrderCount restaurantOrderCount = item.getModelObject();
+				item.add(new Label("restaurantName",restaurantOrderCount.getRestaurant().getName()));
+				item.add(new Label("ordersCount", String.valueOf(restaurantOrderCount.getOrderCount())));
+			}
+		};
+		restaurantOrdersListView.setVisible(false);
+		add(restaurantOrdersListView);
+	}
+	
+	private void populateRestaurantOrders(List<RestaurantOrderCount> restaurantWithOrderCount) {
+		restaurantOrdersListView.setList(restaurantWithOrderCount);
+		restaurantOrdersListView.setVisible(true);
+		System.out.println(restaurantWithOrderCount.size());
 	}
 	
 }
