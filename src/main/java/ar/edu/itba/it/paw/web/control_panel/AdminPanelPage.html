@@ -1,9 +1,85 @@
 <wicket:extend>
-<br/>
+
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li class="active">Panel De Control</li>
+</ol>
+
 <div class="container">
-	<div class="jumbotron">
-		<h1>Admin Panel</h1>
-		
+	<H2>Panel de Control</H2>
+
+	<div class="container">
+		<h3>Asignar Gerente a Restoran</h3>
+		<form wicket:id="assignManagerForm" role="form">
+			<div class="form-group">
+				<label for="managers">Seleccione gerente:</label> 
+				<select wicket:id="assignManagerManager" class="form-control" id="managers"/>
+				<label for="restaurants">Seleccione restoran:</label>
+				<select wicket:id="assignManagerRestaurant" class="form-control" id="restaurants" />
+			</div>
+			<button wicket:id="assignManagerButton" type="submit" value="Registrar" class="btn btn-default">Asignar
+				Gerente</button>
+		</form>
 	</div>
+
+	<div class="container">
+		<h3>Registrar Nuevo Gerente</h3>
+		<form wicket:id="newManagerForm" role="form">
+			<div class="form-group">
+				<label for="users">Seleccione de lista de usuarios:</label>
+				 <select wicket:id="newManagerSelected" class="form-control" id="users"/>
+			</div>
+			<button wicket:id="newManagerButton" type="submit" value="Registrar" class="btn btn-default">Registrar
+				Gerente</button>
+		</form>
+	</div>
+
+	<div class="container">
+		<h3>Nuevo Restoran</h3>
+		<form wicket:id="newRestaurantForm" role="form">
+			<div class="form-group">
+				<input wicket:id="newRestaurantName" type="text" class="form-control" placeholder="Nombre">
+			</div>
+			<div class="form-group">
+				<input wicket:id="newRestaurantMenuType" type="text" class="form-control" placeholder="Tipo de Menú">
+			</div>
+			<div class="form-group">
+				<input wicket:id="newRestaurantDescription" type="text" class="form-control" placeholder="Descripción">
+			</div>
+			<div class="form-group">
+				<input wicket:id="newRestaurantAddress" type="text" class="form-control" placeholder="Dirección">
+			</div>
+			<label>Barrio: </label>
+			<div class="form-group">
+				<select wicket:id="newRestaurantNeighbourhood" class="form-control"/>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<input type="number" class="form-control"
+							 wicket:id="newRestaurantOpeningHour"
+							placeholder="Horario de Apertura" min="0" max="23">
+					</div>
+					<div class="col-md-3">
+						<input type="number" class="form-control"
+							wicket:id="newRestaurantClosingHour"
+							placeholder="Horario de Clausura" min="0" max="23">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control"
+					wicket:id="newRestaurantDeliveryCost"
+					placeholder="Costo de Delivery">
+			</div>
+			<div class="form-group">
+				<input wicket:id="newRestaurantMinCost" type="number" class="form-control" placeholder="Costo mínimo">
+			</div>
+			
+			<button wicket:id="newRestaurantSubmit" type="submit" value="Agregar" class="btn btn-default">Agregar
+				Restoran</button>
+		</form>
+	</div>
+	<br />
 </div>
 </wicket:extend>

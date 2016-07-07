@@ -218,4 +218,5 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	public String toString() {
 		return name;
 	}
+
 }
