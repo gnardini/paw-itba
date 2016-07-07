@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.web.base;
 
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -46,6 +47,7 @@ public class BasePage extends WebPage {
 				setResponsePage(getApplication().getHomePage());
 			}
 		});
+		
 		
 		successModel = Model.of("");
 		successLabel = new Label("successMessage", successModel);
