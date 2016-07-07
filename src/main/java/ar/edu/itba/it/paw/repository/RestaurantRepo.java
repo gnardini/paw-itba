@@ -6,6 +6,7 @@ import java.util.Map;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantNeighbourhoodOrderCount;
 import ar.edu.itba.it.paw.model.RestaurantOrderCount;
 
 public interface RestaurantRepo {

@@ -315,7 +315,6 @@ public class AdminPanelPage extends BasePage {
 	private void populateRestaurantOrders(List<RestaurantOrderCount> restaurantWithOrderCount) {
 		restaurantOrdersListView.setList(restaurantWithOrderCount);
 		restaurantOrdersListView.setVisible(true);
-		System.out.println(restaurantWithOrderCount.size());
 	}
 	
 }

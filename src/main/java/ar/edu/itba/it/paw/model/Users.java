@@ -120,6 +120,27 @@ public class Users extends PersistentEntity implements Serializable {
 		return restaurants;
 	}
 	
+	public List<RestaurantNeighbourhoodOrderCount> getRestaurantOrdersByNeighbourhoodInInterval(Date fromDate, Date toDate) {
+		List<RestaurantNeighbourhoodOrderCount> restaurantOrdersInInverval = new LinkedList<>();
+		for (Restaurant restaurant: getRestaurants()) {
+			for (Neighbourhood neighbourhood: restaurant.getNeighbourhoods()) {
+				int ordersInRange = 0;
+				for (Orders order: restaurant.getOrders()) {
+					Date orderDate = order.getMade();
+					if (orderDate.before(toDate) 
+							&& orderDate.after(fromDate)
+							&& order.getUser().getNeighbourhood().equals(neighbourhood)) {
+						ordersInRange++;
+					}
+				}
+				if (ordersInRange > 0) {
+					restaurantOrdersInInverval.add(new RestaurantNeighbourhoodOrderCount(restaurant, ordersInRange, neighbourhood));
+				}
+			}
+		}
+		return restaurantOrdersInInverval;
+	}
+	
 	public List<Orders> getOrders() {
 		return orders;
 	}

@@ -1,0 +1,20 @@
+<wicket:extend>
+<ol class="breadcrumb">
+	<li><a href="/">Brand</a></li>
+	<li><a wicket:id="controlPanel">Panel de Control</a></li>
+	<li class="active">Reporte</li>
+</ol>
+
+<div class="container">
+	<H3>Reporte</H3>
+	<H4 wicket:id="restaurantName"/>
+	<H4 wicket:id="neighbourhoodName"/>
+
+	<div wicket:id="restaurantOrders" class="caption">
+		Hora: <h4 wicket:id="hour" class="group inner list-group-item-heading" />
+		Cantidad de pedidos: <p wicket:id="ordersCount" class="group inner list-group-item-text" />
+	</div>
+	
+</div>
+
+</wicket:extend>

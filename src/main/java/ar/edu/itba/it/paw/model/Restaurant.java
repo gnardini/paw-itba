@@ -166,6 +166,16 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	public List<Orders> getOrders() {
 		return orders;
 	}
+	
+	public List<Orders> getOrdersInNeighbourhood(Neighbourhood neighbourhood) {
+		List<Orders> orders = new LinkedList<>();
+		for (Orders order: getOrders()) {
+			if (order.getUser().getNeighbourhood().equals(neighbourhood)) {
+				orders.add(order);
+			}
+		}
+		return orders;
+	}
 
 	public void updateWithData(Restaurant updatedRestaurant) {
 		name = updatedRestaurant.getName();

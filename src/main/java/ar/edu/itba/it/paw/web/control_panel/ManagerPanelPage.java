@@ -2,6 +2,8 @@ package ar.edu.itba.it.paw.web.control_panel;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -9,6 +11,9 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
@@ -16,6 +21,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.model.Dish;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantNeighbourhoodOrderCount;
 import ar.edu.itba.it.paw.repository.DishRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.util.DateUtils;
@@ -35,6 +41,15 @@ public class ManagerPanelPage extends BasePage {
 	private transient Integer closeYear;
 	private transient String closeReason;
 	
+	// Search restaurant orders
+	private ListView<RestaurantNeighbourhoodOrderCount> restaurantOrdersListView;
+	private transient Integer fromDay;
+	private transient Integer fromMonth;
+	private transient Integer fromYear;
+	private transient Integer toDay;
+	private transient Integer toMonth;
+	private transient Integer toYear;
+	
 	@SpringBean
 	DishRepo dishRepo;
 	
@@ -43,6 +58,10 @@ public class ManagerPanelPage extends BasePage {
 	
 	public ManagerPanelPage() {
 		add(new Label("pageName", "Panel de Control"));
+		
+		setupSearchRestaurantOrders();
+		setupRestaurantOrders();
+
 		Form<ManagerPanelPage> addDishForm = new Form<ManagerPanelPage>("addDishForm",
 				new CompoundPropertyModel<ManagerPanelPage>(this)) {
 			@Override
@@ -117,6 +136,71 @@ public class ManagerPanelPage extends BasePage {
 		closeRestaurantForm.add(new TextField<String>("closeReason").setRequired(false));
 		closeRestaurantForm.add(new Button("closeRestaurantButton", new ResourceModel("closeRestaurantButton")));
 		add(closeRestaurantForm);
+	}
+	
+	private void setupSearchRestaurantOrders() {
+		Form<ManagerPanelPage> form = new Form<ManagerPanelPage>("restaurantOrdersForm",
+				new CompoundPropertyModel<ManagerPanelPage>(this)) {
+
+			@Override
+			protected void onSubmit() {
+				if (fromDay == null
+						|| fromMonth == null
+						|| fromYear == null
+						|| !DateUtils.isDate(fromDay, fromMonth, fromYear)) {
+					showError("La fecha de inicio de búsqueda de restorans es inválida");
+					return;
+				}
+				if (toDay == null
+						|| toMonth == null
+						|| toYear == null
+						|| !DateUtils.isDate(toDay, toMonth, toYear)) {
+					showError("La fecha de finalización de búsqueda de restorans es inválida");
+					return;
+				}
+				Date fromDate = new Date(fromYear - 1900, fromMonth - 1, fromDay);
+				Date toDate = new Date(toYear - 1900, toMonth - 1, toDay);
+				
+				populateRestaurantOrdersByNeighbourhood(
+						getUser().getRestaurantOrdersByNeighbourhoodInInterval(fromDate, toDate));
+			}
+		};
+		
+		form.add(new NumberTextField<Integer>("fromDay").setRequired(false));
+		form.add(new NumberTextField<Integer>("fromMonth").setRequired(false));
+		form.add(new NumberTextField<Integer>("fromYear").setRequired(false));
+		form.add(new NumberTextField<Integer>("toDay").setRequired(false));
+		form.add(new NumberTextField<Integer>("toMonth").setRequired(false));
+		form.add(new NumberTextField<Integer>("toYear").setRequired(false));
+		form.add(new Button("searchOrdersButton", new ResourceModel("searchOrdersButton")));
+		add(form);
+	}
+	
+	private void setupRestaurantOrders() {
+		List<RestaurantNeighbourhoodOrderCount> restaurantEntries = new LinkedList<>();
+		restaurantOrdersListView = 
+				new ListView<RestaurantNeighbourhoodOrderCount>("restaurantOrders", restaurantEntries) {
+			@Override
+			protected void populateItem(final ListItem<RestaurantNeighbourhoodOrderCount> item) {
+				final RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount = item.getModelObject();
+				item.add(new Label("restaurantName",restaurantNeighbourhoodOrderCount.getRestaurant().getName()));
+				item.add(new Label("neighbourhoodName", restaurantNeighbourhoodOrderCount.getNeighbourhood().getName()));
+				item.add(new Label("ordersCount", String.valueOf(restaurantNeighbourhoodOrderCount.getOrderCount())));
+				item.add(new Link<Void>("ordersDetail") {
+					@Override
+					public void onClick() {
+						setResponsePage(new ManagerReportDetail(restaurantNeighbourhoodOrderCount));
+					}
+				});
+			}
+		};
+		restaurantOrdersListView.setVisible(false);
+		add(restaurantOrdersListView);
+	}
+	
+	private void populateRestaurantOrdersByNeighbourhood(List<RestaurantNeighbourhoodOrderCount> ordersList) {
+		restaurantOrdersListView.setList(ordersList);
+		restaurantOrdersListView.setVisible(true);
 	}
 	
 }

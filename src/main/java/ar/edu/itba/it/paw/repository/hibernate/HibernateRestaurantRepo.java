@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
+import ar.edu.itba.it.paw.model.RestaurantNeighbourhoodOrderCount;
 import ar.edu.itba.it.paw.model.RestaurantOrderCount;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 
