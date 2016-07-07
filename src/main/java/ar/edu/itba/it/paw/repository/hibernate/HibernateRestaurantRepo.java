@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Orders;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.model.RestaurantOrderCount;
@@ -41,6 +42,17 @@ public class HibernateRestaurantRepo extends AbstractHibernateRepo implements Re
 	
 	public List<Restaurant> getRestaurants() {
 		return find("from Restaurant");
+	}
+	
+	public List<Restaurant> getNewRestaurants(Date afterDate, Neighbourhood neighbourhood) {
+		List<Restaurant> newRestaurants = new LinkedList<>();
+		for (Restaurant restaurant: getRestaurants()) {
+			if (afterDate.before(restaurant.getCreatedDate()) 
+					&& restaurant.getNeighbourhoods().contains(neighbourhood)) {
+				newRestaurants.add(restaurant);
+			}
+		}
+		return newRestaurants;
 	}
 	
 	public List<RestaurantOrderCount> getRestaurantOrdersInInterval(Date fromDate, Date toDate) {

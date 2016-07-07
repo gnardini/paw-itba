@@ -21,6 +21,7 @@ import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.validator.SignUpValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
 
 public class LoginPage extends BasePage {
 
@@ -62,9 +63,10 @@ public class LoginPage extends BasePage {
 						&& loginPassword != null 
 						&& session.login(loginEmail, loginPassword)) {
 					Users user = session.getUser();
+					Date lastLogin = user.getLastLogin();
 					user.setLastLogin(new Date());
 					userRepo.updateUser(user);
-					setResponsePage(getApplication().getHomePage());
+					setResponsePage(new RestaurantsPage(lastLogin));
 				} else {
 					showError("Usuario o contraseña incorrectos");
 				}
@@ -89,7 +91,7 @@ public class LoginPage extends BasePage {
 				if (!signUpValidator.isValidUser()) {
 					showError("Datos de registro inválidos");
 				} else if (session.signup(signUpValidator.getUser())) {
-					setResponsePage(getApplication().getHomePage());
+					setResponsePage(new RestaurantsPage(new Date(0)));
 				} else {
 					showError("El usuario ya existe");
 				}

@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -17,6 +15,8 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -239,22 +239,22 @@ public class AdminPanelPage extends BasePage {
 		ListView<Users> registeredUsers = new ListView<Users>("registeredUsers", usersList) {
 			@Override
 			protected void populateItem(final ListItem<Users> item) {
-				Users user = item.getModelObject();
+				final Users user = item.getModelObject();
 				item.add(new Label("userName", user.getFullName()));
 				item.add(new Label("userRole", user.getRole().getRoleName()));
 				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
-				
-				// TODO Set actual last access
 				item.add(new Label("userLastAccess", prettyTime.format(user.getLastLogin())));
 
+				final IModel<String> userEnabledModel = new Model<String>(user.isEnabled() ? "Habilitado" : "Deshabilitado"); 
 				Link<Void> toggleUserLink = new Link<Void>("toggleUserEnabled") {
 					public void onClick() {
-						
+						Users updatedUser = userRepo.getUser(user.getId());
+						updatedUser.setEnabled(!updatedUser.isEnabled());
+						userRepo.updateUser(updatedUser);
+						setResponsePage(new AdminPanelPage());
 					}
 				};
-				// TODO Set real value
-				boolean isUserEnabled = true;
-				toggleUserLink.add(new Label("userEnabledText", isUserEnabled ? "Habilitado" : "Deshabilitado"));
+				toggleUserLink.add(new Label("userEnabledText", userEnabledModel));
 				item.add(toggleUserLink);
 			}
 		};

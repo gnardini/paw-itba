@@ -22,6 +22,7 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	String menuType;
 	String description;
 	Date closedDate;
+	Date createdDate;
 	String closedReason;
 	
 	@OneToMany
@@ -52,7 +53,7 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	}
 
 	public Restaurant(String name, String address, int openingHour, int closingHour, int deliveryCost, int minCost,
-			String menuType, String description, Neighbourhood neighbourhood) {
+			String menuType, String description, Neighbourhood neighbourhood, Date createdDate) {
 		this.name = name;
 		this.address = address;
 		this.openingHour = openingHour;
@@ -63,6 +64,9 @@ public class Restaurant extends PersistentEntity implements Serializable {
 		this.description = description;
 		neighbourhoods = new LinkedList<>();
 		neighbourhoods.add(neighbourhood);
+		this.createdDate = createdDate;
+		this.closedDate = new Date(0);
+		this.closedReason = "";
 	}
 
 	public Restaurant() {
@@ -232,6 +236,10 @@ public class Restaurant extends PersistentEntity implements Serializable {
 		this.closedReason = closedReason;
 	}
 
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	
 	@Override
 	public String toString() {
 		return name;

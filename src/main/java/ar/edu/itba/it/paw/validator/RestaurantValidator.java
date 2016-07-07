@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.validator;
 
+import java.util.Date;
+
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
@@ -49,7 +51,7 @@ public class RestaurantValidator {
 				|| neighbourhood == null)
 			return false;
 		restaurant = new Restaurant(name, address, openingHour, closingHour, deliveryCost, minCost, menuType, 
-				description, neighbourhood);
+				description, neighbourhood, new Date());
 		return true;
 	}
 	

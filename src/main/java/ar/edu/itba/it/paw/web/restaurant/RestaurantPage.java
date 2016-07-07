@@ -230,9 +230,13 @@ public class RestaurantPage extends BasePage {
 					setResponsePage(new LoginPage());
 					return;
 				}
-				// TODO: Validar  cosas
 				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
 				Users user = getUser();
+
+				if (!user.isEnabled()) {
+					showError("El administrador ha deshabilitado su cuenta");
+					return;
+				}
 				
 				Orders order = new Orders(user, updatedRestaurant, new Date());
 				int totalPrice = 0;
