@@ -109,11 +109,19 @@
 			<version>1.5.13</version>
 		</dependency>
 		<dependency>
-			<groupId>com.ocpsoft</groupId>
-			<artifactId>ocpsoft-pretty-time</artifactId>
-			<version>1.0.7</version>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime</artifactId>
+			<version>3.2.7.Final</version>
 		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>sonatype-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
+	</repositories>
+
 
 	<build>
 		<finalName>PAWTPE</finalName>

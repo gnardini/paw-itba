@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web.orders;
 
+import java.util.Locale;
+
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -7,6 +9,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import ar.edu.itba.it.paw.model.OrderDetail;
 import ar.edu.itba.it.paw.model.Orders;
@@ -31,7 +34,8 @@ public class MyOrdersPage extends BasePage {
 				final Orders order = item.getModelObject();
 				item.add(new Label("restaurantName", order.getRestaurant().getName()));
 				item.add(new Label("price", String.format("%.02f", order.getPrice())));
-				item.add(new Label("orderDate", order.getOrderDate()));
+				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
+				item.add(new Label("orderDate", prettyTime.format(order.getMade())));
 				item.add(new Label("delivered", (order.isDelivered() ? "Entregado" : "No entregado")));
 				WebMarkupContainer deliveredButtonContainer = new WebMarkupContainer("deliveredButtonContainer");
 				deliveredButtonContainer.setVisible(!order.isDelivered());
