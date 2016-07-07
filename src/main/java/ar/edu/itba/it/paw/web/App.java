@@ -4,7 +4,6 @@ import org.apache.wicket.ConverterLocator;
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.markup.html.pages.InternalErrorPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
@@ -17,7 +16,8 @@ import org.springframework.stereotype.Component;
 import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
-import ar.edu.itba.it.paw.web.page.RestaurantsPage;
+import ar.edu.itba.it.paw.web.error.ErrorPage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
 
 @Component
 public class App extends WebApplication {
@@ -42,7 +42,7 @@ public class App extends WebApplication {
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 		getApplicationSettings().setPageExpiredErrorPage(RestaurantsPage.class);
-		getApplicationSettings().setInternalErrorPage(InternalErrorPage.class);
+		getApplicationSettings().setInternalErrorPage(ErrorPage.class);
 		getExceptionSettings().setUnexpectedExceptionDisplay(IExceptionSettings.SHOW_INTERNAL_ERROR_PAGE);
 	}
 	
