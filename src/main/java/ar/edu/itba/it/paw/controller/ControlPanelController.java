@@ -20,7 +20,6 @@ import ar.edu.itba.it.paw.repository.hibernate.HibernateRestaurantRepo;
 import ar.edu.itba.it.paw.repository.hibernate.HibernateUserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.DishValidationHelper;
-import ar.edu.itba.it.paw.validator.RestaurantValidator;
 
 @Controller
 public class ControlPanelController extends BaseController {
@@ -136,16 +135,10 @@ public class ControlPanelController extends BaseController {
 	@RequestMapping(value = "/newRestaurant", method = RequestMethod.POST)
 	public ModelAndView showNewRestaurant(HttpServletRequest req) {
 		if (!hasPermission(req, Role.ADMIN)) return new ModelAndView("redirect:restaurants");
-		RestaurantValidator validator = new RestaurantValidator(req, mNeighbourhoodRepo);
-		if (validator.isValidRestaurant()) {
-			Restaurant restaurant = validator.getRestaurant();
-			mRestaurantRepo.storeRestaurant(restaurant);
-			setMessage(req, "Nuevo restoran agregado con éxito");
-			setMessageType(req, Parameter.SUCCESS);			
-		} else {
-			setMessage(req, "Campos inválidos. No se pudo agregar el restoran");
-			setMessageType(req, Parameter.ERROR);
-		}	
+		Restaurant restaurant = new Restaurant();
+		mRestaurantRepo.storeRestaurant(restaurant);
+		setMessage(req, "Nuevo restoran agregado con éxito");
+		setMessageType(req, Parameter.SUCCESS);			
 		return showAdminPanel(req);
 	}
 }

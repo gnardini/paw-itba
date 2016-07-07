@@ -1,61 +1,64 @@
 package ar.edu.itba.it.paw.validator;
 
-import javax.servlet.http.HttpServletRequest;
-
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Restaurant;
-import ar.edu.itba.it.paw.repository.hibernate.HibernateNeighbourhoodRepo;
-import ar.edu.itba.it.paw.util.NumberUtils;
+import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 
 public class RestaurantValidator {
 
-	private HttpServletRequest mRequest;
-	private Restaurant mRestaurant;
-	private HibernateNeighbourhoodRepo mNeighbourhoodRepo;
+	private Restaurant restaurant;
+	private NeighbourhoodRepo neighbourhoodRepo;
+
+	private String name;
+	private String address;
+	private Integer openingHour;
+	private Integer closingHour;
+	private Integer deliveryCost;
+	private Integer minCost;
+	private String menuType;
+	private String description;
+	private Neighbourhood neighbourhood;
 	
-	public RestaurantValidator(HttpServletRequest request, HibernateNeighbourhoodRepo neighbourhoodRepo) {
-		mRequest = request;
-		mNeighbourhoodRepo = neighbourhoodRepo;
+	public RestaurantValidator(NeighbourhoodRepo neighbourhoodRepo, String name, String address, Integer openingHour,
+			Integer closingHour, Integer deliveryCost, Integer minCost, String menuType, String description,
+			Neighbourhood neighbourhood) {
+		this.neighbourhoodRepo = neighbourhoodRepo;
+		this.name = name;
+		this.address = address;
+		this.openingHour = openingHour;
+		this.closingHour = closingHour;
+		this.deliveryCost = deliveryCost;
+		this.minCost = minCost;
+		this.menuType = menuType;
+		this.description = description;
+		this.neighbourhood = neighbourhood;
 	}
-	
+
 	public boolean isValidRestaurant() {
-		String name = mRequest.getParameter("name");
-		String address = mRequest.getParameter("address");
-		String openingHour = mRequest.getParameter("openingHour");
-		String closingHour = mRequest.getParameter("closingHour");
-		String deliveryCost = mRequest.getParameter("deliveryCost");
-		String minCost = mRequest.getParameter("minCost");
-		String description = mRequest.getParameter("description");
-		String menuType = mRequest.getParameter("menuType");
-		String neighbourhoodId = mRequest.getParameter("neighbourhoodId");
 		if (name == "" 
 				|| menuType == ""
 				|| address == ""
-				|| !NumberUtils.isNumber(openingHour)
-				|| !isHour(Integer.valueOf(openingHour))
-				|| !NumberUtils.isNumber(closingHour)
-				|| !isHour(Integer.valueOf(closingHour))
-				|| deliveryCost == ""
-				|| deliveryCost.length() > 6
-				|| !NumberUtils.isNumber(deliveryCost)
-				|| Integer.valueOf(deliveryCost)<0
-				|| minCost == ""
-				|| minCost.length() > 6
-				|| !NumberUtils.isNumber(minCost)
-				|| Integer.valueOf(minCost)<0
-				|| !NumberUtils.isNumber(neighbourhoodId))
+				|| openingHour == null
+				|| !isHour(openingHour)
+				|| closingHour == null
+				|| !isHour(closingHour)
+				|| deliveryCost == null
+				|| deliveryCost < 0
+				|| minCost == null
+				|| minCost < 0
+				|| neighbourhood == null)
 			return false;
-		Neighbourhood neighbourhood = mNeighbourhoodRepo.getNeighbourhood(Integer.parseInt(neighbourhoodId));
-		if (neighbourhood == null) return false;
-		mRestaurant = new Restaurant(name, address, Integer.valueOf(openingHour), Integer.valueOf(closingHour), Integer.valueOf(deliveryCost), Integer.valueOf(minCost), menuType, description, neighbourhood);
+		restaurant = new Restaurant(name, address, openingHour, closingHour, deliveryCost, minCost, menuType, 
+				description, neighbourhood);
 		return true;
 	}
 	
 	public Restaurant getRestaurant() {
-		return mRestaurant;
+		return restaurant;
 	}
 	
 	private boolean isHour(int hour) {
 		return hour >= 0 && hour <= 23;
 	}
+	
 }

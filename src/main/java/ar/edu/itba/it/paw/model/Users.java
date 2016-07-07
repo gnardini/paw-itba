@@ -173,4 +173,10 @@ public class Users extends PersistentEntity implements Serializable {
 	public void setOrders(List<Orders> orders) {
 		this.orders = orders;
 	}
+	
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
+	}
+	
 }
