@@ -66,6 +66,10 @@ public class RestaurantPage extends BasePage {
 	CommentRepo commentRepo;
 	
 	public RestaurantPage(Restaurant restaurant) {
+		if(restaurant==null){
+			showError("Restoran invalido");
+			return;
+		}
 		addLabel(restaurant, "name");
 		add(new Label("ranking", String.format("%.02f", restaurant.getRanking())));
 		addLabel(restaurant, "menuType");
@@ -126,8 +130,12 @@ public class RestaurantPage extends BasePage {
 
 			@Override
 			protected void onSubmit() {
+				if(newNeighbourhood==null){
+					showError("Seleccion un barrio para agregar");
+					return;
+				}
 				if (restaurant.reachesNeighbourhood(newNeighbourhood)) {
-					showMessage("El barrio ya se encuentra agregado", Parameter.ERROR);
+					showError("El barrio ya se encuentra agregado");
 					return;
 				}
 				restaurant.addNeighbourhood(newNeighbourhood);
@@ -135,7 +143,7 @@ public class RestaurantPage extends BasePage {
 				setResponsePage(getPage());
 			}
 		};
-		neighbourhoodDropDown.setRequired(true);
+		neighbourhoodDropDown.setRequired(false);
 		form.add(neighbourhoodDropDown);
 		form.add(new Button("newNeightbourhoodButton", new ResourceModel("newNeightbourhoodButton")));
 		formContainer.add(form);
@@ -154,12 +162,16 @@ public class RestaurantPage extends BasePage {
 
 			@Override
 			protected void onSubmit() {
+				if(oldNeighbourhood==null){
+					showError("Seleccione un barrio para eliminar");
+					return;
+				}
 				if (!restaurant.reachesNeighbourhood(oldNeighbourhood)) {
-					showMessage("El barrio no se encuentra agregado", Parameter.ERROR);
+					showError("El barrio no se encuentra agregado");
 					return;
 				}
 				if (restaurant.getNeighbourhoods().size() <= 1) {
-					showMessage("No se puede quitar el restoran (tiene que haber por lo menos uno)", Parameter.ERROR);
+					showError("No se puede quitar el restoran (tiene que haber por lo menos uno)");
 					return;
 				}
 				restaurant.removeNeighbourhood(oldNeighbourhood);
@@ -167,7 +179,7 @@ public class RestaurantPage extends BasePage {
 				setResponsePage(getPage());
 			}
 		};
-		neighbourhoodDropDown.setRequired(true);
+		neighbourhoodDropDown.setRequired(false);
 		form.add(neighbourhoodDropDown);
 		form.add(new Button("removeNeighbourhoodButton", new ResourceModel("removeNeighbourhoodButton")));
 		formContainer.add(form);
@@ -194,9 +206,8 @@ public class RestaurantPage extends BasePage {
 			protected void onSubmit() {
 				Restaurant restaurant = restaurantRepo.getRestaurant(restaurantId);
 				Users user = getUser();
-				
 				if (user.getRole() != Role.ADMIN) {
-					showMessage("Solo el Admin puede borrar restoranes", Parameter.ERROR);
+					showError("Solo el Admin puede borrar restoranes");
 					setResponsePage(getPage());
 				}
 				restaurantRepo.deleteRestaurant(restaurant);

@@ -25,7 +25,7 @@ public class DishValidationHelper {
 	public boolean isValidDish() {
 		if (name == null || name == "" ||
 				description == null || description == "" ||
-				price == null || menu == null)
+				price == null || price<=0 || menu == null)
 			return false;
 		mDish = new Dish(mRestaurant, name, description, price, menu);
 		return true;
