@@ -133,11 +133,13 @@
 			</div>
 			<button wicket:id="searchOrdersButton" type="submit"class="btn btn-default">Buscar</button>
 		</form>
+		</br>
 		<div wicket:id="restaurantOrders" class="caption">
 			<h4 wicket:id="restaurantName" class="group inner list-group-item-heading" />
-			Cantidad de ordenes: <p wicket:id="ordersCount" class="group inner list-group-item-text" />
+			Cantidad de ordenes: <span wicket:id="ordersCount" class="group inner list-group-item-text" />
 		</div>
 	</div>
+	</br>
 	
 	
 	<div class="container">
@@ -145,9 +147,9 @@
 		<div wicket:id="registeredUsers" class="caption">
 			<h4 wicket:id="userName" class="group inner list-group-item-heading" />
 			<p wicket:id="userRole" class="group inner list-group-item-text" />
-			Último acceso: <p wicket:id="userLastAccess" class="group inner list-group-item-text" />
+			Último acceso: <span wicket:id="userLastAccess" class="group inner list-group-item-text" />
 			<button wicket:id="toggleUserEnabled" type="submit" class="btn btn-default">
-				<p wicket:id="userEnabledText" class="group inner list-group-item-text" />
+				<span wicket:id="userEnabledText" class="group inner list-group-item-text" />
 			</button>
 		</div>
 	</div>

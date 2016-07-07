@@ -1,7 +1,11 @@
 package ar.edu.itba.it.paw.web.login;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Properties;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -24,6 +28,17 @@ public class ChangePasswordPage extends BasePage {
 	UserRepo userRepo;
 	
 	public ChangePasswordPage(final Users user) {
+		try {
+			Properties properties = new Properties();
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
+			if (inputStream != null) {
+				properties.load(inputStream);
+			}
+			int passwordChangeDaysLimit = Integer.valueOf(properties.getProperty("passwordChangeDaysLimit"));
+			add(new Label("passMaxDay", String.valueOf(passwordChangeDaysLimit)));
+		} catch (IOException ioException) {
+			
+		}
 		Form<ChangePasswordPage> form = new Form<ChangePasswordPage>("changePasswordForm",
 				new CompoundPropertyModel<ChangePasswordPage>(this)) {
 

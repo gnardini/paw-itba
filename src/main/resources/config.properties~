@@ -2,4 +2,4 @@
 uri=postgres://vnujwmaqvlkumo:qgioearWoClJBnmrPA7UuAN3_C@ec2-50-16-238-141.compute-1.amazonaws.com:5432/damme70ltpgg7c
 ssloff=?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory
 
-passwordChangeDaysLimit=7
+passwordChangeDaysLimit=0

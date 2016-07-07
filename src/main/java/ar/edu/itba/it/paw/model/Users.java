@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 public class Users extends PersistentEntity implements Serializable {
 
 	public enum Role {
-		NORMAL(""),
+		NORMAL("Cliente"),
 		MANAGER("Gerente"),
 		ADMIN("Administrador");
 		
