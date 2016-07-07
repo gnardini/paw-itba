@@ -33,7 +33,7 @@ public class BasePage extends WebPage {
 
 		Panel login = null;
 		if (session.isLogged()) {
-			login = new LoggedPanel("navBarPanel");
+			login = new LoggedPanel("navBarPanel", loggedUser);
 		} else {
 			login = new LoginPanel("navBarPanel");
 		}
