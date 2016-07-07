@@ -371,8 +371,8 @@ public class RestaurantPage extends BasePage {
 			}
 		};
 		
-		form.add(new NumberTextField<Integer>("newCommentScore").setRequired(true));
-		form.add(new TextField<String>("newCommentComment").setRequired(true));
+		form.add(new NumberTextField<Integer>("newCommentScore").setRequired(false));
+		form.add(new TextField<String>("newCommentComment").setRequired(false));
 		form.add(new Button("newCommentButton", new ResourceModel("newCommentButton")));
 		
 		newCommentContainer.add(form);
