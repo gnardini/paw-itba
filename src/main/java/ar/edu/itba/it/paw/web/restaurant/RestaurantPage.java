@@ -226,12 +226,13 @@ public class RestaurantPage extends BasePage {
 				Orders order = new Orders(user, updatedRestaurant, new Date());
 				int totalPrice = 0;
 				for (DishPanel dishPanel: dishPanels) {
-					if (dishPanel.getDishCount() > 0) {
+					int dishCount = dishPanel.getDishCount();
+					if (dishCount > 0) {
 						Dish dish = dishPanel.getDish();
 						// TODO validate
-						order.addDetail(dish.getName(), dish.getPrice(), dishPanel.getDishCount());
-						totalPrice += dish.getPrice() * dishPanel.getDishCount();
-					} else if (dishPanel.getDishCount() == -1) {
+						order.addDetail(dish.getName(), dish.getPrice(), dishCount);
+						totalPrice += dish.getPrice() * dishCount;
+					} else if (dishCount == -1) {
 						showMessage("Cantidad de platos pedidos inválida", Parameter.ERROR);
 						setResponsePage(getPage());
 						return;

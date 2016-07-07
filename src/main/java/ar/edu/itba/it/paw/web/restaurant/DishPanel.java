@@ -40,6 +40,9 @@ public class DishPanel extends Panel {
 	
 	public int getDishCount() {
 		String dishCount = dishCountTextField.getModelObject();
+		if(dishCount==null || dishCount.equals("")){
+			return 0;
+		}
 		if (NumberUtils.isNumber(dishCount)) {
 			return Integer.valueOf(dishCount);
 		}
