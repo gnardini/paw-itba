@@ -18,6 +18,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
+import ar.edu.itba.it.paw.util.DateUtils;
+import ar.edu.itba.it.paw.util.EmailUtils;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
@@ -50,6 +52,14 @@ public class ProfilePage extends BasePage {
 			protected void onSubmit() {
 				if(!loggedUser.getPassword().equals(oldPassword)){
 					showMessage("Contraseña incorrecta", Parameter.ERROR);
+					return;
+				}
+				if(!DateUtils.isDate(birthDay, birthMonth, birthYear)){
+					showMessage("Fecha invalida", Parameter.ERROR);
+					return;
+				}
+				if(!EmailUtils.isEmail(email)){
+					showMessage("Email invalido", Parameter.ERROR);
 					return;
 				}
 				loggedUser.setEmail(email);
