@@ -1,6 +1,9 @@
 package ar.edu.itba.it.paw.web.login;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Properties;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -63,10 +66,29 @@ public class LoginPage extends BasePage {
 						&& loginPassword != null 
 						&& session.login(loginEmail, loginPassword)) {
 					Users user = session.getUser();
-					Date lastLogin = user.getLastLogin();
-					user.setLastLogin(new Date());
-					userRepo.updateUser(user);
-					setResponsePage(new RestaurantsPage(lastLogin));
+					
+					boolean mustChangePassword = false;
+					try {
+						Properties properties = new Properties();
+						InputStream inputStream = getClass().getClassLoader().getResourceAsStream("config.properties");
+						if (inputStream != null) {
+							properties.load(inputStream);
+						}
+						int passwordChangeDaysLimit = Integer.valueOf(properties.getProperty("passwordChangeDaysLimit"));
+						long timeSinceLastChange = new Date().getTime() - user.getLastPasswordChange().getTime();
+						int daysSinceLastChange = (int) (timeSinceLastChange / (24 * 60 * 60 * 1000));
+						mustChangePassword = daysSinceLastChange >= passwordChangeDaysLimit;
+					} catch (IOException ioException) {
+					}
+					if (mustChangePassword) {
+						session.softLogout();
+						setResponsePage(new ChangePasswordPage(user));
+					} else {
+						Date lastLogin = user.getLastLogin();
+						user.setLastLogin(new Date());
+						userRepo.updateUser(user);
+						setResponsePage(new RestaurantsPage(lastLogin));
+					}
 				} else {
 					showError("Usuario o contraseña incorrectos");
 				}

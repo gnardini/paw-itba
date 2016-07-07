@@ -57,6 +57,10 @@ public class WicketSessionManager extends WebSession implements SessionManager {
 		return true;
 	}
 
+	public void softLogout() {
+		email = null;
+	}
+	
 	public void logout() {
 		email = null;
 		invalidate();

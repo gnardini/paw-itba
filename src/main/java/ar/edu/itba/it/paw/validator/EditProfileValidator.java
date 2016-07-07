@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.validator;
 
+import java.util.Date;
+
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.util.DateUtils;
@@ -71,6 +73,7 @@ public class EditProfileValidator {
 		user.setNeighbourhood(neighbourhood);
 		if (passwordConfirmation != null && passwordConfirmation.length() > 0) {
 			user.setPassword(passwordConfirmation);
+			user.setLastPasswordChange(new Date());
 		}
 	}
 	
