@@ -90,7 +90,7 @@ public class LoginPage extends BasePage {
 						setResponsePage(new RestaurantsPage(lastLogin));
 					}
 				} else {
-					showError("Usuario o contraseña incorrectos");
+					showError(getString("invalid_user_or_password"));
 				}
 			}
 		};
@@ -111,11 +111,11 @@ public class LoginPage extends BasePage {
 				SignUpValidator signUpValidator = new SignUpValidator(firstName, lastName, address, email, 
 						birthDay, birthMonth, birthYear, loginPassword, neighbourhood);
 				if (!signUpValidator.isValidUser()) {
-					showError("Datos de registro inválidos");
+					showError(getString("invalid_fields"));
 				} else if (session.signup(signUpValidator.getUser())) {
 					setResponsePage(new RestaurantsPage(new Date(0)));
 				} else {
-					showError("El usuario ya existe");
+					showError(getString("user_already_exists"));
 				}
 			}
 		};

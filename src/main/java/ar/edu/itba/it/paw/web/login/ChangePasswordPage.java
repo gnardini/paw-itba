@@ -46,12 +46,12 @@ public class ChangePasswordPage extends BasePage {
 			protected void onSubmit() {
 				if (oldPassword == null 
 						|| !oldPassword.equals(user.getPassword())) {
-					showError("La contraseña es incorrecta");
+					showError(getString("invalid_password"));
 					return;
 				}
 				if (newPassword == null
 						|| newPassword.equals(oldPassword)) {
-					showError("La nueva contraseña no puede ser igual a la anterior");
+					showError(getString("same_password"));
 					return;
 				}
 				

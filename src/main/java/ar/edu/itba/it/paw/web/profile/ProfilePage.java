@@ -54,18 +54,18 @@ public class ProfilePage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				if (!loggedUser.getPassword().equals(oldPassword)) {
-					showMessage("Contraseña incorrecta", Parameter.ERROR);
+					showError(getString("invalid_password"));
 					return;
 				}
 				if (birthDay == null
 						|| birthMonth == null
 						|| birthYear == null
 						|| !DateUtils.isDate(birthDay, birthMonth, birthYear)) {
-					showMessage("Fecha invalida", Parameter.ERROR);
+					showError(getString("invalid_date"));
 					return;
 				}
 				if (!EmailUtils.isEmail(email)) {
-					showMessage("Email invalido", Parameter.ERROR);
+					showError(getString("invalid_email"));
 					return;
 				}
 				EditProfileValidator editProfileValidator = new EditProfileValidator(firstName, lastName, address, email, 
@@ -73,9 +73,9 @@ public class ProfilePage extends BasePage {
 				if (editProfileValidator.isValidUser()) {
 					editProfileValidator.updateUser(loggedUser);
 					userRepo.updateUser(loggedUser);
-					showSuccess("Cambios Guardados");
+					showSuccess(getString("changes_saved"));
 				} else {
-					showError(editProfileValidator.getErrorMessage());
+					showError(getString("error_while_editing_profile"));
 				}
 			}
 		};

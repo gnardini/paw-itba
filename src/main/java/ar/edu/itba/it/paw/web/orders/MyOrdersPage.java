@@ -27,7 +27,6 @@ public class MyOrdersPage extends BasePage {
 			setResponsePage(getApplication().getHomePage());
 			return;
 		}
-		add(new Label("pageName", "Mis Pedidos"));
 		ListView<Orders> orderListView = new ListView<Orders>("orderList", loggedUser.getOrders()) {
 			@Override
 			protected void populateItem(ListItem<Orders> item) {
@@ -36,7 +35,7 @@ public class MyOrdersPage extends BasePage {
 				item.add(new Label("price", String.format("%.02f", order.getPrice())));
 				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
 				item.add(new Label("orderDate", prettyTime.format(order.getMade())));
-				item.add(new Label("delivered", (order.isDelivered() ? "Entregado" : "No entregado")));
+				item.add(new Label("delivered", (order.isDelivered() ? getString("delivered") : getString("not_delivered"))));
 				WebMarkupContainer deliveredButtonContainer = new WebMarkupContainer("deliveredButtonContainer");
 				deliveredButtonContainer.setVisible(!order.isDelivered());
 				deliveredButtonContainer.add(new Link<Void>("deliveredButton") {
