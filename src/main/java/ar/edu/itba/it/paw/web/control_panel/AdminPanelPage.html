@@ -2,24 +2,23 @@
 
 	<ol class="breadcrumb">
 		<li><a href="/">Brand</a></li>
-		<li class="active">Panel De Control</li>
+		<li class="active"><wicket:message key="control_panel"/></li>
 	</ol>
 
 	<div class="container">
-		<H2>Panel de Control</H2>
+		<H2><wicket:message key="control_panel"/></H2>
 
 		<div class="well well-sm">
-			<strong>Asignar gerente a restoran</strong>
+			<strong><wicket:message key="manager_assignment"/></strong>
 		</div>
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<form wicket:id="assignManagerForm" role="form">
 					<div class="form-group">
-						<label for="managers">Seleccione gerente:</label> <select
+						<label for="managers"><wicket:message key="select_manager"/>:</label> <select
 							wicket:id="assignManagerManager" class="form-control"
-							id="managers" /> <label for="restaurants">Seleccione
-							restoran:</label> <select wicket:id="assignManagerRestaurant"
+							id="managers" /> <label for="restaurants"><wicket:message key="select_restaurant"/>:</label> <select wicket:id="assignManagerRestaurant"
 							class="form-control" id="restaurants" />
 					</div>
 					<button wicket:id="assignManagerButton" type="submit"
@@ -30,24 +29,24 @@
 		<br/>
 
 		<div class="well well-sm">
-			<strong>Registrar nuevo gerente</strong>
+			<strong><wicket:message key="new_manager_registration"/></strong>
 		</div>
 
 		<div class="row">
 			<div class="col-md-10 col-md-offset-1">
 				<form wicket:id="newManagerForm" role="form">
 					<div class="form-group">
-						<label for="users">Seleccione de lista de usuarios:</label> <select
+						<label for="users"><wicket:message key="select_from_users"/>:</label> <select
 							wicket:id="newManagerSelected" class="form-control" id="users" />
 					</div>
 					<button wicket:id="newManagerButton" type="submit" value="Registrar"
-						class="btn btn-default">Registrar Gerente</button>
+						class="btn btn-default"><wicket:message key="manager_registration"/></button>
 				</form>
 			</div>
 		</div>
 		<br/>
 		<div class="well well-sm">
-			<strong>Nuevo restoran</strong>
+			<strong><wicket:message key="new_restaurant"/></strong>
 		</div>
 
 		<div class="row">
@@ -55,19 +54,19 @@
 				<form wicket:id="newRestaurantForm" role="form">
 					<div class="form-group">
 						<input wicket:id="newRestaurantName" type="text"
-							class="form-control" placeholder="Nombre">
+							class="form-control" wicket:message="placeholder:name">
 					</div>
 					<div class="form-group">
 						<input wicket:id="newRestaurantMenuType" type="text"
-							class="form-control" placeholder="Tipo de Menú">
+							class="form-control" wicket:message="placeholder:menu_type">
 					</div>
 					<div class="form-group">
 						<input wicket:id="newRestaurantDescription" type="text"
-							class="form-control" placeholder="Descripción">
+							class="form-control" wicket:message="placeholder:description">
 					</div>
 					<div class="form-group">
 						<input wicket:id="newRestaurantAddress" type="text"
-							class="form-control" placeholder="Dirección">
+							class="form-control" wicket:message="placeholder:address">
 					</div>
 					<label>Barrio: </label>
 					<div class="form-group">
@@ -78,34 +77,34 @@
 							<div class="col-md-3">
 								<input type="number" class="form-control"
 									wicket:id="newRestaurantOpeningHour"
-									placeholder="Horario de Apertura" min="0" max="23">
+									wicket:message="placeholder:opening_hour" min="0" max="23">
 							</div>
 							<div class="col-md-3">
 								<input type="number" class="form-control"
 									wicket:id="newRestaurantClosingHour"
-									placeholder="Horario de Clausura" min="0" max="23">
+									wicket:message="placeholder:closing_hour" min="0" max="23">
 							</div>
 						</div>
 					</div>
 					<div class="form-group">
 						<input type="number" class="form-control"
 							wicket:id="newRestaurantDeliveryCost"
-							placeholder="Costo de Delivery">
+							wicket:message="placeholder:delivery_cost">
 					</div>
 					<div class="form-group">
 						<input wicket:id="newRestaurantMinCost" type="number"
-							class="form-control" placeholder="Costo mínimo">
+							class="form-control" wicket:message="placeholder:min_cost">
 					</div>
 	
 					<button wicket:id="newRestaurantSubmit" type="submit"
-						value="Agregar" class="btn btn-default">Agregar Restoran</button>
+						value="Agregar" class="btn btn-default"><wicket:message key="add_restaurant"/></button>
 				</form>
 			</div>
 		</div>
 		<br />
 
 		<div class="well well-sm">
-			<strong>Consultar pedidos por restoran</strong>
+			<strong><wicket:message key="orders_per_restaurant"/></strong>
 		</div>
 
 		<div class="row">
@@ -113,52 +112,52 @@
 				<form wicket:id="restaurantOrdersForm" role="form">
 					<div class="row">
 						<div class="col-md-4">
-							<label>Desde:</label>
+							<label><wicket:message key="from"/>:</label>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input wicket:id="fromDay" type="number" class="form-control"
-									min="1" max="31" placeholder="Dia" />
+									min="1" max="31" wicket:message="placeholder:day" />
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input wicket:id="fromMonth" type="number" class="form-control"
-									min="1" max="12" placeholder="Mes" />
+									min="1" max="12" wicket:message="placeholder:month" />
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<input wicket:id="fromYear" type="number" class="form-control"
-									min="1900" placeholder="Año" />
+									min="1900" wicket:message="placeholder:year" />
 							</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
-							<label>Hasta:</label>
+							<label><wicket:message key="to"/>:</label>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input wicket:id="toDay" type="number" class="form-control"
-									min="1" max="31" placeholder="Dia" />
+									min="1" max="31" wicket:message="placeholder:day" />
 							</div>
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
 								<input wicket:id="toMonth" type="number" class="form-control"
-									min="1" max="12" placeholder="Mes" />
+									min="1" max="12" wicket:message="placeholder:month" />
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								<input wicket:id="toYear" type="number" class="form-control"
-									min="1900" placeholder="Año" />
+									min="1900" wicket:message="placeholder:year" />
 							</div>
 						</div>
 					</div>
 					<button wicket:id="searchOrdersButton" type="submit"
-						class="btn btn-default">Buscar</button>
+						class="btn btn-default"><wicket:message key="search"/></button>
 				</form>
 				<br/>
 				<div wicket:id="restaurantOrders" class="caption">
@@ -166,7 +165,7 @@
 						<div class="col-md-3 panel panel-default elem-panel">
 							<h4 wicket:id="restaurantName "
 								class="group inner list-group-item-heading" />
-							Cantidad de ordenes: <span wicket:id="ordersCount"
+							<wicket:message key="order_count"/>: <span wicket:id="ordersCount"
 								class="group inner list-group-item-text" />
 						</div>
 					</div>
@@ -177,7 +176,7 @@
 
 
 		<div class="well well-sm">
-			<strong>Usuarios registrados</strong>
+			<strong><wicket:message key="registered_users"/></strong>
 		</div>
 
 		<div class="row">
