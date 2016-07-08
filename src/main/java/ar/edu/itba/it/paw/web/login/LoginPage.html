@@ -1,39 +1,30 @@
-<html>
-<head>
-</head>
-<body>
-	
-	<wicket:extend>
+<wicket:extend>
 
 <ol class="breadcrumb">
 	<li><a href="/">Brand</a></li>
-	<li class="active">Iniciar Sesión</li>
+	<li class="active"><wicket:message key="login">Iniciar sesión</wicket:message></li>
 </ol>
-
-<!--
-<%@ include file="message.jsp"%>
--->
 
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-			<H3>Iniciar Sesión</H3>
+			<H3><wicket:message key="login">Iniciar sesión</wicket:message></H3>
 
 			<form wicket:id="logInForm" role="form">
 				<div class="form-group">
-					<input wicket:id="loginEmail" type="email" class="form-control" placeholder="Mail"
+					<input wicket:id="loginEmail" type="email" class="form-control" wicket:message="placeholder:email"
 						name="email">
 				</div>
 				<div class="form-group">
 					<input wicket:id="loginPassword" type="password" class="form-control"
 						placeholder="Contraseña" name="password">
 				</div>
-				<button wicket:id="loginButton" type="submit" value="Entrar" class="btn btn-default">Entrar</button>
+				<button wicket:id="loginButton" type="submit" value="Entrar" class="btn btn-default"><wicket:message key="enter">Entrar</wicket:message></button>
 
 			</form>
 		</div>
 		<div class="col-md-6">
-			<H3>Registro</H3>
+			<H3><wicket:message key="register">Registro</wicket:message></H3>
 			<form wicket:id="signUpForm" role="form">
 				<div class="form-group">
 					<input wicket:id="email" type="email" class="form-control" placeholder="Mail"
@@ -57,7 +48,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<label>Barrio:</label>
+						<label><wicket:message key="neighbourhood">Barrio:</wicket:message></label>
 					</div>
 				</div>
 				<div class="row">
@@ -69,7 +60,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<label>Fecha de Nacimiento:</label>
+						<label><wicket:message key="birthdate">Fecha de nacimiento:</wicket:message></label>
 					</div>
 					<div class="col-md-2">
 						<div class="form-group">
@@ -93,14 +84,12 @@
 
 
 
-				<button type="submit" wicket:id="signUpButton" value="Registrar" class="btn btn-default">Registrar</button>
+				<button type="submit" wicket:id="signUpButton" value="Registrar" class="btn btn-default"><wicket:message key="register_button">Registrar</wicket:message></button>
 			</form>
 		</div>
 	</div>
 </div>
 
 
-	</wicket:extend>
-</body>
-</html>
+</wicket:extend>
 

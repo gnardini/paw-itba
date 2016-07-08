@@ -3,72 +3,71 @@
 		<li><a href="/">Brand</a></li>
 		<li class="active"><span wicket:id="pageName" /></li>
 	</ol>
-
+	
 	<div class="container">
-		<H3>Perfil</H3>
+		<H3><wicket:message key="profile"/></H3>
 		<form wicket:id="editForm">
 
-			<label>Email:</label>
+			<label><wicket:message key="email_label"/></label>
 			<div class="form-group">
-				<input type="email" class="form-control" placeholder="Mail"
+				<input type="email" class="form-control" wicket:message="placeholder:email"
 					wicket:id="email" />
 			</div>
-			<label>Contraseña actual (necesaria para comfirmar cambios):</label>
+			<label><wicket:message key="current_password_label"/></label>
 			<div class="form-group">
 				<input type="password" class="form-control"
-					placeholder="Contraseña actual" wicket:id="oldPassword" />
+					wicket:message="placeholder:current_password" wicket:id="oldPassword" />
 			</div>
-			<label>Contraseña nueva (dejela vacía si no quiere
-				modificarla):</label>
+			<label><wicket:message key="new_password_label"/></label>
 			<div class="form-group">
 				<input type="password" class="form-control"
-					placeholder="Contraseña nueva" wicket:id="newPassword" />
+					wicket:message="placeholder:new_password" wicket:id="newPassword" />
 			</div>
-			<label>Nombre:</label>
+			<label><wicket:message key="first_name_label"/></label>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Nombre"
+				<input type="text" class="form-control" wicket:message="placeholder:first_name"
 					wicket:id="firstName" />
 			</div>
-			<label>Apellido:</label>
+			<label><wicket:message key="last_name_label"/></label>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Apellido"
+				<input type="text" class="form-control" wicket:message="placeholder:last_name"
 					wicket:id="lastName" />
 			</div>
-			<label>Dirección:</label>
+			<label><wicket:message key="address_label"/></label>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Dirección"
+				<input type="text" class="form-control" wicket:message="placeholder:address"
 					wicket:id="address" />
 			</div>
-			<label>Barrio:</label> 
+			<label><wicket:message key="neighbourhood_label"/></label> 
 			<select wicket:id="neighbourhood"
-				class="form-control" placeholder="Barrio" />
+				class="form-control" wicket:message="placeholder:neighbourhood" />
 			<br />
 			<div class="row">
 				<div class="col-md-4">
-					<label>Fecha de Nacimiento:</label>
+					<label><wicket:message key="birthdate_label"/></label>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group">
 						<input type="number" class="form-control" min="1" max="31"
-							placeholder="Dia" wicket:id="birthDay" />
+							wicket:message="placeholder:day" wicket:id="birthDay" />
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="form-group">
 						<input type="number" class="form-control" min="1" max="12"
-							placeholder="Mes" wicket:id="birthMonth" />
+							wicket:message="placeholder:month" wicket:id="birthMonth" />
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group">
 						<input type="number" class="form-control" min="1900"
-							placeholder="Año" wicket:id="birthYear" />
+							wicket:message="placeholder:year" wicket:id="birthYear" />
 					</div>
 				</div>
 			</div>
 
 			<button wicket:id="saveChangesButton" type="submit"
-				class="btn btn-default">Guardar Cambios</button>
+				class="btn btn-default"><wicket:message key="save_changes"/></button>
 		</form>
 		<br />
 

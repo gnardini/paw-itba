@@ -78,15 +78,16 @@ public class BasePage extends WebPage {
 		return user != null && user.getRole() == Role.ADMIN;
 	}
 
-	protected void showSuccess(String message) {
-		showMessage(message, Parameter.SUCCESS);
+	protected void showSuccess(String key) {
+		showMessage(key, Parameter.SUCCESS);
 	}
 	
-	protected void showError(String message) {
-		showMessage(message, Parameter.ERROR);
+	protected void showError(String key) {
+		showMessage(key, Parameter.ERROR);
 	}
 	
-	protected void showMessage(String message, String parameter) {
+	protected void showMessage(String key, String parameter) {
+		String message = getString(key);
 		boolean isSuccess = parameter.equalsIgnoreCase(Parameter.SUCCESS);
 		boolean isError = parameter.equalsIgnoreCase(Parameter.ERROR);
 		successLabel.setVisible(isSuccess);
