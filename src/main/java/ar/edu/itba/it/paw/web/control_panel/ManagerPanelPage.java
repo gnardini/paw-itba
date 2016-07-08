@@ -57,7 +57,7 @@ public class ManagerPanelPage extends BasePage {
 	RestaurantRepo restaurantRepo;
 	
 	public ManagerPanelPage() {
-		add(new Label("pageName", "Panel de Control"));
+		add(new Label("pageName", getString("control_panel")));
 		
 		setupSearchRestaurantOrders();
 		setupRestaurantOrders();
@@ -69,16 +69,16 @@ public class ManagerPanelPage extends BasePage {
 				
 				DishValidationHelper validator = new DishValidationHelper(dishName,dishDescription,dishPrice,menuType,restaurant);
 				if (!validator.isValidDish()) {
-					showError("Plato invalido");
+					showError(getString("invalid_dish"));
 				} else if (!loggedUser.isManagerOf(restaurant)) {
-					showError("No eres gerente del restaurant");
+					showError(getString("not_manager"));
 				} else {
 					Dish dish = validator.getDish();
 					dishRepo.addDish(dish);
 					Restaurant fetchedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
 					fetchedRestaurant.addDish(dish);
 					restaurantRepo.updateRestaurant(fetchedRestaurant);
-					showSuccess("Nuevo plato agregado con exito");
+					showSuccess(getString("new_dish_success"));
 				}
 			}
 		};
@@ -105,21 +105,21 @@ public class ManagerPanelPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				if(closeDay==null || closeMonth==null || closeYear==null || closeReason==null || closeReason==""){
-					showError("No se puede cerrar el restoran sin fecha de reapertura o razon");
+					showError(getString("close_restaurant_failed"));
 					return;
 				}
 				if(!DateUtils.isDate(closeDay, closeMonth, closeYear)){
-					showError("Fecha inválida");
+					showError(getString("invalid_date"));
 				}
 				if(closeReason.length()>Parameter.closeReasonStringLenght){
-					showError("Razón de cierre muy larga");
+					showError(getString("closing_reason_too_long"));
 					return;
 				}
 				Restaurant fetchedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
 				fetchedRestaurant.setClosedDate(new Date(closeYear-1900, closeMonth-1, closeDay));
 				fetchedRestaurant.setClosedReason(closeReason);
 				restaurantRepo.updateRestaurant(fetchedRestaurant);
-				showSuccess("Restoran cerrado éxitosamente");
+				showSuccess(getString("restaurant_closing_success"));
 			}
 		};
 		
@@ -148,14 +148,14 @@ public class ManagerPanelPage extends BasePage {
 						|| fromMonth == null
 						|| fromYear == null
 						|| !DateUtils.isDate(fromDay, fromMonth, fromYear)) {
-					showError("La fecha de inicio de búsqueda de restorans es inválida");
+					showError(getString("invalid_from_date"));
 					return;
 				}
 				if (toDay == null
 						|| toMonth == null
 						|| toYear == null
 						|| !DateUtils.isDate(toDay, toMonth, toYear)) {
-					showError("La fecha de finalización de búsqueda de restorans es inválida");
+					showError(getString("invalid_to_date"));
 					return;
 				}
 				Date fromDate = new Date(fromYear - 1900, fromMonth - 1, fromDay);

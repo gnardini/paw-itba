@@ -66,6 +66,8 @@ public class Users extends PersistentEntity implements Serializable {
 		this.password = password;
 		this.neighbourhood = neighbourhood;
 		restaurants = new LinkedList<>();
+		this.lastLogin = new Date();
+		this.lastPasswordChange = new Date();
 	}
 	
 	public String getFirstName() {

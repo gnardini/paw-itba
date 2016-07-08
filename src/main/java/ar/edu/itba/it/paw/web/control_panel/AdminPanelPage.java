@@ -96,7 +96,7 @@ public class AdminPanelPage extends BasePage {
 				}
 				
 				if (assignManagerManager == null || assignManagerRestaurant == null) {
-					showError("Debes seleccionar un manager y un restoran a asignar");
+					showError(getString("must_choose_manager_restaurant"));
 					return;
 				}
 				
@@ -106,7 +106,7 @@ public class AdminPanelPage extends BasePage {
 						restaurantRepo.getRestaurant(AdminPanelPage.this.assignManagerRestaurant.getId());
 				
 				if (assignManagerManager == null || assignManagerRestaurant == null) {
-					showError("Debes seleccionar un manager y un restoran para ser asignado.");
+					showError(getString("must_choose_manager_restaurant"));
 					return;
 				}
 				if (assignManagerManager.getRole() == Role.MANAGER) {
@@ -114,14 +114,14 @@ public class AdminPanelPage extends BasePage {
 						userRepo.updateUser(assignManagerManager);
 						restaurantRepo.updateRestaurant(assignManagerRestaurant);
 						AdminPanelPage page = new AdminPanelPage();
-						page.showSuccess(String.format("Se asignó a %s al restoran %s", assignManagerManager, assignManagerRestaurant));
+						page.showSuccess(String.format(getString("assign_manager_success"), assignManagerManager, assignManagerRestaurant));
 						setResponsePage(page);
 					} else {
-						showError(String.format("%s ya es gerente de %s", assignManagerManager, assignManagerRestaurant));
+						showError(String.format(getString("already_manager"), assignManagerManager, assignManagerRestaurant));
 					}
 				} else {
 					// Shouldn't happen.
-					showError("No se pudo completar la operación");
+					showError(getString("generic_error"));
 					return;
 				}
 			}
@@ -165,17 +165,17 @@ public class AdminPanelPage extends BasePage {
 				
 				if (newManagerSelected == null) {
 					// Shouldn't happen.
-					showError("Gerente no encontrado. Disculpamos las molestias.");
+					showError(getString("manager_not_found"));
 					setResponsePage(new AdminPanelPage());
 					return;
 				}
 				if (newManagerSelected.makeManager()) {
 					userRepo.updateUser(newManagerSelected);
 					AdminPanelPage page = new AdminPanelPage();
-					page.showSuccess("Nuevo gerente agregado");
+					page.showSuccess(getString("manager_added"));
 					setResponsePage(page);
 				} else {
-					showError("No se pudo crear un nuevo gerente");
+					showError(getString("new_manager_error"));
 				}
 			}
 		};
@@ -208,10 +208,10 @@ public class AdminPanelPage extends BasePage {
 				if (restaurantValidator.isValidRestaurant()) {
 					restaurantRepo.storeRestaurant(restaurantValidator.getRestaurant());
 					AdminPanelPage page = new AdminPanelPage();
-					page.showSuccess("Nuevo restoran agregado con éxito");
+					page.showSuccess(getString("new_restaurant_success"));
 					setResponsePage(page);
 				} else {
-					showError("Parámetros inválidos, no se pudo crear el restoran");
+					showError(getString("restaurant_invalid_parameters"));
 				}
 			}
 		};
@@ -245,7 +245,7 @@ public class AdminPanelPage extends BasePage {
 				PrettyTime prettyTime = new PrettyTime(new Locale("es"));
 				item.add(new Label("userLastAccess", prettyTime.format(user.getLastLogin())));
 
-				final IModel<String> userEnabledModel = new Model<String>(user.isEnabled() ? "Habilitado" : "Deshabilitado"); 
+				final IModel<String> userEnabledModel = new Model<String>(getString(user.isEnabled() ? "enabled" : "disabled")); 
 				Link<Void> toggleUserLink = new Link<Void>("toggleUserEnabled") {
 					public void onClick() {
 						Users updatedUser = userRepo.getUser(user.getId());
@@ -271,14 +271,14 @@ public class AdminPanelPage extends BasePage {
 						|| fromMonth == null
 						|| fromYear == null
 						|| !DateUtils.isDate(fromDay, fromMonth, fromYear)) {
-					showError("La fecha de inicio de búsqueda de restorans es inválida");
+					showError(getString("restaurant_invalid_from_date"));
 					return;
 				}
 				if (toDay == null
 						|| toMonth == null
 						|| toYear == null
 						|| !DateUtils.isDate(toDay, toMonth, toYear)) {
-					showError("La fecha de finalización de búsqueda de restorans es inválida");
+					showError(getString("restaurant_invalid_to_date"));
 					return;
 				}
 				Date fromDate = new Date(fromYear - 1900, fromMonth - 1, fromDay);

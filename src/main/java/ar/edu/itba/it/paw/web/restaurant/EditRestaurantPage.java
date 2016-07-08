@@ -5,6 +5,7 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
@@ -31,6 +32,12 @@ public class EditRestaurantPage extends BasePage {
 	
 	public EditRestaurantPage(final Restaurant restaurant) {
 		add(new Label("restaurantBreadcrumb", restaurant.getName()));
+		add(new Link<Void>("restaurantBreadcrumb") {
+			@Override
+			public void onClick() {
+				setResponsePage(new RestaurantPage(restaurantRepo.getRestaurant(restaurant.getId())));
+			}
+		});
 		
 		Form<EditRestaurantPage> form = new Form<EditRestaurantPage>("editRestaurantForm",
 				new CompoundPropertyModel<EditRestaurantPage>(this)) {

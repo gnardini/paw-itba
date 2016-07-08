@@ -14,11 +14,11 @@ import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
+import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.util.EmailUtils;
-import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.validator.EditProfileValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
@@ -53,6 +53,12 @@ public class ProfilePage extends BasePage {
 
 			@Override
 			protected void onSubmit() {
+				Users loggedUser = getUser();
+				if (loggedUser == null) {
+					// Shouldn't happend
+					setResponsePage(getApplication().getHomePage());
+					return;
+				}
 				if (!loggedUser.getPassword().equals(oldPassword)) {
 					showError(getString("invalid_password"));
 					return;
