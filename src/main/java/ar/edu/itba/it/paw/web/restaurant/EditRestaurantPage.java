@@ -47,35 +47,35 @@ public class EditRestaurantPage extends BasePage {
 				Integer deliveryCost = EditRestaurantPage.this.deliveryCost.getObject();
 				
 				if (name == null || name.length() == 0) {
-					showError("Nombre del restoran inválido");
+					showError("invalid_restaurant_name");
 					return;
 				}
 				if (description == null || description.length() == 0) {
-					showError("Descripcion del restoran inválida");
+					showError(getString("invalid_restaurant_description"));
 					return;
 				}
 				if (address == null || address.length() == 0) {
-					showError("Dirección del restoran inválido");
+					showError(getString("invalid_restaurant_address"));
 					return;
 				}
 				if (menuType == null || menuType.length() == 0) {
-					showError("Tipo de menú inválido");
+					showError(getString("invalid_menu_type"));
 					return;
 				}
 				if (openingHour == null || !isHour(openingHour)) {
-					showError("Horario de apertura inválido");
+					showError(getString("invalid_opening_hour"));
 					return;
 				}
 				if (closingHour == null || !isHour(closingHour)) {
-					showError("Horario de cierre inválido");
+					showError(getString("invalid_opening_hour"));
 					return;
 				}
 				if (deliveryCost == null || deliveryCost < 0) {
-					showError("Costo de delivery inválido");
+					showError(getString("invalid_delivery_cost"));
 					return;
 				}
 				if (minCost == null || minCost < 0) {
-					showError("Costo mínimo inválido");
+					showError(getString("invalid_min_cost"));
 					return;
 				}
 				Restaurant newRestInfo = new Restaurant(name, address, openingHour, closingHour, deliveryCost, minCost, menuType, description);

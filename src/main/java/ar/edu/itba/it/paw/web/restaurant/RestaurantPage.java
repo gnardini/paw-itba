@@ -70,15 +70,15 @@ public class RestaurantPage extends BasePage {
 
 	public RestaurantPage(Restaurant restaurant) {
 		if (restaurant == null) {
-			showError("Restoran invalido");
+			showError(getString("invalid_restaurant"));
 			return;
 		}
 		if (restaurant.getClosedDate().compareTo(new Date()) > 0) {
 			closed = true;
 		}
 		PrettyTime prettyTime = new PrettyTime(new Locale("es"));
-		Label closeReasonLabel = new Label("closedReason", "Cerrado hasta "
-				+ prettyTime.format(restaurant.getClosedDate()) + " por " + restaurant.getClosedReason());
+		Label closeReasonLabel = new Label("closedReason", getString("close_until")+" "
+				+ prettyTime.format(restaurant.getClosedDate()) + " "+getString("because")+" " + restaurant.getClosedReason());
 		closeReasonLabel.setVisible(closed);
 		add(closeReasonLabel);
 		addLabel(restaurant, "name");
@@ -89,9 +89,9 @@ public class RestaurantPage extends BasePage {
 		addLabel(restaurant, "deliveryCost");
 		addLabel(restaurant, "minCost");
 		if (restaurant.getOpeningHour() == restaurant.getClosingHour()) {
-			add(new Label("hour", "Todo el dia"));
+			add(new Label("hour", getString("all_day")));
 		} else {
-			add(new Label("hour", restaurant.getOpeningHour() + " a " + restaurant.getClosingHour() + " horas"));
+			add(new Label("hour", restaurant.getOpeningHour() + " - " + restaurant.getClosingHour() + " "+getString("hours")));
 		}
 
 		ListView<Neighbourhood> neighbourhoods = new ListView<Neighbourhood>("neighbourhoods",
@@ -140,11 +140,11 @@ public class RestaurantPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				if (newNeighbourhood == null) {
-					showError("Seleccion un barrio para agregar");
+					showError(getString("select_neighbourhood_to_add"));
 					return;
 				}
 				if (restaurant.reachesNeighbourhood(newNeighbourhood)) {
-					showError("El barrio ya se encuentra agregado");
+					showError(getString("neighbourhood_already_added"));
 					return;
 				}
 				restaurant.addNeighbourhood(newNeighbourhood);
@@ -170,15 +170,15 @@ public class RestaurantPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				if (oldNeighbourhood == null) {
-					showError("Seleccione un barrio para eliminar");
+					showError(getString("select_neighbourhood_to_remove"));
 					return;
 				}
 				if (!restaurant.reachesNeighbourhood(oldNeighbourhood)) {
-					showError("El barrio no se encuentra agregado");
+					showError(getString("neighbourhood_not_added"));
 					return;
 				}
 				if (restaurant.getNeighbourhoods().size() <= 1) {
-					showError("No se puede quitar el restoran (tiene que haber por lo menos uno)");
+					showError(getString("cant_delete_neighbourhood"));
 					return;
 				}
 				restaurant.removeNeighbourhood(oldNeighbourhood);
@@ -214,7 +214,7 @@ public class RestaurantPage extends BasePage {
 				Restaurant restaurant = restaurantRepo.getRestaurant(restaurantId);
 				Users user = getUser();
 				if (user.getRole() != Role.ADMIN) {
-					showError("Solo el Admin puede borrar restoranes");
+					showError(getString("only_admin_can_delete_restaurant"));
 					setResponsePage(getPage());
 				}
 				restaurantRepo.deleteRestaurant(restaurant);
@@ -235,28 +235,29 @@ public class RestaurantPage extends BasePage {
 			protected void onSubmit() {
 
 				if (closed) {
-					showError("Restoran cerrado");
-					return;
-				}
-				if (!isUserLogged()) {
-					setResponsePage(new LoginPage());
+					showError(getString("restaurant_closed"));
 					return;
 				}
 				Restaurant updatedRestaurant = restaurantRepo.getRestaurant(restaurant.getId());
-				Users user = getUser();
-
-				if (!user.isEnabled()) {
-					showError("El administrador ha deshabilitado su cuenta");
-					return;
-				}
-				
 				Date currentDate = new Date();
 				int roh = updatedRestaurant.getOpeningHour();
 				int rch = updatedRestaurant.getClosingHour();
 				int cdh = currentDate.getHours();
 				if((roh<rch && (roh>cdh || cdh>rch)) ||
 					(roh>rch && (roh>cdh && cdh>rch))){
-					showError("El restorán no está abierto a esta hora");
+					showError(getString("restaurant_closed_by_schedule"));
+					return;
+				}
+				
+				if (!isUserLogged()) {
+					setResponsePage(new LoginPage());
+					return;
+				}
+				
+				Users user = getUser();
+
+				if (!user.isEnabled()) {
+					showError(getString("user_not_enable"));
 					return;
 				}
 
@@ -270,13 +271,13 @@ public class RestaurantPage extends BasePage {
 						order.addDetail(dish.getName(), dish.getPrice(), dishCount);
 						totalPrice += dish.getPrice() * dishCount;
 					} else if (dishCount == -1) {
-						showMessage("Cantidad de platos pedidos inválida", Parameter.ERROR);
+						showError(getString("invalid_dish_amount"));
 						setResponsePage(getPage());
 						return;
 					}
 				}
 				if (totalPrice < updatedRestaurant.getMinCost()) {
-					showMessage("El costo minimo del restoran es " + updatedRestaurant.getMinCost(), Parameter.ERROR);
+					showError(getString("restaurant_min_cost_is")+" "+updatedRestaurant.getMinCost());
 					setResponsePage(getPage());
 					return;
 				}
@@ -290,7 +291,7 @@ public class RestaurantPage extends BasePage {
 				orderRepo.addOrder(order);
 				restaurantRepo.updateRestaurant(updatedRestaurant);
 				userRepo.updateUser(user);
-				showMessage("Pedido realizado con éxito", Parameter.SUCCESS);
+				showSuccess(getString("successful_order"));
 				setResponsePage(getPage());
 			}
 		};
@@ -353,9 +354,9 @@ public class RestaurantPage extends BasePage {
 						if (userComment != null) {
 							updatedRestaurant.deleteUserComment(userComment);
 							restaurantRepo.updateRestaurant(updatedRestaurant);
-							showMessage("Comentario borrado con éxito", Parameter.SUCCESS);
+							showSuccess(getString("successful_comment_delete"));
 						} else {
-							showMessage("No se pudo borrar el comentario", Parameter.ERROR);
+							showError(getString("couldnt_delete_comment"));
 						}
 						setResponsePage(getPage());
 					}
@@ -375,15 +376,15 @@ public class RestaurantPage extends BasePage {
 				Users user = getUser();
 
 				if (!updatedRestaurant.canUserComment(user)) {
-					showMessage("No estás autorizado para comentar", Parameter.ERROR);
+					showError(getString("not_enable_to_comment"));
 					return;
 				}
 				if (newCommentScore == null || newCommentScore < 1 || newCommentScore > 5) {
-					showMessage("Puntaje invalido para el restoran", Parameter.ERROR);
+					showError(getString("invalid_ranking"));
 					return;
 				}
 				if (newCommentComment == null || newCommentComment.equals("")) {
-					showMessage("El comentario no puede estar vacío", Parameter.ERROR);
+					showError(getString("invalid_comment"));
 					return;
 				}
 				Comment comment = new Comment(user, updatedRestaurant, newCommentScore, newCommentComment);
@@ -392,7 +393,7 @@ public class RestaurantPage extends BasePage {
 				updatedRestaurant.addComment(comment);
 				restaurantRepo.updateRestaurant(updatedRestaurant);
 				RestaurantPage restaurantPage = new RestaurantPage(updatedRestaurant);
-				restaurantPage.showMessage("Gracias por su comentario", Parameter.SUCCESS);
+				restaurantPage.showSuccess(getString("thank_you_for_your_comment"));
 				setResponsePage(restaurantPage);
 			}
 		};

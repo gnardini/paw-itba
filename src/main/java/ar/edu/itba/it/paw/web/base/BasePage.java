@@ -86,8 +86,7 @@ public class BasePage extends WebPage {
 		showMessage(key, Parameter.ERROR);
 	}
 	
-	protected void showMessage(String key, String parameter) {
-		String message = getString(key);
+	protected void showMessage(String message, String parameter) {
 		boolean isSuccess = parameter.equalsIgnoreCase(Parameter.SUCCESS);
 		boolean isError = parameter.equalsIgnoreCase(Parameter.ERROR);
 		successLabel.setVisible(isSuccess);
