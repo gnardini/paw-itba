@@ -5,44 +5,47 @@
 	</ol>
 
 	<div class="container">
-		<H3><wicket:message key="control_panel"/></H3>
+		<H2><wicket:message key="my_orders"/></H2>
 
 		<div class="well well-sm">
 			<strong><wicket:message key="orders"/></strong>
 		</div>
-
-		<div wicket:id="orderList" class="panel panel-default back-panel">
-			<div class="panel-heading ">
-				<div class="row">
-					<div class="col-md-9">
-						<p><wicket:message key="restaurant"/> <span wicket:id="restaurantName" /></p>
-						<p><wicket:message key="price"/> <span wicket:id="price" /></p>
-						<p><wicket:message key="order_date"/> <span wicket:id="orderDate" /></p>
-						<p><wicket:message key="state"/> <span wicket:id="delivered" /></p>
-					</div>
-					<div wicket:id="deliveredButtonContainer">
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div wicket:id="orderList" class="panel panel-default back-panel">
+					<div class="panel-heading ">
 						<div class="row">
-							<button wicket:id="deliveredButton" type="submit"
-								class="btn btn-default"><wicket:message key="received_order"/></button>
+							<div class="col-md-9">
+								<p><wicket:message key="restaurant"/> <span wicket:id="restaurantName" /></p>
+								<p><wicket:message key="price"/> <span wicket:id="price" /></p>
+								<p><wicket:message key="order_date"/> <span wicket:id="orderDate" /></p>
+								<p><wicket:message key="state"/> <span wicket:id="delivered" /></p>
+							</div>
+							<div wicket:id="deliveredButtonContainer">
+								<div class="row">
+									<button wicket:id="deliveredButton" type="submit"
+										class="btn btn-default"><wicket:message key="received_order"/></button>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="panel-body">
-				<div class="row list-group">
-					<div wicket:id="orderDetailList" class="item  col-xs-4 col-lg-4">
-						<div class="panel panel-default elem-panel">
-							<div class="panel-body">
-								<div class="caption align-center">
-									<h4 class="group inner list-group-item-heading">
-										<span wicket:id="detailName" />
-									</h4>
-									<p class="group inner list-group-item-text">
-										<wicket:message key="price"/><span wicket:id="detailPrice" />
-									</p>
-									<p class="group inner list-group-item-text">
-										<wicket:message key="amount"/><span wicket:id="detailAmount" />
-									</p>
+					<div class="panel-body">
+						<div class="row list-group">
+							<div wicket:id="orderDetailList" class="item  col-xs-4 col-lg-4">
+								<div class="panel panel-default elem-panel">
+									<div class="panel-body">
+										<div class="caption align-center">
+											<h4 class="group inner list-group-item-heading">
+												<span wicket:id="detailName" />
+											</h4>
+											<p class="group inner list-group-item-text">
+												<wicket:message key="price"/><span wicket:id="detailPrice" />
+											</p>
+											<p class="group inner list-group-item-text">
+												<wicket:message key="amount"/><span wicket:id="detailAmount" />
+											</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
