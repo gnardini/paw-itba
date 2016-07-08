@@ -185,6 +185,7 @@ public class ManagerPanelPage extends BasePage {
 				final RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount = item.getModelObject();
 				item.add(new Label("restaurantName",restaurantNeighbourhoodOrderCount.getRestaurant().getName()));
 				item.add(new Label("neighbourhoodName", restaurantNeighbourhoodOrderCount.getNeighbourhood().getName()));
+				item.add(new Label("orderDay", restaurantNeighbourhoodOrderCount.getDate()));
 				item.add(new Label("ordersCount", String.valueOf(restaurantNeighbourhoodOrderCount.getOrderCount())));
 				item.add(new Link<Void>("ordersDetail") {
 					@Override

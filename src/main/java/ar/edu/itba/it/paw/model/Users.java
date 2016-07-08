@@ -2,8 +2,10 @@ package ar.edu.itba.it.paw.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -126,17 +128,23 @@ public class Users extends PersistentEntity implements Serializable {
 		List<RestaurantNeighbourhoodOrderCount> restaurantOrdersInInverval = new LinkedList<>();
 		for (Restaurant restaurant: getRestaurants()) {
 			for (Neighbourhood neighbourhood: restaurant.getNeighbourhoods()) {
-				int ordersInRange = 0;
+				Map<OrderDate, Integer> ordersInRange = new HashMap<>(); 
 				for (Orders order: restaurant.getOrders()) {
 					Date orderDate = order.getMade();
 					if (orderDate.before(toDate) 
 							&& orderDate.after(fromDate)
 							&& order.getUser().getNeighbourhood().equals(neighbourhood)) {
-						ordersInRange++;
+						OrderDate updateOrderDate = new OrderDate(orderDate);
+						if (!ordersInRange.containsKey(updateOrderDate)) {
+							ordersInRange.put(updateOrderDate, 1);
+						} else {
+							ordersInRange.put(updateOrderDate, ordersInRange.get(updateOrderDate) + 1);
+						}
 					}
 				}
-				if (ordersInRange > 0) {
-					restaurantOrdersInInverval.add(new RestaurantNeighbourhoodOrderCount(restaurant, ordersInRange, neighbourhood));
+				for (Map.Entry<OrderDate, Integer> entry: ordersInRange.entrySet()) {
+					restaurantOrdersInInverval.add(new RestaurantNeighbourhoodOrderCount(
+							restaurant, entry.getValue(), neighbourhood, entry.getKey()));
 				}
 			}
 		}

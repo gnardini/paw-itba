@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.web.restaurant;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
@@ -8,6 +7,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -31,13 +31,14 @@ public class EditRestaurantPage extends BasePage {
 	RestaurantRepo restaurantRepo;
 	
 	public EditRestaurantPage(final Restaurant restaurant) {
-		add(new Label("restaurantBreadcrumb", restaurant.getName()));
-		add(new Link<Void>("restaurantBreadcrumb") {
+		Link<Void> breadcrumb = new Link<Void>("restaurantBreadcrumb") {
 			@Override
 			public void onClick() {
 				setResponsePage(new RestaurantPage(restaurantRepo.getRestaurant(restaurant.getId())));
 			}
-		});
+		};
+		breadcrumb.setBody(Model.of(restaurant.getName()));
+		add(breadcrumb);
 		
 		Form<EditRestaurantPage> form = new Form<EditRestaurantPage>("editRestaurantForm",
 				new CompoundPropertyModel<EditRestaurantPage>(this)) {
