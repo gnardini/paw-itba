@@ -1,20 +1,28 @@
 <wicket:extend>
-<ol class="breadcrumb">
-	<li><a href="/">Brand</a></li>
-	<li><a wicket:id="controlPanel">Panel de Control</a></li>
-	<li class="active">Reporte</li>
-</ol>
+	<ol class="breadcrumb">
+		<li><a href="/">Brand</a></li>
+		<li><a wicket:id="controlPanel">Panel de Control</a></li>
+		<li class="active">Reporte</li>
+	</ol>
 
-<div class="container">
-	<H3>Reporte</H3>
-	<H4 wicket:id="restaurantName"/>
-	<H4 wicket:id="neighbourhoodName"/>
+	<div class="container">
+		<H3>Reporte</H3>
+		<H4 wicket:id="restaurantName" />
+		<H4 wicket:id="neighbourhoodName" />
 
-	<div wicket:id="restaurantOrders" class="caption">
-		Hora: <h4 wicket:id="hour" class="group inner list-group-item-heading" />
-		Cantidad de pedidos: <p wicket:id="ordersCount" class="group inner list-group-item-text" />
+		<div wicket:id="restaurantOrders" class="caption">
+			<div class="row">
+				<div class="col-md-2 panel panel-default elem-panel">
+					<h5 class="group inner list-group-item-heading">
+						Hora: <span wicket:id="hour" />
+					</h5>
+					<h5 class="group inner list-group-item-heading">
+						Cantidad de pedidos: <span wicket:id="ordersCount" />
+					</h5>
+				</div>
+			</div>
+		</div>
+
 	</div>
-	
-</div>
 
 </wicket:extend>
