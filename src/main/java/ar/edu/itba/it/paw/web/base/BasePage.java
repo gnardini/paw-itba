@@ -8,13 +8,13 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.Parameter;
 import ar.edu.itba.it.paw.web.nav_bar.LoggedPanel;
 import ar.edu.itba.it.paw.web.nav_bar.LoginPanel;
+import ar.edu.itba.it.paw.web.session.WicketSessionManager;
 
 public class BasePage extends WebPage {
 

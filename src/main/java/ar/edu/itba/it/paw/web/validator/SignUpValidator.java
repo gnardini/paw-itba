@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.validator;
+package ar.edu.itba.it.paw.web.validator;
 
 import ar.edu.itba.it.paw.model.Neighbourhood;
 import ar.edu.itba.it.paw.model.Users;

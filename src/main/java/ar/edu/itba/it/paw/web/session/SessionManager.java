@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.manager;
+package ar.edu.itba.it.paw.web.session;
 
 import javax.servlet.http.HttpSession;
 

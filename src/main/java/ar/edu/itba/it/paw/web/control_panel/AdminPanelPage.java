@@ -31,9 +31,9 @@ import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.DateUtils;
-import ar.edu.itba.it.paw.validator.RestaurantValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
+import ar.edu.itba.it.paw.web.validator.RestaurantValidator;
 
 public class AdminPanelPage extends BasePage {
 

@@ -13,11 +13,11 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.error.ErrorPage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
+import ar.edu.itba.it.paw.web.session.WicketSessionManager;
 
 @Component
 public class App extends WebApplication {

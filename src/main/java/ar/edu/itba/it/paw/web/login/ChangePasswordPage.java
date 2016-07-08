@@ -13,11 +13,11 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.web.base.BasePage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantsPage;
+import ar.edu.itba.it.paw.web.session.WicketSessionManager;
 
 public class ChangePasswordPage extends BasePage {
 

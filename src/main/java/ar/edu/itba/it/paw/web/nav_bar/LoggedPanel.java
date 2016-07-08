@@ -3,13 +3,13 @@ package ar.edu.itba.it.paw.web.nav_bar;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
-import ar.edu.itba.it.paw.manager.implementation.WicketSessionManager;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.model.Users.Role;
 import ar.edu.itba.it.paw.web.control_panel.AdminPanelPage;
 import ar.edu.itba.it.paw.web.control_panel.ManagerPanelPage;
 import ar.edu.itba.it.paw.web.orders.MyOrdersPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
+import ar.edu.itba.it.paw.web.session.WicketSessionManager;
 
 public class LoggedPanel extends Panel {
 

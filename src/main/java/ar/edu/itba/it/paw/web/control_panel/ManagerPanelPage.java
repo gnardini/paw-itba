@@ -26,8 +26,8 @@ import ar.edu.itba.it.paw.repository.DishRepo;
 import ar.edu.itba.it.paw.repository.RestaurantRepo;
 import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.util.Parameter;
-import ar.edu.itba.it.paw.validator.DishValidationHelper;
 import ar.edu.itba.it.paw.web.base.BasePage;
+import ar.edu.itba.it.paw.web.validator.DishValidationHelper;
 
 public class ManagerPanelPage extends BasePage {
 

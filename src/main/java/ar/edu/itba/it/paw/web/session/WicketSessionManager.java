@@ -1,10 +1,9 @@
-package ar.edu.itba.it.paw.manager.implementation;
+package ar.edu.itba.it.paw.web.session;
 
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 
-import ar.edu.itba.it.paw.manager.SessionManager;
 import ar.edu.itba.it.paw.model.Users;
 import ar.edu.itba.it.paw.repository.UserRepo;
 

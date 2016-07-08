@@ -19,8 +19,8 @@ import ar.edu.itba.it.paw.repository.NeighbourhoodRepo;
 import ar.edu.itba.it.paw.repository.UserRepo;
 import ar.edu.itba.it.paw.util.DateUtils;
 import ar.edu.itba.it.paw.util.EmailUtils;
-import ar.edu.itba.it.paw.validator.EditProfileValidator;
 import ar.edu.itba.it.paw.web.base.BasePage;
+import ar.edu.itba.it.paw.web.validator.EditProfileValidator;
 
 public class ProfilePage extends BasePage {
 
