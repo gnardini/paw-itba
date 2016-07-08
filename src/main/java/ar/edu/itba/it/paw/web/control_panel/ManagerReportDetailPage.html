@@ -1,12 +1,12 @@
 <wicket:extend>
 	<ol class="breadcrumb">
 		<li><a href="/">Brand</a></li>
-		<li><a wicket:id="controlPanel">Panel de Control</a></li>
-		<li class="active">Reporte</li>
+		<li><a wicket:id="controlPanel"><wicket:message key="control_panel"/></a></li>
+		<li class="active"><wicket:message key="report"/></li>
 	</ol>
 
 	<div class="container">
-		<H3>Reporte</H3>
+		<H3><wicket:message key="report"/></H3>
 		<H4 wicket:id="restaurantName" />
 		<H4 wicket:id="neighbourhoodName" />
 
@@ -14,10 +14,10 @@
 			<div class="row">
 				<div class="col-md-2 panel panel-default elem-panel">
 					<h5 class="group inner list-group-item-heading">
-						Hora: <span wicket:id="hour" />
+						<wicket:message key="time"/>: <span wicket:id="hour" />
 					</h5>
 					<h5 class="group inner list-group-item-heading">
-						Cantidad de pedidos: <span wicket:id="ordersCount" />
+						<wicket:message key="order_count"/>: <span wicket:id="ordersCount" />
 					</h5>
 				</div>
 			</div>

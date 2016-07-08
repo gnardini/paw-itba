@@ -2,68 +2,68 @@
 <ol class="breadcrumb">
 	<li><a href="/">Brand</a></li>
 	<li><a wicket:id="restaurantBreadcrumb" href="/"/></li>
-	<li class="active">Editar Restoran</li>
+	<li class="active"><wicket:message key="edit_restaurant"/></li>
 </ol>
 
 <div class="container">
 
-	<H3>Editar Restoran</H3>
+	<H3><wicket:message key="edit_restaurant"/></H3>
 
 	<form wicket:id="editRestaurantForm" role="form">
-		<label>Nombre:</label>
+		<label><wicket:message key="name"/>:</label>
 		<div class="form-group">
-			<input wicket:id="name" type="text" class="form-control" placeholder="Nombre"
+			<input wicket:id="name" type="text" class="form-control" wicket:message="placeholder:name"
 				 name="name">
 		</div>
-		<label>Tipo de Menú:</label>
+		<label><wicket:message key="menu_type"/>:</label>
 		<div class="form-group">
-			<input wicket:id="menuType" type="text" class="form-control" placeholder="Tipo de Menú"
+			<input wicket:id="menuType" type="text" class="form-control" wicket:message="placeholder:menu_type"
 				 name="menuType">
 		</div>
 
-		<label>Descripción:</label>
+		<label><wicket:message key="description"/>:</label>
 		<div class="form-group">
-			<input wicket:id="description" type="text" class="form-control" placeholder="Descripción"
+			<input wicket:id="description" type="text" class="form-control" wicket:message="placeholder:description"
 				name="description">
 		</div>
-		<label>Dirección:</label>
+		<label><wicket:message key="address"/>:</label>
 		<div class="form-group">
-			<input wicket:id="address" type="text" class="form-control" placeholder="Dirección"
+			<input wicket:id="address" type="text" class="form-control" wicket:message="placeholder:address"
 				name="address">
 		</div>
-		<label>Horario:</label>
+		<label><wicket:message key="time"/>:</label>
 		<div class="form-group">
 			<div class="row">
 				<div class="col-md-1">
-					<label>Desde:</label>
+					<label><wicket:message key="from"/>:</label>
 				</div>
 				<div class="col-md-3">
 					<input wicket:id="openingHour" type="number" class="form-control"
-						placeholder="Horario de Apertura" min="0" max="23"
+						wicket:message="placeholder:opening_hour" min="0" max="23"
 						name="openingHour">
 				</div>
 				<div class="col-md-1">
-					<label>Hasta:</label>
+					<label><wicket:message key="to"/>:</label>
 				</div>
 				<div class="col-md-3">
 					<input wicket:id="closingHour" type="number" class="form-control"
-						placeholder="Horario de Clausura" min="0" max="23"
+						wicket:message="placeholder:closing_hour" min="0" max="23"
 						name="closingHour">
 				</div>
 			</div>
 		</div>
-		<label>Costo de Delivery:</label>
+		<label><wicket:message key="delivery_cost"/>:</label>
 		<div class="form-group">
 			<input wicket:id="deliveryCost" type="number" class="form-control"
-				placeholder="Costo de Delivery" min="0"
+				wicket:message="placeholder:delivery_cost" min="0"
 				name="deliveryCost">
 		</div>
-		<label>Costo mínimo:</label>
+		<label><wicket:message key="min_cost"/>:</label>
 		<div class="form-group">
-			<input wicket:id="minCost" type="number" class="form-control" placeholder="Costo mínimo"
+			<input wicket:id="minCost" type="number" class="form-control" wicket:message="placeholder:min_cost"
 				min="0" name="minCost">
 		</div>
-		<button wicket:id="saveChanges" type="submit" class="btn btn-default">Guardar Cambios</button>
+		<button wicket:id="saveChanges" type="submit" class="btn btn-default"><wicket:message key="save_changes"/></button>
 	</form>
 </div>
 </wicket:extend>

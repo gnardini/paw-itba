@@ -3,7 +3,7 @@
 	<br />
 	<div wicket:id="newRestaurants" class="container">
 		<div class="well well-sm">
-			<strong>Nuevos Restoranes en tu barrio</strong>
+			<strong><wicket:message key="new_restaurants"/></strong>
 		</div>
 		<div class="row">
 			<div wicket:id="newRestaurantsList"
@@ -15,11 +15,10 @@
 					<div class="caption">
 						<h4 wicket:id="name" class="group inner list-group-item-heading" />
 						<p wicket:id="menuType" class="group inner list-group-item-text" />
-						<p wicket:id="description"
-							class="group inner list-group-item-text" />
+						<p wicket:id="description" class="group inner list-group-item-text" />
 						<div class="row">
 							<div class="restaurant-button">
-								<a wicket:id="open" class="btn btn-success">Ir al Restoran</a>
+								<a wicket:id="open" class="btn btn-success"><wicket:message key="go_to_restaurant"/></a>
 							</div>
 						</div>
 					</div>
@@ -32,7 +31,7 @@
 	<br />
 	<div class="container">
 		<div class="well well-sm">
-			<strong>Mas pedidos</strong>
+			<strong><wicket:message key="top_restaurants"/></strong>
 		</div>
 		<div class="row">
 			<div wicket:id="hot_restaurants"
@@ -48,7 +47,7 @@
 							class="group inner list-group-item-text" />
 						<div class="row">
 							<div class="restaurant-button">
-								<a wicket:id="open" class="btn btn-success">Ir al Restoran</a>
+								<a wicket:id="open" class="btn btn-success"><wicket:message key="go_to_restaurant"/></a>
 							</div>
 						</div>
 					</div>
@@ -60,7 +59,7 @@
 	<br />
 	<div class="container">
 		<div class="well well-sm">
-			<strong>Restoranes</strong>
+			<strong><wicket:message key="restaurants"/></strong>
 		</div>
 		<div class="row">
 			<div wicket:id="all_restaurants"
@@ -76,7 +75,7 @@
 							class="group inner list-group-item-text" />
 						<div class="row">
 							<div class="restaurant-button">
-								<a wicket:id="open" class="btn btn-success">Ir al Restoran</a>
+								<a wicket:id="open" class="btn btn-success"><wicket:message key="go_to_restaurant"/></a>
 							</div>
 						</div>
 					</div>

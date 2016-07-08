@@ -15,9 +15,9 @@ import ar.edu.itba.it.paw.model.OrdersInHour;
 import ar.edu.itba.it.paw.model.RestaurantNeighbourhoodOrderCount;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
-public class ManagerReportDetail extends BasePage {
+public class ManagerReportDetailPage extends BasePage {
 	
-	public ManagerReportDetail(RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount) {
+	public ManagerReportDetailPage(RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount) {
 		add(new Link<Void>("controlPanel") {
 			@Override
 			public void onClick() {

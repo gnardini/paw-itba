@@ -35,7 +35,7 @@ public class ChangePasswordPage extends BasePage {
 				properties.load(inputStream);
 			}
 			int passwordChangeDaysLimit = Integer.valueOf(properties.getProperty("passwordChangeDaysLimit"));
-			add(new Label("passMaxDay", String.valueOf(passwordChangeDaysLimit)));
+			add(new Label("passMaxDay", String.format(getString("passMaxDay"), passwordChangeDaysLimit)));
 		} catch (IOException ioException) {
 			
 		}

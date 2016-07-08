@@ -10,14 +10,14 @@
 				<div class="col-md-9">
 					<h3 wicket:id="closedReason"/>
 					<h1 wicket:id="name"></h1>
-					<p>Puntuación: <span wicket:id="ranking"/></p>
-					<p>Tipo de Menú: <span wicket:id="menuType"/></p>
-					<p>Descripción: <span wicket:id="description"/></p>
-					<p>Dirección: <span wicket:id="address"/></p>
-					<p>Horario: <span wicket:id="hour"/></p>
-					<p>Costo de envío: $<span wicket:id="deliveryCost"/></p>
-					<p>Costo mínimo: $<span wicket:id="minCost"/></p>
-					<p>Barrios:</p>
+					<p><wicket:message key="ranking"/>: <span wicket:id="ranking"/></p>
+					<p><wicket:message key="menu_type"/>: <span wicket:id="menuType"/></p>
+					<p><wicket:message key="description"/>: <span wicket:id="description"/></p>
+					<p><wicket:message key="address"/>: <span wicket:id="address"/></p>
+					<p><wicket:message key="time"/>: <span wicket:id="hour"/></p>
+					<p><wicket:message key="delivery_cost"/>: $<span wicket:id="deliveryCost"/></p>
+					<p><wicket:message key="min_cost"/>: $<span wicket:id="minCost"/></p>
+					<p><wicket:message key="neighbourhoods"/>:</p>
 					<p wicket:id="neighbourhoods">
 						-  <span wicket:id="neighbourhood"/> 
 					</p> 
@@ -26,29 +26,27 @@
 						<div class="row">
 							<br />
 							<form wicket:id="addNeighbourhoodForm" role="form">
-								<select wicket:id="newNeighbourhood" class="form-control" path="neighbourhoodId"
-									placeholder="Barrio"/>
+								<select wicket:id="newNeighbourhood" class="form-control" path="neighbourhoodId"/>
 								<br/>
-								<button wicket:id="newNeightbourhoodButton" type="submit" class="btn btn-default">Agregar
-									Barrio</button>
+								<button wicket:id="newNeightbourhoodButton" type="submit" class="btn btn-default">
+								<wicket:message key="add_neighbourhood"/></button>
 							</form>
 							<br />
 							<form wicket:id="removeNeighbourhoodForm" role="form">
-								<select wicket:id="oldNeighbourhood" class="form-control" path="neighbourhoodId"
-										placeholder="Barrio"/>
+								<select wicket:id="oldNeighbourhood" class="form-control" path="neighbourhoodId"/>
 								<br/>
-								<button wicket:id="removeNeighbourhoodButton" type="submit" class="btn btn-default">Quitar
-									Barrio</button>
+								<button wicket:id="removeNeighbourhoodButton" type="submit" class="btn btn-default">
+								<wicket:message key="remove_neighbourhood"/></button>
 							</form>
 							<br />
 							<form wicket:id="editRestaurantForm" role="form">
-								<button wicket:id="editRestaurantButton" type="submit" class="btn btn-default">Editar
-									Restoran</button>
+								<button wicket:id="editRestaurantButton" type="submit" class="btn btn-default">
+								<wicket:message key="edit_restaurant"/></button>
 							</form>
 							<br />
 							<form wicket:id="deleteRestaurantForm" role="form">
-								<button wicket:id="deleteRestaurantButton" type="submit" class="btn btn-default">Eliminar
-									Restoran</button>
+								<button wicket:id="deleteRestaurantButton" type="submit" class="btn btn-default">
+								<wicket:message key="delete_restaurant"/></button>
 							</form>
 						</div>
 				</div>
@@ -59,11 +57,11 @@
 
 
 <div class="container">
-	<H3>Realizar pedido</H3>
+	<H3><wicket:message key="make_order"/></H3>
 	<form wicket:id="orderForm" role="form">
 		<div class="container">
 			<div class="well well-sm">
-				<strong>Entradas</strong>
+				<strong><wicket:message key="entries"/></strong>
 			</div>
 			<div wicket:id="orderEntries" id="products" class="row list-group">
 				<div wicket:id="dishPanel" />
@@ -71,7 +69,7 @@
 		</div>
 		<div class="container">
 			<div class="well well-sm">
-				<strong>Plato Principal</strong>
+				<strong><wicket:message key="main_dish"/></strong>
 			</div>
 			<div wicket:id="orderMain" id="products" class="row list-group">
 				<div wicket:id="dishPanel" />
@@ -79,7 +77,7 @@
 		</div>
 		<div class="container">
 			<div class="well well-sm">
-				<strong>Postre</strong>
+				<strong><wicket:message key="dessert"/></strong>
 			</div>
 			<div wicket:id="orderDesserts" id="products" class="row list-group">
 				<div wicket:id="dishPanel" />
@@ -87,20 +85,20 @@
 		</div>
 		<div class="container">
 			<div class="well well-sm">
-				<strong>Bebidas</strong>
+				<strong><wicket:message key="drinks"/></strong>
 			</div>
 			<div wicket:id="orderDrinks" id="products" class="row list-group">
 				<div wicket:id="dishPanel" />
 			</div>
 		</div>
-		<button wicket:id="orderButton" type="submit" value="Realizar Pedido" class="btn btn-default">Realizar
-			Pedido</button>
+		<button wicket:id="orderButton" type="submit" value="Realizar Pedido"
+			class="btn btn-default"><wicket:message key="place_order"/></button>
 	</form>
 </div>
 <br />
 
 <div class="container">
-	<H3>Comentarios</H3>
+	<H3><wicket:message key="comments"/></H3>
 	<div wicket:id="commentsList" class="row">
 		<div class=" col-md-4">
 			<div class="panel panel-default">
@@ -124,16 +122,16 @@
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default back-panel">
-				<div class="panel-heading">Nuevo Comentario</div>
+				<div class="panel-heading"><wicket:message key="new_comment"/></div>
 				<div class="panel-body">
 					<form wicket:id="newCommentForm" role="form">
-						<input wicket:id="newCommentScore" class="form-control" placeholder="Puntaje" type="number"
+						<input wicket:id="newCommentScore" class="form-control" wicket:message="placeholder:ranking" type="number"
 							min="1" max="5" name="rating"><br /> 
 						<input wicket:id="newCommentComment"
-							class="form-control" placeholder="Comentario" type="text"
+							class="form-control" wicket:message="placeholder:comment" type="text"
 							name="text"><br />
-						<button wicket:id="newCommentButton" type="submit" value="Enviar" class="btn btn-default">Enviar
-							Comentario</button>
+						<button wicket:id="newCommentButton" type="submit" value="Enviar" class="btn btn-default">
+							<wicket:message key="send_comment"/></button>
 					</form>
 				</div>
 			</div>
