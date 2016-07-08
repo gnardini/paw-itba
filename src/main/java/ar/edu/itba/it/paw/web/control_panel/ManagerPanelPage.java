@@ -189,7 +189,9 @@ public class ManagerPanelPage extends BasePage {
 				item.add(new Link<Void>("ordersDetail") {
 					@Override
 					public void onClick() {
-						setResponsePage(new ManagerReportDetailPage(restaurantNeighbourhoodOrderCount));
+						Date fromDate = new Date(fromYear - 1900, fromMonth - 1, fromDay);
+						Date toDate = new Date(toYear - 1900, toMonth - 1, toDay);
+						setResponsePage(new ManagerReportDetailPage(restaurantNeighbourhoodOrderCount, fromDate, toDate));
 					}
 				});
 			}

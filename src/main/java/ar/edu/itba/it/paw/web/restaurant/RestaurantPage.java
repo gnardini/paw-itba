@@ -249,6 +249,16 @@ public class RestaurantPage extends BasePage {
 					showError("El administrador ha deshabilitado su cuenta");
 					return;
 				}
+				
+				Date currentDate = new Date();
+				int roh = updatedRestaurant.getOpeningHour();
+				int rch = updatedRestaurant.getClosingHour();
+				int cdh = currentDate.getHours();
+				if((roh<rch && (roh>cdh || cdh>rch)) ||
+					(roh>rch && (roh>cdh && cdh>rch))){
+					showError("El restorán no está abierto a esta hora");
+					return;
+				}
 
 				Orders order = new Orders(user, updatedRestaurant, new Date());
 				int totalPrice = 0;

@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.web.control_panel;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,7 @@ import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class ManagerReportDetailPage extends BasePage {
 	
-	public ManagerReportDetailPage(RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount) {
+	public ManagerReportDetailPage(RestaurantNeighbourhoodOrderCount restaurantNeighbourhoodOrderCount, Date fromDate, Date toDate) {
 		add(new Link<Void>("controlPanel") {
 			@Override
 			public void onClick() {
@@ -33,6 +34,10 @@ public class ManagerReportDetailPage extends BasePage {
 		
 		Map<Integer, OrdersInHour> ordersPerHour = new HashMap<>();
 		for (Orders order: allOrders) {
+			if(order.getMade().compareTo(fromDate)<0 ||
+					order.getMade().compareTo(toDate)>0){
+				continue;
+			}
 			int hour = order.getMade().getHours();
 			OrdersInHour orderForHour = ordersPerHour.get(hour);
 			if (orderForHour == null) {
@@ -41,8 +46,13 @@ public class ManagerReportDetailPage extends BasePage {
 			orderForHour.addOrder();
 			ordersPerHour.put(hour, orderForHour);
 		}
-		
-		add(new ListView<OrdersInHour>("restaurantOrders", new LinkedList<>(ordersPerHour.values())) {
+	/*	List<OrdersInHour> sortedList = new LinkedList<OrdersInHour>(ordersPerHour.values());
+		Collections.sort(sortedList, new Comparator<OrdersInHour>() {
+			public int compare(OrdersInHour o1, OrdersInHour o2) {
+				return Integer.compare(o1.getHour(), o2.getHour());
+			}
+		});*/
+		add(new ListView<OrdersInHour>("restaurantOrders", new LinkedList<OrdersInHour>(ordersPerHour.values())) {
 			@Override
 			protected void populateItem(final ListItem<OrdersInHour> item) {
 				final OrdersInHour ordersInHour = item.getModelObject();
