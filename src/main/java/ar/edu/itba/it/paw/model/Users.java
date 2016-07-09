@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -48,6 +50,11 @@ public class Users extends PersistentEntity implements Serializable {
 	Neighbourhood neighbourhood;
 	
 	@ManyToMany
+	@JoinTable(
+            name = "users_restaurant",
+            joinColumns = {@JoinColumn(name = "managers_id")},
+            inverseJoinColumns = {@JoinColumn(name = "restaurants_id")}
+    )
 	List<Restaurant> restaurants;
 	
 	@OneToMany(mappedBy="user")

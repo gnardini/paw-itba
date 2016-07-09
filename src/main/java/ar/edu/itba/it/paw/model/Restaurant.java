@@ -7,8 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 public class Restaurant extends PersistentEntity implements Serializable {
@@ -26,15 +31,24 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	String closedReason;
 	
 	@OneToMany
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	List<Dish> dishes;
 
 	@OneToMany
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	List<Comment> comments;
 
 	@OneToMany(mappedBy = "restaurant")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
 	List<Orders> orders;
 
-	@ManyToMany(mappedBy = "restaurants")
+	@ManyToMany
+	@Cascade({CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(
+            name = "users_restaurant",
+            inverseJoinColumns = {@JoinColumn(name = "managers_id")},
+            joinColumns = {@JoinColumn(name = "restaurants_id")}
+    )
 	List<Users> managers;
 
 	@ManyToMany
